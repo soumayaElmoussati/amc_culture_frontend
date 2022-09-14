@@ -1,0 +1,52 @@
+<div
+  id="cardsContainer"
+  *ngIf="!isAdmin"
+  [ngStyle]="
+    this.languageService.userLanguage == 'ar' && {
+      'text-align': 'right'
+    }
+  "
+>
+  <mat-card class="box userBox">
+    <img src="assets/images/home/masque.png" alt="" />
+    <h3>{{ "ArtsDomain" | translate }}</h3>
+    <p>{{ "ArtsDomainDescription" | translate }}</p>
+  </mat-card>
+  <mat-card class="box userBox">
+    <img src="assets/images/home/prix.png" alt="" />
+    <h3>{{ "PrizeAttribution" | translate }}</h3>
+    <p>{{ "PrizeAttributionDescription" | translate }}</p>
+  </mat-card>
+  <mat-card class="box userBox">
+    <img src="assets/images/home/livre.png" alt="" />
+    <h3>{{ "BookDomain" | translate }}</h3>
+    <p>{{ "BookDomainDescription" | translate }}</p>
+  </mat-card>
+</div>
+
+<div
+  id="cardsContainer"
+  *ngIf="isAdmin"
+  [ngStyle]="
+    this.languageService.userLanguage == 'ar' && {
+      'text-align': 'right'
+    }
+  "
+>
+  <mat-card class="box adminBox">
+    <img src="assets/images/dashboard/espace_reporting.png" alt="" />
+    <h4>{{ "EspaceReporting" | translate }}</h4>
+  </mat-card>
+  <mat-card class="box adminBox">
+    <img src="assets/images/dashboard/gestion_conventions.png" alt="" />
+    <h4>{{ "SuiviGestionConventions" | translate }}</h4>
+  </mat-card>
+  <mat-card class="box adminBox">
+    <img src="assets/images/dashboard/dashboard_budget.png" alt="" />
+    <h4>{{ "TableauBordBudgetaire" | translate }}</h4>
+  </mat-card>
+  <mat-card class="box adminBox">
+    <img src="assets/images/dashboard/reporting_performance.png" alt="" />
+    <h4>{{ "ReportingPerformance" | translate }}</h4>
+  </mat-card>
+</div>

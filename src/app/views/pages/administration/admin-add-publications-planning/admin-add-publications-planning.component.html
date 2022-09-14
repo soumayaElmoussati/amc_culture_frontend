@@ -1,0 +1,334 @@
+<h5 class="mx-2 mb-5">Ajout publications au planning</h5>
+<div class="col-md-12 stretch-card mt-2">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-12 stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mx-2">Choisissez une commission</h5>
+            <div class="table-responsive">
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Type de commission</th>
+                    <th>Sélectionner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="my-10"
+                    *ngFor="let item of commissions; index as i"
+                  >
+                    <td>{{ item.startedDate }}</td>
+                    <td>{{ item.endDate }}</td>
+                    <td>{{ item.commissionType }}</td>
+                    <td
+                      class="d-flex justify-content-center"
+                      id="actionsContainer"
+                    >
+                      <input
+                        class="radios"
+                        type="radio"
+                        (change)="setCommission($event, item)"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 stretch-card mt-5" *ngIf="showListePlannings">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mx-2">Choisissez un planning</h5>
+            <div class="table-responsive">
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th>Date planning</th>
+                    <th>Heure début</th>
+                    <th>Heure fin</th>
+                    <th>Sélectionner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let planning of planningsCommission; index as i">
+                    <td>{{ planning.planningDate }}</td>
+                    <td>{{ planning.startedTime }}</td>
+                    <td>{{ planning.endTime }}</td>
+                    <td
+                      class="d-flex justify-content-center"
+                      id="actionsContainer"
+                    >
+                      <input
+                        class="radiosPln"
+                        type="radio"
+                        (change)="setPlanning($event, planning)"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 stretch-card mt-5" *ngIf="showListeExposants">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-12 stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mx-2">
+              Choisissez un exposant et sélectionnez des publications
+            </h5>
+            <div class="table-responsive">
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th>
+                      {{ "F_NDE_PublishingHouse" | translate }}
+                    </th>
+                    <th>{{ "F_NDE_Pays" | translate }}</th>
+                    <th>{{ "F_NDE_Email" | translate }}</th>
+                    <th>{{ "F_NDE_Telephone" | translate }}</th>
+                    <th>
+                      {{ "F_NDE_PersonInCharge" | translate }}
+                    </th>
+                    <th>{{ "F_NDE_Fax" | translate }}</th>
+                    <th>{{ "F_NDE_Address" | translate }}</th>
+                    <!-- <th>{{ "F_EE_SiteWeb" | translate }}</th> -->
+                    <th>{{ "F_EE_Specialite" | translate }}</th>
+                    <th>
+                      {{ "F_NDE_NumberEditionsOtherLangs" | translate }}
+                    </th>
+                    <th>Sélectionner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="my-10" *ngFor="let item of exhibitors; index as i">
+                    <td>{{ item.publishingHouseName }}</td>
+                    <td>{{ item.country }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.phoneNumber }}</td>
+                    <td>{{ item.responsibleManagerName }}</td>
+                    <td>{{ item.fax }}</td>
+                    <td>{{ item.address }}</td>
+                    <!-- <td>{{ item.siteWeb }}</td> -->
+                    <td>{{ item.specialization }}</td>
+                    <td>{{ item.numberForeignVersion }}</td>
+                    <td
+                      class="d-flex justify-content-center"
+                      id="actionsContainer"
+                    >
+                      <span (click)="setExposant($event, item)">
+                        <i data-feather="book" appFeatherIcon></i>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-flex justify-content-center mt-5">
+        <ngb-pagination
+          [collectionSize]="exhibitorsPagination.collectionSize"
+          [pageSize]="1"
+          [(page)]="exhibitorsPagination.currentPage"
+          aria-label="Default pagination"
+          (pageChange)="exhibitorsPaginationChange($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="w-100 d-flex justify-content-center align-items-center mt-5"
+  *ngIf="showAddStepLoader"
+>
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div class="col-md-12 stretch-card mt-5" *ngIf="showListeExposants">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-12 stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mx-2">Publications sélectionnées</h5>
+            <div class="table-responsive">
+              <table class="table text-center">
+                <thead>
+                  <tr>
+                    <th>AUTEUR</th>
+                    <th>TITRE LIVRE</th>
+                    <th>EDITEUR</th>
+                    <th>ANNEE PUBLICATION</th>
+                    <th>NOMBRE D'EXEMPLAIRES</th>
+                    <th>PRIX EN DIRHAMS</th>
+                    <th>SPECIALITE SELON DEWEY</th>
+                    <th>DEPOT LEGAL</th>
+                    <th>ISBN</th>
+                    <th>COLIS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="my-10"
+                    *ngFor="let item of selectedPublications; index as i"
+                  >
+                    <td>{{ item.author }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.publisher }}</td>
+                    <td>{{ item.publishingDate }}</td>
+                    <td>{{ item.copiesNbr }}</td>
+                    <td>{{ item.amout }}</td>
+                    <td>{{ item.speciality }}</td>
+                    <td>{{ item.legalDeposit }}</td>
+                    <td>{{ item.isbn }}</td>
+                    <td>{{ item.colis }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="btns-container mt-4"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                'text-align': 'right',
+                display: 'flex',
+                'justify-content': 'flex-start'
+              }
+            : { display: 'flex', 'justify-content': 'flex-end' }
+        "
+      >
+        <div class="m-2">
+          <button
+            type="submit"
+            class="btn submit saveBtn"
+            (click)="addPublicationsCommission()"
+            [ngStyle]="
+              this.languageService.userLanguage != 'ar'
+                ? {
+                    display: 'block'
+                  }
+                : { display: 'none' }
+            "
+          >
+            <span>Sauvegarder</span>
+            <i data-feather="save" appFeatherIcon></i>
+          </button>
+          <button
+            type="submit"
+            class="btn submit saveBtn"
+            (click)="addPublicationsCommission()"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar'
+                ? {
+                    display: 'block'
+                  }
+                : { display: 'none' }
+            "
+          >
+            <span>Sauvegarder</span>
+            <i data-feather="save" appFeatherIcon></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #publicationsExhibitor let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste publications</h5>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th>AUTEUR</th>
+                  <th>TITRE LIVRE</th>
+                  <th>EDITEUR</th>
+                  <th>ANNEE PUBLICATION</th>
+                  <th>NOMBRE D'EXEMPLAIRES</th>
+                  <th>PRIX EN DIRHAMS</th>
+                  <th>SPECIALITE SELON DEWEY</th>
+                  <th>DEPOT LEGAL</th>
+                  <th>ISBN</th>
+                  <th>COLIS</th>
+                  <th>AJOUTER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="my-10"
+                  *ngFor="let item of exhibitorsPublications; index as i"
+                >
+                  <td>{{ item.author }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.publisher }}</td>
+                  <td>{{ item.publishingDate }}</td>
+                  <td>{{ item.copiesNbr }}</td>
+                  <td>{{ item.amout }}</td>
+                  <td>{{ item.speciality }}</td>
+                  <td>{{ item.legalDeposit }}</td>
+                  <td>{{ item.isbn }}</td>
+                  <td>{{ item.colis }}</td>
+                  <td
+                    class="d-flex justify-content-center"
+                    id="actionsContainer"
+                  >
+                    <span (click)="addPublication(item)">
+                      <i data-feather="plus" appFeatherIcon></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-5">
+      <ngb-pagination
+        [collectionSize]="publicationsPagination.collectionSize"
+        [pageSize]="1"
+        [(page)]="publicationsPagination.currentPage"
+        aria-label="Default pagination"
+        (pageChange)="publicationsPaginationChange($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('by: close button')"
+    >
+      fermer
+    </button>
+  </div>
+</ng-template>

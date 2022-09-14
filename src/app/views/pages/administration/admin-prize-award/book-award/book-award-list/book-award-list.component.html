@@ -1,0 +1,71 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Prix Maroc du livre</a></li>
+    <li class="breadcrumb-item active" aria-current="page">
+      La liste des demandes
+    </li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">La liste des demandes</h4>
+        <p class="“text-muted”">
+          Un tableau listant l'ensemble des demandes effectuées.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Liste des demandes</h6>
+        <div class="table-responsive">
+          <table class="table" datatable id="myTable">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>cin</th>
+                <th>Status</th>
+                <th>Date de création</th>
+                <th>Catégorie de prix</th>
+                <th>Titre de l'ouvrage</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let demand of data">
+                <td>{{ demand.ownerPersonalInfoResponse.lastName }}</td>
+                <td>{{ demand.ownerPersonalInfoResponse.firstName }}</td>
+                <td>{{ demand.ownerPersonalInfoResponse.cin }}</td>
+                <td>{{ demand.status }}</td>
+                <td>{{ demand.creationDate }}</td>
+                <td>{{ demand.awardCategories.titleFr }}</td>
+                <td>{{ demand.bookPrice.title }}</td>
+                <td>
+                  <span class="material-icons"> edit </span>
+                  <span class="material-icons"> visibility </span>
+                </td>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

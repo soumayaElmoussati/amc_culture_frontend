@@ -1,0 +1,1066 @@
+<h5 class="mb-3">Ajout commission</h5>
+
+<div>
+  <div class="card">
+    <div class="card-body">
+      <aw-wizard
+        #wizardForm
+        [navBarDirection]="
+          this.languageService.userLanguage == 'ar' && 'right-to-left'
+        "
+        [awNavigationMode]
+        navigateBackward="allow"
+        navigateForward="allow"
+      >
+        <aw-wizard-step
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? 'Informations de commission' : ''"
+          [awOptionalStep]="true"
+        >
+          <form
+            class="mt-4"
+            (ngSubmit)="form1Submit()"
+            [formGroup]="validationForm1"
+          >
+            <p
+              class="mb-4 mobileTitle"
+              *ngIf="isMobile"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+              Informations de commission
+            </p>
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Date début</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="Séléctionnez la date de début"
+                          formControlName="dateDebut"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.dateDebut.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isForm1Submitted && form1.dateDebut.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Date fin</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="Séléctionnez la date de fin"
+                          formControlName="dateFin"
+                          min="3"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.dateFin.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isForm1Submitted && form1.dateFin.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Type de commission</label>
+                        <ng-select
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          [searchable]="true"
+                          placeholder="Séléctionnez le type de commission"
+                          formControlName="typeCommission"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.typeCommission.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let type of typesCommission"
+                            [value]="type.name"
+                            >{{ type.name }}</ng-option
+                          >
+                        </ng-select>
+
+                        <div
+                          *ngIf="
+                            isForm1Submitted &&
+                            form1.typeCommission.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="p-1 btns-container mt-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step
+          navigateBackward="allow"
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? 'Plannings de commission' : ''"
+          [awOptionalStep]="true"
+        >
+          <form
+            class="mt-4"
+            (ngSubmit)="form2Submit()"
+            [formGroup]="validationForm2"
+          >
+            <p
+              class="mb-4 mobileTitle"
+              *ngIf="isMobile"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+              Plannings de commission
+            </p>
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Date planning</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          placeholder="Séléctionnez la date du planning"
+                          formControlName="datePlanning"
+                          min="3"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.datePlanning.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isForm2Submitted &&
+                            form2.datePlanning.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Heure début</label>
+                        <input
+                          type="time"
+                          class="form-control"
+                          placeholder="Séléctionnez l'heure de début"
+                          formControlName="heureDebut"
+                          min="3"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.heureDebut.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isForm2Submitted &&
+                            form2.heureDebut.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Heure fin</label>
+                        <input
+                          type="time"
+                          class="form-control"
+                          placeholder="Séléctionnez l'heure de fin"
+                          formControlName="heureFin"
+                          min="3"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.heureFin.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isForm2Submitted && form2.heureFin.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="w-100 row mx-auto my-4"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+                    <div class="my-2">
+                      <button
+                        type="button"
+                        class="btn submit saveBtn"
+                        (click)="addPlanning(confirmAdd)"
+                      >
+                        <i data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                    <div class="m-2">
+                      <button
+                        type="button"
+                        class="btn btn-dange-muted-2 text-white"
+                        (click)="clearForm2()"
+                      >
+                        <i data-feather="x" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th>Date planning</th>
+                              <th>Heure début</th>
+                              <th>Heure fin</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let planning of planningCommission;
+                                index as i
+                              "
+                            >
+                              <td>{{ planning.datePlanning }}</td>
+                              <td>{{ planning.heureDebut }}</td>
+                              <td>{{ planning.heureFin }}</td>
+                              <td
+                                class="d-flex justify-content-center"
+                                id="actionsContainer"
+                              >
+                                <!-- <span
+                                ><i data-feather="edit-2" appFeatherIcon></i
+                              ></span> -->
+                                <span
+                                  (click)="
+                                    openConfirmListPlanningsDelete(
+                                      confirmRemove,
+                                      i
+                                    )
+                                  "
+                                  ><i data-feather="x" appFeatherIcon></i
+                                ></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step
+          navigateBackward="allow"
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? 'Membres de commission' : ''"
+        >
+          <form
+            class="mt-4"
+            (ngSubmit)="form3Submit()"
+            [formGroup]="validationForm3"
+          >
+            <p
+              class="mb-4 mobileTitle"
+              *ngIf="isMobile"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+              Membres de commission
+            </p>
+
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">CIN</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Entrez le cin"
+                          formControlName="cin"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.cin.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                        />
+                        <div
+                          *ngIf="isForm3Submitted && form3.cin.errors?.required"
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Prénom</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Entrez le prénom"
+                          formControlName="prenom"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.prenom.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                        />
+                        <div
+                          *ngIf="
+                            isForm3Submitted && form3.prenom.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Nom</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Entrez le nom"
+                          formControlName="nom"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.nom.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                        />
+                        <div
+                          *ngIf="isForm3Submitted && form3.nom.errors?.required"
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Entrez l'email"
+                          formControlName="email"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.email.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                        />
+                        <div
+                          *ngIf="
+                            isForm3Submitted && form3.email.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Login</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Entrez le login"
+                          formControlName="login"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.login.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                        />
+                        <div
+                          *ngIf="
+                            isForm3Submitted && form3.login.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">{{
+                          "F_NDE_Telephone" | translate
+                        }}</label>
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          type="tel"
+                          class="form-control"
+                          placeholder="{{
+                            'F_NDE_Telephone_Description' | translate
+                          }}"
+                          formControlName="numeroTelephone"
+                          prefix="{{ selectedDialCode }} 0"
+                          mask="0 00 00 00 00"
+                          [showMaskTyped]="true"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.numeroTelephone.errors
+                          }"
+                        />
+                        <div
+                          *ngIf="
+                            isForm3Submitted &&
+                            form3.numeroTelephone.errors?.required
+                          "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                    <div class="m-2">
+                      <div class="form-group d-flex align-items-center">
+                        <div class="form-check mx-1 mb-0">
+                          <label class="form-check-label mb-0">
+                            <input
+                              class="mb-0"
+                              type="radio"
+                              class="form-check-input"
+                              name="sexe"
+                              formControlName="sexe"
+                              value="H"
+                              checked
+                            />
+                            <i class="input-frame"></i>
+                            Homme
+                          </label>
+                        </div>
+                        <div class="form-check mx-1 mb-0">
+                          <label class="form-check-label mb-0">
+                            <input
+                              class="mb-0"
+                              type="radio"
+                              class="form-check-input"
+                              name="sexe"
+                              formControlName="sexe"
+                              value="F"
+                            />
+                            <i class="input-frame"></i>
+                            Femme
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="w-100 row mx-auto mb-4 mt-2"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+                    <div class="my-2">
+                      <button
+                        type="button"
+                        class="btn submit saveBtn"
+                        (click)="addMembreCommission(confirmAdd)"
+                      >
+                        <i data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                    <div class="m-2">
+                      <button
+                        type="button"
+                        class="btn btn-dange-muted-2 text-white"
+                        (click)="clearForm3()"
+                      >
+                        <i data-feather="x" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th>CIN</th>
+                              <th>Prénom</th>
+                              <th>Nom</th>
+                              <th>Sexe</th>
+                              <th>Email</th>
+                              <th>Téléphone</th>
+                              <th>Login</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="let mc of membresCommission; index as i"
+                            >
+                              <td>{{ mc.cin }}</td>
+                              <td>{{ mc.prenom }}</td>
+                              <td>{{ mc.nom }}</td>
+                              <td>{{ mc.sexe == "H" ? "Homme" : "Femme" }}</td>
+                              <td>{{ mc.email }}</td>
+                              <td>{{ mc.numeroTelephone }}</td>
+                              <td>{{ mc.login }}</td>
+                              <td
+                                class="d-flex justify-content-center"
+                                id="actionsContainer"
+                              >
+                                <span
+                                  (click)="
+                                    openConfirmListMembresCommissionDelete(
+                                      confirmRemove,
+                                      i
+                                    )
+                                  "
+                                  ><i data-feather="x" appFeatherIcon></i
+                                ></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <!-- <div
+                        class="px-2 btns-container m-3"
+                        [ngStyle]="
+                          this.languageService.userLanguage == 'ar'
+                            ? {
+                                'text-align': 'right',
+                                display: 'flex',
+                                'justify-content': 'flex-start'
+                              }
+                            : { display: 'flex', 'justify-content': 'flex-end' }
+                        "
+                      >
+                        <div class="my-2">
+                          <button
+                            type="submit"
+                            class="btn submit nextBtn"
+                            [ngStyle]="
+                              this.languageService.userLanguage != 'ar'
+                                ? {
+                                    display: 'block'
+                                  }
+                                : { display: 'none' }
+                            "
+                          >
+                            <span>{{ "Next" | translate }}</span>
+                            <i data-feather="arrow-right" appFeatherIcon></i>
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn submit nextBtn"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar'
+                                ? {
+                                    display: 'block'
+                                  }
+                                : { display: 'none' }
+                            "
+                          >
+                            <span>{{ "Next" | translate }}</span>
+                            <i data-feather="arrow-left" appFeatherIcon></i>
+                          </button>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn submit saveBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                  (click)="addCommissionMembersCommission()"
+                >
+                  <span>{{ "Save" | translate }}</span>
+                  <i data-feather="save" appFeatherIcon></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn submit saveBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                  (click)="addCommissionMembersCommission()"
+                >
+                  <span>{{ "Save" | translate }}</span>
+                  <i data-feather="save" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+      </aw-wizard>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmAdd let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste publications (CSV)</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment ajouter cet element à la liste ?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      ajouter
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmRemove let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste publications (CSV)</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment supprimer cet element de la liste ?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      supprimer
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #publicationsExhibitor let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste publications</h5>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th>AUTEUR</th>
+                  <th>TITRE LIVRE</th>
+                  <th>EDITEUR</th>
+                  <th>ANNEE PUBLICATION</th>
+                  <th>NOMBRE D'EXEMPLAIRES</th>
+                  <th>PRIX EN DIRHAMS</th>
+                  <th>SPECIALITE SELON DEWEY</th>
+                  <th>DEPOT LEGAL</th>
+                  <th>ISBN</th>
+                  <th>COLIS</th>
+                  <th>SELECTIONNER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="my-10"
+                  *ngFor="let item of exhibitorsPublications; index as i"
+                >
+                  <td>{{ item.author }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.publisher }}</td>
+                  <td>{{ item.publishingDate }}</td>
+                  <td>{{ item.copiesNbr }}</td>
+                  <td>{{ item.amout }}</td>
+                  <td>{{ item.speciality }}</td>
+                  <td>{{ item.legalDeposit }}</td>
+                  <td>{{ item.isbn }}</td>
+                  <td>{{ item.colis }}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      (change)="addRemovePublication($event, item)"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-5">
+      <ngb-pagination
+        [collectionSize]="publicationsPagination.collectionSize"
+        [pageSize]="1"
+        [(page)]="publicationsPagination.currentPage"
+        aria-label="Default pagination"
+        (pageChange)="publicationsPaginationChange($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('by: close button')"
+    >
+      fermer
+    </button>
+  </div>
+</ng-template>

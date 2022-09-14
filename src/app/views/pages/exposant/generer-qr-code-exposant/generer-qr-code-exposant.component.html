@@ -1,0 +1,61 @@
+<div id="mainContainer">
+  <div id="badgeContainer">
+    <div id="badge">
+      <div id="bloc1">
+        <img
+          id="topImg"
+          src="../../../../../assets/images/badge/Asset_110.svg"
+        />
+      </div>
+      <img
+        id="logoImg"
+        src="../../../../../assets/images/badge/Asset_120.svg"
+      />
+      <div id="bloc2">
+        <div id="cardContainer">
+          <div id="qrContainer">
+            <qr-code *ngIf="showQrCode" [value]="qrInfo" [size]="70"></qr-code>
+            <div
+              class="w-100 d-flex justify-content-center align-items-center"
+              *ngIf="!showQrCode"
+            >
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <div id="nameContainer">
+            <p *ngIf="showQrCode">{{ nomUser }}</p>
+            <div
+              class="w-100 d-flex justify-content-center align-items-center"
+              *ngIf="!showQrCode"
+            >
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="bloc3">
+        <div id="footerContainer">
+          <h4>EXPOSANT</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-100 text-center">
+    <div
+      class="spinner-border text-primary mt-2"
+      role="status"
+      *ngIf="showGenerateLoader"
+    >
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="w-100 text-center mt-2">
+    <button class="btn btn-primary" (click)="toPdf()" [disabled]="!showQrCode">
+      Génerer
+    </button>
+  </div>
+</div>

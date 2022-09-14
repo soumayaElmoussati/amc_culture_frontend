@@ -1,0 +1,28 @@
+<p>{{"proposalProject"|translate}}</p>
+<form (ngSubmit)="onDone()">
+    <div class="col-sm-6 form-group mx-auto" >
+        <label  
+        data-toggle="tooltip" 
+        class="control-label">{{"actionType" | translate}}</label>            
+        <ng-select (change)="onChangeAction($event)">
+            <ng-option *ngFor="let op of actions" [value]="op.value">{{ getLabelDomain(op) }}</ng-option>
+        </ng-select>
+    </div>
+    <div class="col-sm-6 form-group mx-auto" >
+        <label  
+        data-toggle="tooltip" 
+        class="control-label">{{"domains" | translate}}</label>            
+        <ng-select (change)="onChangeDomain($event)">
+            <ng-option *ngFor="let op of domains" [value]="op.value">{{ getLabelDomain(op) }}</ng-option>
+        </ng-select>
+    </div>
+     <div class="col-sm-6 form-group mx-auto" *ngIf="domain" >
+        <label  [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" title="domains"
+        class="control-label">{{"subdomains" | translate}}</label>            
+        <ng-select (change)="onChangeSubdomain($event)" >
+            <ng-option *ngFor="let op of subdomains" [value]="op.value">{{ getLabelDomain(op) }}</ng-option>
+        </ng-select>
+      </div>
+      <button class="btn btn-primary" style="float:right;" type="submit" *ngIf="subdomain&&domain&&action">{{"next"|translate}}</button>
+      <div style="clear:both"></div>
+</form>

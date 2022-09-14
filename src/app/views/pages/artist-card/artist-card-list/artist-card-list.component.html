@@ -1,0 +1,55 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Carte artiste</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Mes demandes</li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Ma liste des demandes</h4>
+        <p class="“text-muted”">
+          Un tableau listant l'ensemble de vos demandes effectuées.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Liste des demandes</h6>
+        <div class="table-responsive">
+          <table class="table" datatable id="myTable">
+            <thead>
+              <tr>
+                <th>Type de carte</th>
+
+                <th>Statut de demande</th>
+
+                <th>Date de demande</th>
+
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let demand of data">
+                <td>{{ demand.cardType }}</td>
+                <td>{{ demand.status }}</td>
+                <td>{{ demand.dateDemand }}</td>
+
+                <td>
+                  <span class="material-icons"> edit </span>
+                  <span class="material-icons"> visibility </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

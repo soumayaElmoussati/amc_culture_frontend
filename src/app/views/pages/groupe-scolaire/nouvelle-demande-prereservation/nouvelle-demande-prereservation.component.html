@@ -1,0 +1,345 @@
+
+<h3 class="alert alert-warning" *ngIf="expiredEdition" style="text-align: center;"> Aucune edition n'est ouvert pour le moment</h3>
+
+<form (ngSubmit)="formSubmit()" *ngIf="!expiredEdition" [formGroup]="validationForm">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <p class="card-title text-center">
+          {{ "FS_GS_NouvelleDemande" | translate }}
+        </p>
+
+        <p class="text-center mb-4">
+          {{ "FS_GS_NouvelleDemande_Description" | translate }}
+        </p>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "FS_GS_NomEtablissement" | translate
+              }}</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="{{
+                  'FS_GS_NomEtablissement_Description' | translate
+                }}"
+                formControlName="nomEtablissement"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.nomEtablissement.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="
+                  isFormSubmitted && form.nomEtablissement.errors?.required
+                "
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "FS_GS_Region" | translate
+              }}</label>
+              <ng-select
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+                [searchable]="true"
+                placeholder="{{ 'FS_GS_Region_Description' | translate }}"
+                formControlName="region"
+                (change)="setVilles($event)"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.region.errors
+                }"
+              >
+                <ng-option *ngFor="let region of regions" [value]="region.id">{{
+                  region.region
+                }}</ng-option>
+              </ng-select>
+              <div
+                *ngIf="isFormSubmitted && form.region.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "F_NDE_City" | translate
+              }}</label>
+              <ng-select
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+                [searchable]="true"
+                placeholder="{{ 'F_NDE_City_Description' | translate }}"
+                formControlName="ville"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.ville.errors
+                }"
+              >
+                <ng-option *ngFor="let ville of tmpVilles" [value]="ville.id">{{
+                  ville.ville
+                }}</ng-option>
+              </ng-select>
+              <div
+                *ngIf="isFormSubmitted && form.ville.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "F_NDE_Telephone" | translate
+              }}</label>
+              <input
+                type="tel"
+                class="form-control"
+                placeholder="{{ 'F_NDE_Telephone_Description' | translate }}"
+                formControlName="tel"
+                prefix="+212 "
+                mask="0 000 00 00"
+                [showMaskTyped]="true"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.tel.errors
+                }"
+              />
+              <div
+                *ngIf="isFormSubmitted && form.tel.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "F_NDE_Email" | translate
+              }}</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="{{ 'F_NDE_Email_Description' | translate }}"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.email.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.email.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+              <div
+                *ngIf="isFormSubmitted && form.email.errors?.email"
+                class="invalid-feedback"
+              >
+                {{ "EmailField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "FS_GS_DatePrevueVisite" | translate
+              }}</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="{{
+                  'FS_GS_DatePrevueVisite_Description' | translate
+                }}"
+                formControlName="datePrevueVisite"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.datePrevueVisite.errors
+                }"
+              />
+              <div
+                *ngIf="
+                  isFormSubmitted && form.datePrevueVisite.errors?.required
+                "
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "FS_GS_HeurePrevueVisite" | translate
+              }}</label>
+              <input
+                type="time"
+                class="form-control"
+                placeholder="{{
+                  'FS_GS_HeurePrevueVisite_Description' | translate
+                }}"
+                formControlName="heurePrevueVisite"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.heurePrevueVisite.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="
+                  isFormSubmitted && form.heurePrevueVisite.errors?.required
+                "
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6 mx-auto">
+            <div class="form-group">
+              <label class="control-label">{{
+                "FS_GS_NombreVisite" | translate
+              }}</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="{{ 'FS_GS_NombreVisite_Description' | translate }}"
+                formControlName="nombreVisite"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.nombreVisite.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.nombreVisite.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div id="btnContainer">
+          <button type="submit" class="btn btn-primary">
+            {{ "Register" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

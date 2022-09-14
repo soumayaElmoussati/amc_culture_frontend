@@ -1,0 +1,110 @@
+<div class="row justify-content-between " style=" align-items: center; margin: 15px 14px; ">
+    <h5 class="mb-3 mx-2" id="top" [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' }">Liste des Domaines du profession artistique</h5>
+    <button (click)="this.AddartsiticDomain()" [disabled]="itemId!=null" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn"  > 
+        <i data-feather="plus-circle" appFeatherIcon></i>
+    </button>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="noData">
+    il n'y a pas d'élément de catégorie du profession artistique, veuillez l'ajouter si vous souhaitez ajouter un élément ici
+</div>
+<div class="col-md-12 stretch-card">
+  <div class="card">
+    <div class="card-body" [ngStyle]="this.languageService.userLanguage == 'ar' && { direction: 'rtl' }">
+      <div class="table-responsive" style=" position: relative; min-height: 40vh; " >
+        <div class="table_loader" *ngIf="isLoad" style="margin: auto;width: 100%;min-height: 40vh;display: flex;align-items: center;justify-content: center;">
+            <div class="table_loader_background"></div>
+            <div class="spinner-border text-primary" artsiticDomain="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+        </div>
+        <table class="table text-center" *ngIf="!isLoad" >
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Nom en arabe</th>
+              <th>Category</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr><ng-container *ngIf="itemId!=-1;else editRolCon"></ng-container></tr>
+            <tr *ngFor="let req of artsiticDomains;let i = index  ">
+                <ng-container *ngIf="itemId!=i;else editRolCon">
+                <td>{{ req.name }}</td>
+                <td>{{ req.nameAr }}</td>
+                <td>
+                    {{ getNameByRef(req.refArtisticProfessionCategory) }}
+                </td>
+                <td style="width: 80px;">
+                    <button  [disabled]="itemId!=null"   (click)="setartsiticDomains(i)" type="button" class="btn btn-warning" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                        <span><i data-feather="edit-2" appFeatherIcon></i></span>
+                    </button>
+                    <button  [disabled]="itemId!=null"   (click)="deleteartsiticDomains( confirmRemove, i )" type="button" class="btn btn-danger"  style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+                        <span *ngIf="isLodedBtnDelete!=i;else buttonLoader"><i data-feather="x" appFeatherIcon></i></span>
+                    </button>
+                </td>
+                </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<ng-template #nodata *ngIf="isLoad">
+    <div >
+        <i data-feather="alert-octagon" appFeatherIcon></i> 
+        there is no data
+    </div>
+</ng-template>
+<ng-template #editRolCon>
+    <td>
+        <div class="from-group">
+            <input  type="text" class="form-control"  [(ngModel)]="newData.name" 
+            [ngClass]="{ 'is-invalid': isSubmitted && errors('name') }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+          </div>
+    </td>
+    <td>
+        <div class="from-group">
+            <input  type="text" class="form-control" style="direction: rtl;"  [(ngModel)]="newData.nameAr" 
+            [ngClass]="{ 'is-invalid': isSubmitted && errors('nameAr') }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+          </div>
+    </td>
+    <td style=" display: flex; justify-content: center; ">
+        <div class="row" >
+            <ng-select [(ngModel)]="newData.refArtisticProfessionCategory"  [ngClass]="{ 'is-invalid': isSubmitted && errors('refArtisticProfessionCategory') }" style=" margin-top: 4px; min-width: 120px;">
+                <ng-option *ngFor="let rd of permissions" [value]="rd.refArtisticProfessionCategory">{{ rd.name }}</ng-option>
+            </ng-select>
+        </div>
+    </td>
+    <td style="width: 80px;">
+      <button  (click)="editorAddartsiticDomains()" type="button" class="btn submit validateButton" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px; min-height: 46px;">
+            <span *ngIf='!isLodedBtnEdit;else buttonLoader' ><i data-feather="check" appFeatherIcon></i></span>
+        </button>
+        <button (click)="clearform() " type="button" class="btn btn-danger" style=" color: #fff!important; width: 38px; padding: 10px 0px; margin:0 2px">
+            <span ><i data-feather="x" appFeatherIcon></i></span>
+        </button>
+    </td>
+</ng-template>
+<ng-template #buttonLoader>
+  <span style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" artsiticDomain="status" aria-hidden="true"></span>
+</ng-template>
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{"deleted" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+  </ng-template>

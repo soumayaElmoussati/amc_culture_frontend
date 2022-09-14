@@ -1,0 +1,72 @@
+<div class="card py-5"> 
+    <h5 class="card-title ml-5" id="exampleModalLabel">Récapitulatif demande</h5>
+    
+      <div class="card-body">
+              <div class="card" *ngFor="let ed of editions">
+                <div class="card-body">
+                  <div class="mb-2">
+                    <p> 
+                        <button type="button" class="btn btn-outline-primary ml-2"(click)="ed.isCollapsed = !ed.isCollapsed" [attr.aria-expanded]="!ed.isCollapsed"
+                      aria-controls="collapseExample">+</button> 
+                      L'edition '{{ ed.edition.name }}'
+                  </p>
+                    
+                  </div>
+                  <div id="collapseExample" [ngbCollapse]="ed.isCollapsed">
+                    <div class="card">
+                      <div class="card-body" *ngIf="ed.page.totalPages>0">
+                        <div class="table-responsive card my-1">
+                          <table class="table text-center">
+                            <thead>
+                              <tr>
+                                <th>{{"fullname" | translate}}</th>
+                                <th>{{"F_NDE_Pays" | translate}}</th>
+                                <th>{{"birthday" | translate}}</th>
+                                <th>{{"passportNumber" | translate}}</th>
+                                <th>{{"passportExpiration" | translate}}</th>
+                                <th>{{"typePassport" | translate}}</th>
+                                <th>{{"originNationality" | translate}}</th>
+                                <th>{{"F_NDE_Pays_Description" | translate}}</th>
+
+                                <!-- <th>ACTIONS</th> -->
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of ed.exhibitor">
+                                <td>{{ item.personName }}</td>
+                                <td>{{ item.country }}</td>
+                                <td>{{ item.birthDay }}</td>
+                                <td>{{ item.passportNumber }}</td>
+                                <td>{{ item.passportExpiration }}</td>
+                                <td>{{ item.passportType }}</td>
+                                <td>{{ item.birthNationality }}</td>
+                                <td>{{ item.birthCountry }}</td>
+
+                                <td>  
+                                  <mat-icon id="detail" class="icon-color" fontSet="material-icons-outlined"
+                                    (click)="openDetailExhibitor(item.refExhibitor)" placement="top" ngbTooltip="plus detail">
+                                    remove_red_eye
+                                  </mat-icon>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="w-100 d-flex justify-content-center mt-5">
+                          <ngb-pagination
+                            *ngIf="ed.page.totalPages > 1"
+                            [collectionSize]="ed.page.totalPages"
+                            [pageSize]="1"
+                            [(page)]="ed.page.number"
+                            aria-label="Default pagination"
+                          ></ngb-pagination>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+      </div>
+    </div>
+    

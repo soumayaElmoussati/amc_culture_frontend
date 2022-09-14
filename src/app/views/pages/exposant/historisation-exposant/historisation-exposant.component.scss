@@ -1,0 +1,29 @@
+#importBtn span{
+  margin-right:10px;
+}
+
+#actionsContainer span, mat-icon{
+  cursor:pointer!important;
+}
+
+.icon-color{
+  color :#686868;
+  margin:0 3px;
+}
+
+.img-download-icon{
+  position: relative;
+  top: 5px;
+}
+
+
+.my-pagination::ng-deep .ngx-pagination .current {
+  background: #fe6150  !important;
+
+}
+
+
+.longTd{
+  overflow: scroll;
+  max-width:50px;
+}

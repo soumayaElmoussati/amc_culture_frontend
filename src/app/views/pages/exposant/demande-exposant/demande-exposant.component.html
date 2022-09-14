@@ -1,0 +1,1238 @@
+<p class="h5 mb-4" *ngIf="!expiredEdition" [ngStyle]="
+    languageService.userLanguage == 'ar' && { 'text-align': 'right' }
+  ">
+    {{ "NewExhibitorRequest" | translate }}
+</p>
+<h3 class="alert alert-warning" *ngIf="expiredEdition" style="text-align: center;"> Aucune edition n'est ouvert pour le moment</h3>
+<div class="col-md-12 stretch-card" *ngIf="!expiredEdition">
+  <div class="card" style="padding:10px">
+    <div class="card-body">
+      <form *ngIf="isLoded" [ngClass]="{'loadData':!isLodedAllPage}" (ngSubmit)="onFormSubmit()" [formGroup]="getFormGroup">
+        <aw-wizard [defaultStepIndex]="page" navigateBackward="allow" #wizardForm [navBarDirection]="languageService.userLanguage == 'ar' && 'right-to-left'" [awNavigationMode]>
+          <!-- Page 1  -->
+          <aw-wizard-step [stepTitle]="('NewExhibitorRequest' | translate )" (stepEnter)="page=0">
+            <div *ngIf="page==0"  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end','text-align': 'right' } ">
+              <ng-container *ngFor="let d of inputsStep1;let i=index">
+                <div *ngIf="i==0" class="col-12">
+                  <p class="card-title" *ngIf="i==0" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "editionInfo" | translate }} </p>
+                </div>
+                <div *ngIf="i==5" class="col-12">
+                  <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "productsInfo" | translate }} </p>
+                </div>
+
+                <!-- <div *ngIf="i==8" class="col-12">
+                  <br/>
+                  <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "generalInfo" | translate }} </p>
+                </div> -->
+
+                                <div class="col-sm-6" *ngIf="i==5">
+                                    <div class="form-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'F_NDE_ExposedProducts' | translate )" data-toggle="tooltip" [title]="( 'string' | translate )" class="control-label">{{ "F_NDE_ExposedProducts" | translate }}<span class="text-danger"> *</span></label>
+                                        <ng-select [(ngModel)]="dataStep1.presentedMateriels" [multiple]="true" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" placeholder="{{ 'F_NDE_ExposedProducts_Description' | translate }}"
+                                            formControlName="presentedMateriels" [ngClass]="{ 'is-invalid': isFormSubmitted && form.presentedMateriels.errors }">
+                                            <ng-option *ngFor="let prd of prodsExposes" [value]="prd.id">{{ getLabelProduct(prd.id) }}</ng-option>
+                                        </ng-select>
+                                        <div *ngIf="isFormSubmitted && form.presentedMateriels.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label  [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( d.type | translate )" class="control-label">{{d.label | translate}}<span *ngIf="i!=6" class="text-danger"> *</span></label>
+                    <input [type]="d.type" [ngModel]="d.ngModel" (ngModelChange)="d.onChange($event)" class="form-control" placeholder="{{ d.placeHolder| translate }}" formControlName="{{ d.formControlName }}" min="3" [ngClass]="{ 'is-invalid': isFormSubmitted && getFormGroup.get(d.formControlName).errors }"
+                           [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " />
+                    <div *ngIf="isFormSubmitted && getFormGroup.get(d.formControlName).errors" class="invalid-feedback">
+                      {{ (getErrorInputs(d.formControlName)) | translate }}
+                    </div>
+                  </div>
+                </div>
+
+                                <div class="col-sm-6" *ngIf="dataStep1.country=='MA' && i==1">
+                                    <div class="form-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label">{{ "CIN" |translate }}<span class="text-danger"> *</span></label>
+                                        <input [(ngModel)]='dataStep1.cin' type="text" class="form-control" placeholder="{{'entryIdentity'| translate}}" formControlName="cin" min="3" [ngClass]="{ 'is-invalid': isFormSubmitted && form.cin.errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "
+                                        />
+                                        <div *ngIf="isFormSubmitted && form.cin.errors?.required" class="invalid-feedback">{{ "RequiredField" | translate }}</div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6" *ngIf="i==2">
+                                    <div class="form-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'F_NDE_Pays' | translate )" class="control-label">{{ "F_NDE_Pays" | translate }}<span class="text-danger"> *</span></label>
+                                        <ng-select [ngModel]="dataStep1.country" (ngModelChange)="this.onChangePays($event)" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" placeholder="{{ 'F_NDE_Pays_Description' | translate }}"
+                                            formControlName="country" [ngClass]="{ 'is-invalid': isFormSubmitted && form.country.errors }">
+                                            <ng-option *ngFor="let country of countries" [value]="country.alpha2Code">{{getLabelContries(country.alpha2Code) }}</ng-option>
+                                        </ng-select>
+                                        <div *ngIf="isFormSubmitted && form.country.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6" *ngIf="i==2">
+                                    <div class="form-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'telephone' | translate )" class="control-label">{{ "F_NDE_CellPhone" | translate }}<span class="text-danger"> *</span></label>
+                                        <input type="tel" class="form-control" placeholder="{{ 'F_NDE_CellPhone_Description' | translate }}" formControlName="personalPhoneNumber" prefix="+{{ getNumberCodeForm1 }}" mask="0 00 00 00 00" [(ngModel)]="dataStep1.personalPhoneNumber" [showMaskTyped]="true"
+                                            [ngClass]="{ 'is-invalid': isFormSubmitted && form.personalPhoneNumber.errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " />
+                                        <div *ngIf=" isFormSubmitted && form.personalPhoneNumber.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6" *ngIf="i==2">
+                                    <div class="form-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'telephone' | translate )" class="control-label">{{ "F_NDE_Telephone" | translate }}<span class="text-danger"> *</span></label>
+                                        <input type="tel" class="form-control" placeholder="{{ 'F_NDE_Telephone_Description' | translate }}" formControlName="phoneNumber" prefix="+{{ getNumberCodeForm1 }}" mask="0 00 00 00 00" [(ngModel)]="dataStep1.phoneNumber" [showMaskTyped]="true" [ngClass]="{ 'is-invalid': isFormSubmitted && form.phoneNumber.errors }"
+                                            [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " />
+                                        <div *ngIf=" isFormSubmitted && form.phoneNumber.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6" *ngIf="i==2">
+                                    <div class="form-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'telephone' | translate )" class="control-label">{{ "F_NDE_Fax" | translate }}<span class="text-danger"> *</span></label>
+                                        <input type="tel" class="form-control" placeholder="{{ 'F_NDE_Fax_Description' | translate }}" formControlName="fax" prefix="+{{ getNumberCodeForm1 }}" mask="0 00 00 00 00" [(ngModel)]="dataStep1.fax" [showMaskTyped]="true" [ngClass]="{ 'is-invalid': isFormSubmitted && form.fax.errors }"
+                                            [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " />
+                                        <div *ngIf=" isFormSubmitted && form.fax.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                                    </div>
+                                </div>
+
+
+
+                <div class="col-sm-6" *ngIf="i==7">
+                  <div class="form-group">
+                    <label  [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                     data-toggle="tooltip" [title]="( 'F_NDE_ActivityBranch' | translate )" class="control-label">{{ "F_NDE_ActivityBranch" | translate }}<span class="text-danger"> *</span></label>
+                    <ng-select [(ngModel)]='dataStep1.activityBranches' [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [multiple]="true" [searchable]="true" placeholder="{{ 'F_NDE_ActivityBranch_Description' | translate }}"
+                               formControlName="activityBranches" [ngClass]="{ 'is-invalid': isFormSubmitted && form.activityBranches.errors }">
+                      <ng-option *ngFor="let branche of branches" [value]="branche.id">{{ getLabelBranches(branche.id) }}
+                      </ng-option>
+                    </ng-select>
+                    <div *ngIf=" isFormSubmitted && form.activityBranches.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                  </div>
+                </div>
+
+                <div *ngIf="i==8" class="col-12">
+                  <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "representedInfo" | translate }} </p>
+                </div>
+                <div class="col-sm-6" *ngIf="i==8">
+                  <div class="form-group">
+                    <label  class="control-label" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                    >{{ "Step1Question" | translate }} <span class="text-danger"> *</span></label>
+                    <div class="form-group d-flex align-items-center" [ngStyle]="this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}" >
+                      <div class="form-check mx-1 mb-0">
+                        <label class="form-check-label mb-0">
+                          <input class="mb-0" type="radio" class="form-check-input" name="hasMultipleRepresented"
+                                 [(ngModel)]="dataStep1.hasMultipleRepresented" formControlName="hasMultipleRepresented" id="optionsRadios" [value]="true" checked="true"/>
+                          <i class="input-frame"></i>
+                          {{ "Yes" | translate }}
+                        </label>
+                                            </div>
+                                            <div class="form-check mx-1 mb-0">
+                                                <label class="form-check-label mb-0">
+                          <input class="mb-0" type="radio" class="form-check-input" name="hasMultipleRepresented" [(ngModel)]="dataStep1.hasMultipleRepresented"
+                                 formControlName="hasMultipleRepresented" id="optionsRadios1" [value]="false"/>
+                          <i class="input-frame"></i>
+                          {{ "No" | translate }}
+                        </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8"><br/>
+                                    <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "generalInfoForeign" | translate }} </p>
+                                    <p [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " style=" margin-top: -18px; margin-bottom: 20px; color: #9e9e9e; font-weight: 600; ">{{ "Information_respons" | translate }} </p>
+                                </div>
+                                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                                    <div class="from-group">
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label">{{ "fullname" | translate }}<span class="text-danger"> *</span></label>
+                                        <input type="text" [(ngModel)]="dataStep1.personName" class="form-control" formControlName="personName" [ngClass]="{ 'is-invalid': isFormSubmitted && form.personName.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                                        />
+                                        <div *ngIf="isFormSubmitted && form.personName.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                                    <div class="from-group">
+                                        <label data-toggle="tooltip" [title]="( 'date' | translate )" class="control-label" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{ "birthday" | translate }}<span class="text-danger"> *</span></label>
+                                        <input type="date" class="form-control" formControlName="birthDay" [(ngModel)]="dataStep1.birthDay" [ngClass]="{ 'is-invalid': isFormSubmitted && form.birthDay.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right','flex-direction': 'row-reverse'}"
+                                        />
+                                        <div *ngIf="isFormSubmitted && form.birthDay.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                                    <div class="from-group">
+                                        <br/>
+                                        <label data-toggle="tooltip" [title]="( 'F_NDE_Pays_Description' | translate )" class="control-label">{{ "F_NDE_Pays" | translate }}<span class="text-danger"> *</span></label>
+                                        <ng-select [(ngModel)]="dataStep1.birthCountry" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" [placeholder]="'F_NDE_Pays_Description' | translate " formControlName="birthCountry"
+                                            [ngClass]="{ 'is-invalid': isFormSubmitted && form.birthCountry.errors }">
+                                            <ng-option *ngFor="let country of countries" [value]="country.alpha2Code">{{getLabelContries(country.alpha2Code) }}</ng-option>
+                                        </ng-select>
+                                        <div *ngIf="isFormSubmitted && form.birthDay.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                                    <div class="from-group">
+                                        <br/>
+                                        <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{ 'originNationality' | translate }}<span class="text-danger"> *</span></label>
+                                        <input type="text" [(ngModel)]="dataStep1.birthNationality" class="form-control" formControlName="birthNationality" [ngClass]="{ 'is-invalid': isFormSubmitted && form.birthNationality.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                                        />
+                                        <div *ngIf="isFormSubmitted && form.birthNationality.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                                    <div class="from-group">
+                                        <br/>
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label">{{ 'passportNumber' | translate }}<span class="text-danger"> *</span></label>
+                                        <input [(ngModel)]="dataStep1.passportNumber" type="text" class="form-control" formControlName="passportNumber" [ngClass]="{ 'is-invalid': isFormSubmitted && form.passportNumber.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                                        />
+                                        <div *ngIf="isFormSubmitted && form.passportNumber.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                                    <div class="from-group">
+                                        <br/>
+                                        <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'typePassport' | translate )" class="control-label">{{ "typePassport" | translate }}<span class="text-danger"> *</span></label>
+                                        <ng-select [ngModel]="dataStep1.passportType" (ngModelChange)="onChangePassportType($event,null)" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" [ngClass]="{ 'is-invalid': isFormSubmitted && form.passportType.errors }"
+                                            formControlName="passportType">
+                                            <ng-option *ngFor="let psprt of passportsType" [value]="psprt.id">{{getLabelPassport(psprt.id)}}</ng-option>
+                                        </ng-select>
+                                        <div *ngIf="isFormSubmitted && form.passportType.errors?.required" class="invalid-feedback">
+                                            {{ "RequiredField" | translate }}
+                                        </div>
+                                    </div>
+
+                </div>
+                <div class="col-sm-6" *ngIf="dataStep1.country!='MA' && dataStep1.country!=null && i==8">
+                  <div class="from-group">
+                    <br/>
+                    <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                    data-toggle="tooltip" [title]="( 'date' | translate )" class="control-label"
+                    [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                   >{{ "passportExpiration" | translate }}<span class="text-danger"> *</span></label>
+                    <input [(ngModel)]="dataStep1.passportExpiration" type="date" class="form-control" formControlName="passportExpiration" [ngClass]="{ 'is-invalid': isFormSubmitted && form.passportExpiration.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                    />
+                    <div *ngIf="isFormSubmitted && form.passportExpiration.errors?.required" class="invalid-feedback">
+                      {{ "RequiredField" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6" *ngIf="i==8 && dataStep1.country!='MA'">
+                  <br/>
+                  <div class="form-group">
+                    <label  class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                    >{{ "Step2Question" | translate }}<span class="text-danger"> *</span></label>
+                    <div class="form-group d-flex align-items-center" [ngStyle]="this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                      <div class="form-check mx-1 mb-0">
+                        <label class="form-check-label mb-0">
+                          <input class="mb-0" type="radio" class="form-check-input" name="hasMultipleForiegen"
+                                 [(ngModel)]="dataStep1.hasMultipleForiegen" formControlName="hasMultipleForiegen" id="optionsRadios" [value]="true" [checked]="dataStep1.hasMultipleForiegen"/>
+                          <i class="input-frame"></i>
+                          {{ "Yes" | translate }}
+                        </label>
+                      </div>
+                      <div class="form-check mx-1 mb-0">
+                        <label  class="form-check-label mb-0">
+                          <input class="mb-0" type="radio" class="form-check-input" name="hasMultipleForiegen" [(ngModel)]="dataStep1.hasMultipleForiegen"
+                                 formControlName="hasMultipleForiegen" id="optionsRadios1" [value]="false"  [checked]="!dataStep1.hasMultipleForiegen"/>
+                          <i class="input-frame"></i>
+                          {{ "No" | translate }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </ng-container>
+
+
+              <br/>
+              <div class="col-12">
+                <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "boothInfo" | translate }} </p>
+                <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' && {'flex-direction': 'row-reverse','justify-content': 'flex-end' } ">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'F_NDE_StandCategory' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_StandCategory" | translate }}<span class="text-danger"> *</span></label>
+                      <ng-select [ngModel]='dataStep1.hallClass' (ngModelChange)="onChangehallClass($event)" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } " [searchable]="true" placeholder="{{ 'F_NDE_StandCategory_Description' | translate }}"
+                                 formControlName="hallClass" [ngClass]="{ 'is-invalid': isFormSubmitted && form.hallClass.errors }">
+                        <ng-option *ngFor="let typeStand of typesStand" [value]="typeStand.id">{{getLabelStand(typeStand.id) }}</ng-option>
+                      </ng-select>
+                      <div *ngIf=" isFormSubmitted && form.hallClass.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_StandSize" | translate }}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep1.wingAreaSquare" type="text" class="form-control" formControlName="wingAreaSquare" [ngClass]="{ 'is-invalid': (isFormSubmitted && (form.wingAreaSquare.errors || !checkwingAreaSquare())) }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                      />
+                      <div *ngIf=" isFormSubmitted && !checkwingAreaSquare()" class="invalid-feedback"> {{ "minvalueis" | translate }} {{ getNumberhallClass() }}</div>
+                      <div *ngIf=" isFormSubmitted && form.wingAreaSquare.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+          <!-- Page 2-->
+          <aw-wizard-step [stepTitle]="('documentExhibition' | translate )" (stepEnter)="page=1">
+            <ng-container *ngIf="page==1">
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <div class="col-md-12 stretch-card">
+                  <div class="card my-4">
+                    <div class="card-body">
+                      <p class="card-title d-flex justify-content-center text-center">
+                        {{ "AskForUploadExhibition" | translate }}
+                      </p>
+                      <div class="w-100 row mx-auto d-flex justify-content-center" id="csv-btns" [ngStyle]="
+                                                            this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                        <div class="m-2">
+                          <button (click)="download1($event)" class="btn submit attachBtn">
+                            <span>{{"downloadFileExibition" | translate }}</span>
+                            <i data-feather="download" appFeatherIcon></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <div class="col-6" [ngClass]="{ 'offset-sm-6': this.languageService.userLanguage == 'ar' }">
+                  <div class="col-12" *ngFor="let companyfiles of this.inputsStep2;let index = index;" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'file' | translate )" class="control-label"
+                      [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " >{{companyfiles.key | translate}}<span class="text-danger" *ngIf="companyfiles.documentType!='PASSPORT2'"> *</span></label>
+                      <input  (change)="onChangeFile($event,index)" type="file" [accept]="'image/jpeg,image/jpg,image/png,application/pdf'+((index==0) ? ',application/msword,text/plain,.docx':'')" id='{{ companyfiles.key }}' class="file-upload-default" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                      <div class="input-group col-xs-12">
+                                                <span class="input-group-append" [ngStyle]="companyfiles.data.refDocument==''&&{'display':'none'}">
+                                                        <button class="btn btn-info download-file"  type="button" [id]="companyfiles.data.refDocument+index" style=" text-align: center!important; " (click)="this.downloadFile(index,companyfiles.data.refDocument)">
+                                                            <i data-feather="arrow-down-circle"  class="download-icon" appFeatherIcon></i>
+                                                            <span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+
+                                                </button>
+                                                </span>
+                                                <input (click)="openFileBrowser(companyfiles.key)" type="text" class="form-control file-upload-info" disabled="" value="{{ companyfiles.data.name }}" placeholder='{{ "importFile" | translate }}' [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right' }"
+                                                />
+                                                <span (click)="openFileBrowser(companyfiles.key)" class="input-group-append ">
+                                                        <button class="btn submit nextBtn" type="button">{{"import"|translate}} 
+                                                          <i data-feather="upload" class="icon-lg" appFeatherIcon></i>
+                                                        </button>
+
+                                                    </span>
+                      </div>
+                      <p class="text-secondary" style=" margin: 8px 0; " [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{('type_of_files'|translate) +  ((index==0) ? " | DOCX" : "")}}</p>
+                      <div class="text-danger" *ngIf="isFormSubmitted && companyfiles.data.refDocument=='' && form[companyfiles.key].errors?.required">
+                        <small>{{ ("RequiredField" | translate) }} </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </aw-wizard-step>
+
+          <!-- Page 1 => B  -->
+          <aw-wizard-step *ngIf="dataStep1.hasMultipleForiegen && dataStep1.country!='MA' " [stepTitle]="('generalInfoForeign' | translate )" (stepEnter)="page=2">
+            <div *ngIf="page==2">
+              <div   class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
+                <ng-container>
+                  <div class="col-12">
+                    <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "> {{ "generalInfoForeign" | translate }} </p>
+                  </div>
+                  <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}" id="modaleditadd1b">
+                    <div class="col-sm-6" >
+                      <div class="from-group">
+                        <label  data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"
+                        [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                   >{{ "fullname" | translate }}<span class="text-danger"> *</span></label>
+                        <input type="text" [(ngModel)]="dataStep1B.personName" class="form-control" formControlName="personName" [ngClass]="{ 'is-invalid': isFormSubmitted && form.personName.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                        />
+                        <div *ngIf="isFormSubmitted && form.personName.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6" >
+                      <div class="from-group">
+                        <label  data-toggle="tooltip" [title]="( 'date' | translate )" class="control-label"  [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{ "birthday" | translate }}<span class="text-danger"> *</span></label>
+                        <input type="date" class="form-control" formControlName="birthDay" [(ngModel)]="dataStep1B.birthDay" [ngClass]="{ 'is-invalid': isFormSubmitted && form.birthDay.errors }" 
+                        [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right','flex-direction': 'row-reverse'}"
+                        />
+                        <div *ngIf="isFormSubmitted && form.birthDay.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6" >
+                      <div class="from-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'F_NDE_Pays_Description' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                        >{{ "F_NDE_Pays" | translate }}<span class="text-danger"> *</span></label>
+                        <ng-select [(ngModel)]="dataStep1B.birthCountry" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } " [searchable]="true" [placeholder]="'F_NDE_Pays_Description' | translate " formControlName="birthCountry" [ngClass]="{ 'is-invalid': isFormSubmitted && form.birthCountry.errors }">
+                          <ng-option *ngFor="let country of countries" [value]="country.alpha2Code">{{getLabelContries(country.alpha2Code) }}</ng-option>
+                        </ng-select>
+                        <div *ngIf="isFormSubmitted && form.birthDay.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="from-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                        >{{ 'originNationality' | translate }}<span class="text-danger"> *</span></label>
+                        <input type="text" [(ngModel)]="dataStep1B.birthNationality" class="form-control" formControlName="birthNationality" [ngClass]="{ 'is-invalid': isFormSubmitted && form.birthNationality.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                        />
+                        <div *ngIf="isFormSubmitted && form.birthNationality.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="from-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                        >{{ 'passportNumber' | translate }}<span class="text-danger"> *</span></label>
+                        <input [(ngModel)]="dataStep1B.passportNumber" type="text" class="form-control" formControlName="passportNumber" [ngClass]="{ 'is-invalid': isFormSubmitted && form.passportNumber.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"
+                        />
+                        <div *ngIf="isFormSubmitted && form.passportNumber.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="from-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'typePassport' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                        >{{ "typePassport" | translate }}<span class="text-danger"> *</span></label>
+                        <ng-select [ngModel]="dataStep1B.passportType" (ngModelChange)="onChangePassportTypeB($event)" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" [ngClass]="{ 'is-invalid': isFormSubmitted && form.passportType.errors }" formControlName="passportType">
+                          <ng-option *ngFor="let psprt of passportsType" [value]="psprt.id">{{getLabelPassport(psprt.id)}}</ng-option>
+                        </ng-select>
+                        <div *ngIf="isFormSubmitted && form.passportType.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6" >
+                      <div class="from-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'date' | translate )"                 [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " class="control-label">{{ "passportExpiration" | translate }}<span class="text-danger"> *</span></label>
+                        <input [(ngModel)]="dataStep1B.passportExpiration" type="date" class="form-control" formControlName="passportExpiration" [ngClass]="{ 'is-invalid': isFormSubmitted && form.passportExpiration.errors }" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right','flex-direction': 'row-reverse'}"
+                        />
+                        <div *ngIf="isFormSubmitted && form.passportExpiration.errors?.required" class="invalid-feedback">
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- ====== Files ====== -->
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'file' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                        >{{ "PASSPORT_res" | translate }} <span class="text-danger"> *</span></label>
+                        <input [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " (change)="handleFileInput($event,'PASSPORT1')" type="file" accept="image/jpeg,image/jpg,image/png,application/pdf" name="PASSPORT1[]" class="file-upload-default" id="PASSPORT1" />
+                        <div class="input-group col-xs-12" (click)="openFileBrowser('PASSPORT1')">
+                          <input [value]="dataStep1B.PASSPORT1.value" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control file-upload-info" disabled="" id="PASSPORT1Data"
+                          />
+                          <span class="input-group-append">
+                                                        <button class="btn submit nextBtn" type="button">{{"import"|translate}}
+                                                          <i data-feather="upload" class="icon-lg" appFeatherIcon></i>
+                                                        </button>
+                                                    </span>
+                        </div>
+                        <p class="text-secondary" style=" margin: 8px 0; "[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{'type_of_files'|translate}}</p>
+                        <div class="text-danger" *ngIf="isFormSubmitted && validationForm1B.get('PASSPORT1').errors?.required">
+                          <small>{{ "RequiredField" | translate }}</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'file' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                        >{{ "PASSPORT_res" | translate }} 2</label>
+                        <input [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " (change)="handleFileInput($event,'PASSPORT2')" type="file" accept="image/jpeg,image/jpg,image/png,application/pdf" name="PASSPORT2[]" class="file-upload-default" id="PASSPORT2" />
+                        <div class="input-group col-xs-12" (click)="openFileBrowser('PASSPORT2')">
+                          <input [value]="dataStep1B.PASSPORT2.value" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control file-upload-info" disabled="" id="PASSPORT2Data"
+                          />
+                          <span class="input-group-append">
+                                                        <button class="btn submit nextBtn" type="button">{{"import"|translate}}
+                                                          <i data-feather="upload" class="icon-lg" appFeatherIcon></i>
+                                                        </button>
+                                                    </span>
+                        </div>
+                        <p class="text-secondary" style=" margin: 8px 0; "[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{'type_of_files'|translate}}</p>
+                        <div class="text-danger" *ngIf="isFormSubmitted && validationForm1B.get('PASSPORT2').errors?.required">
+                          <small>{{ "RequiredField" | translate }}</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6" *ngIf="dataStep1B.passportType=='TTRVOYGE'">
+                      <div class="form-group">
+                        <br/>
+                        <label  data-toggle="tooltip" [title]="( 'file' | translate )" class="control-label">{{ "F_EE_Procuration" | translate }}<span class="text-danger"> </span></label>
+                        <input [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " (change)="handleFileInput($event,'TITRE_VOYAGE')" type="file" accept="image/jpeg,image/jpg,image/png,application/pdf" name="TITRE_VOYAGE[]" class="file-upload-default" id="TITRE_VOYAGE" />
+                        <div class="input-group col-xs-12" (click)="openFileBrowser('TITRE_VOYAGE')">
+                          <input [value]="dataStep1B.TITRE_VOYAGE.value" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control file-upload-info" disabled="" placeholder="{{ 'TITRE_VOYAGE' | translate }}" id="TITRE_VOYAGEData"
+                          />
+                          <span class="input-group-append">
+                                                        <button class="btn submit nextBtn" type="button">{{"import"|translate}}
+                                                          <i data-feather="upload" class="icon-lg" appFeatherIcon></i>
+                                                        </button>
+                                                    </span>
+                        </div>
+                        <p class="text-secondary" style=" margin: 8px 0; "[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{'type_of_files'|translate}}</p>
+                        <div class="text-danger" *ngIf="isFormSubmitted && validationForm1B.get('TITRE_VOYAGE').errors?.required">
+                          <small>{{ "RequiredField" | translate }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer col-12" [ngStyle]=" this.languageService.userLanguage == 'ar' ? {
+                                        'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
+                                        <div class="mx-2 mt-2">
+                                            <button [disabled]="!disableLoadModal" type="button" class="btn btn-dange-muted-2 text-white" (click)="clearFom1b()"> <i data-feather="x" appFeatherIcon></i> </button>
+                                        </div>
+                                        <div class="mt-2 mx-2" *ngIf="this.dataStep1B.refForeignRepresented==null;else editbutton1b">
+                                            <button (click)="this.onAddData1B()" [disabled]="!disableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                        <i  data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <div class="table table-striped table-responsive" *ngIf="dataStep1BArray.length>0">
+                  <table class="table text-center" [ngStyle]="this.languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                    <thead>
+                    <tr>
+                      <th>{{ "fullname" | translate }}</th>
+                      <th>{{ "birthday" | translate }}</th>
+                      <th>{{ "F_NDE_Pays" | translate }}</th>
+                      <th>{{ "originNationality" | translate }}</th>
+                      <th>{{ "passportNumber" | translate }}</th>
+                      <th>{{ "typePassport" | translate }}</th>
+                      <th>{{ "passportExpiration" | translate }}</th>
+                      <th>
+                        {{ "F_OuvragesPourSalon_Actions" | translate }}
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="my-10" *ngFor=" let item of dataStep1BArray;let  index = index ">
+                      <td>{{ item.personName }}</td>
+                      <td>{{ item.birthDay }}</td>
+                      <td>{{ getLabelContries(item.birthCountry) }}</td>
+                      <td>{{ item.birthNationality }}</td>
+                      <td>{{ item.passportNumber }}</td>
+                      <td>{{ getLabelPassport(item.passportType) }}</td>
+                      <td>{{ item.passportExpiration }}</td>
+                      <td class="d-flex justify-content-center" id="actionsContainer">
+                        <span (click)="setEdit1B(item)" *ngIf='isLodedPage3!=item.refForeignRepresented ;else buttonLoader'><i data-feather="edit-2" appFeatherIcon></i></span>
+                        <span (click)=" deleteE1B( confirmRemove, index )"><i data-feather="x" appFeatherIcon></i></span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+          <!-- Page 3  -->
+          <aw-wizard-step (stepEnter)="page=3" [stepTitle]="('representedEditors' | translate )" *ngIf="dataStep1.hasMultipleRepresented">
+            <div *ngIf='page==3'>
+              <div id="modaleditadd3" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}">
+                <div class="modal-body row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_EE_NomMaisonEdition" | translate }}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.name" type="text" class="form-control" placeholder="{{ 'F_EE_NomMaisonEdition_Description' | translate }}" formControlName="name" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('name').errors }" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "
+                      />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('name').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'F_NDE_Pays' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_Pays" | translate }}<span class="text-danger"> *</span></label>
+                      <ng-select [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" placeholder="{{ 'F_NDE_Pays_Description' | translate }}" formControlName="country" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('country').errors }"
+                                 [(ngModel)]="dataStep2.country">
+                        <ng-option *ngFor="let country of countries" [value]="country.alpha2Code">{{ getLabelContries(country.alpha2Code) }}</ng-option>
+                      </ng-select>
+                      <div *ngIf="isFormSubmitted && validationForm2.get('country').errors?.required" class="invalid-feedback">
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'email' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{"F_NDE_Email" | translate}}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.email" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" type="email" class="form-control" placeholder="{{ 'F_NDE_Email_Description' | translate }}" formControlName="email" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('email').errors }"
+                      />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('email').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                      <div *ngIf="isFormSubmitted && validationForm2.get('email').errors?.email" class="invalid-feedback"> {{ "EmailField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'telephone' | translate )" class="control-label" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_Telephone" | translate }}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.phoneNumber" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="tel" class="form-control" placeholder="{{ 'F_NDE_Telephone_Description' | translate }}" formControlName="phoneNumber"
+                             prefix="+{{ getNumberCodeForm2 }} " mask="0 00 00 00 00" [showMaskTyped]="true" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('phoneNumber').errors }" />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('phoneNumber').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_PersonInCharge" | translate }}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.responsibleName" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control" placeholder="{{ 'F_NDE_PersonInCharge_Description' | translate }}" formControlName="responsibleName"
+                             [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('responsibleName').errors }" />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('responsibleName').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'telephone' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_Fax" | translate }}<span class="text-danger"> *</span></label>
+                      <input type="text" [(ngModel)]="dataStep2.fax" class="form-control" prefix="+{{ getNumberCodeForm2 }} " mask="0 00 00 00 00" [showMaskTyped]="true" class="form-control" [ngStyle]="this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } "
+                             placeholder="{{ 'F_NDE_Fax_Description' | translate }}" formControlName="fax" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('fax').errors }" />
+                      <div *ngIf="isFormSubmitted && validationForm2.get('fax').errors?.required" class="invalid-feedback">
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_Address" | translate }}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.address" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control" placeholder="{{ 'F_NDE_Address_Description' | translate }}" formControlName="address" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('address').errors }"
+                      />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('address').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label">{{ "F_EE_SiteWeb" | translate }}</label>
+                      <input [(ngModel)]="dataStep2.webSite" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control" placeholder="{{ 'F_EE_SiteWeb_Description' | translate }}" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'text' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_EE_Specialite" | translate }}<span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.specialization" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control" placeholder="{{ 'F_EE_Specialite_Description' | translate }}" formControlName="specialization"
+                             [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('specialization').errors }" />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('specialization').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'number' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_NumberEditionsOtherLangs" | translate }}
+                        <span>{{ currentYear }}</span><span class="text-danger"> *</span></label>
+                      <input [(ngModel)]="dataStep2.numberForeignPublishing" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="number" class="form-control" placeholder="{{ 'F_NDE_NumberEditionsOtherLangs_Description' | translate }}"
+                             formControlName="numberForeignPublishing" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('numberForeignPublishing').errors }" />
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('numberForeignPublishing').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'F_NDE_ActivityBranch' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_NDE_ActivityBranch" | translate }}<span class="text-danger"> *</span></label>
+                      <ng-select [(ngModel)]="dataStep2.activityBranches" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [multiple]="true" [searchable]="true" placeholder="{{ 'F_NDE_ActivityBranch_Description' | translate }}"
+                                 formControlName="activityBranches" [ngClass]="{ 'is-invalid': isFormSubmitted && validationForm2.get('activityBranches').errors }">
+                        <ng-option *ngFor="let branche of branches" [value]="branche.id">{{getLabelBranches(branche.id)}}</ng-option>
+                      </ng-select>
+                      <div *ngIf=" isFormSubmitted && validationForm2.get('activityBranches').errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'file' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{ "F_EE_Procuration" | translate }}<span class="text-danger"> *</span></label>
+                      <input [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " (change)="handleFileInputPSP($event)" type="file" accept="image/jpeg,image/jpg,image/png,application/pdf" name="psp[]" class="file-upload-default" id="psp" />
+                      <div class="input-group col-xs-12" (click)="openFileBrowser('psp')">
+                        <input [value]="dataStep2.filename" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " type="text" class="form-control file-upload-info" disabled="" placeholder="{{ 'F_EE_Procuration_Description' | translate }}" id="pspData"
+                        />
+                        <span class="input-group-append">
+                                                    <button class="btn submit nextBtn" type="button">{{"import"|translate}}
+                                                      <i data-feather="upload" class="icon-lg" appFeatherIcon></i>
+                                                    </button>
+                                                </span>
+                      </div>
+                      <p class="text-secondary" style=" margin: 8px 0; "[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{'type_of_files'|translate}}</p>
+                      <div class="text-danger" *ngIf="isFormSubmitted && validationForm2.get('img').errors?.required">
+                        <small>{{ "RequiredField" | translate }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer" [ngStyle]=" this.languageService.userLanguage == 'ar' ? {
+                                    'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
+                                    <div class="mx-2 mt-2">
+                                        <button [disabled]="!disableLoadModal" type="button" class="btn btn-dange-muted-2 text-white" (click)="clearFom2()"> <i data-feather="x" appFeatherIcon></i> </button>
+                                    </div>
+
+                                    <div class="mt-2 mx-2" *ngIf="this.dataStep2.refPublisherRepresented==null;else editbutton">
+                                        <button (click)="this.onAddData2()" [disabled]="!disableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                      <i   data-feather="plus-circle" appFeatherIcon></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}" >
+                <div class="table table-striped table-responsive" *ngIf="dataStep2Array.length>0">
+                  <table class="table text-center" [ngStyle]="this.languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                    <thead>
+                    <tr>
+                      <th>{{ "F_EE_NomMaisonEdition" | translate }}</th>
+                      <th>{{ "F_NDE_Email" | translate }}</th>
+                      <th>{{ "F_NDE_Telephone" | translate }}</th>
+                      <th>{{ "F_NDE_PersonInCharge" | translate }}</th>
+                      <th>{{ "F_NDE_Fax" | translate }}</th>
+                      <th>{{ "F_NDE_Address" | translate }}</th>
+                      <th>{{ "F_EE_Specialite" | translate }}</th>
+                      <th>
+                        {{ "F_NDE_NumberEditionsOtherLangs" | translate }}
+                      </th>
+                      <th>{{ "F_NDE_ActivityBranch" | translate }}</th>
+                      <th>
+                        {{ "F_OuvragesPourSalon_Actions" | translate }}
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="my-10" *ngFor=" let item of dataStep2Array; index as i ">
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.email }}</td>
+                      <td>{{ item.phoneNumber }}</td>
+                      <td>{{ item.responsibleName }}</td>
+                      <td>{{ item.fax }}</td>
+                      <td>{{ item.address }}</td>
+                      <td>{{ item.specialization }}</td>
+                      <td>{{ item.numberForeignPublishing }}</td>
+                      <td>
+                                                    <span *ngFor="let b of item.activityBranches">{{ showBranches(b) }}
+                                                </span>
+                      </td>
+                      <td class="d-flex justify-content-center" id="actionsContainer">
+                        <span (click)="setEditEditeurRepresente(item)" *ngIf='isLodedPage3!=item.refPublisherRepresented ;else buttonLoader'><i data-feather="edit-2" appFeatherIcon></i></span>
+                        <span (click)=" deleteEditeurRepresente( confirmRemove, i )"><i data-feather="x" appFeatherIcon></i></span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+          <!-- page 4 -->
+          <aw-wizard-step (stepEnter)="page=4" [stepTitle]="('LivresPourSalon' | translate )">
+            <div *ngIf="page==4">
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end','text-align': 'right', 'direction': 'ltr'}" id="table-fields" >
+                <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end','text-align': 'right'}" >
+                  <div class="col-md-12 stretch-card">
+                    <div class="card my-4">
+                      <div class="card-body">
+                        <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                          <div class="w-100 row mx-auto d-flex justify-content-center" id="csv-btns" [ngStyle]=" this.languageService.userLanguage == 'ar' && {'text-align': 'right','direction':'rtl'}">
+                            <div class="col-6">
+                              <p class="card-title d-flex justify-content-center text-center">
+                                {{ "upload_ouvrage" | translate }}
+                              </p>
+                              <div class="m-2" style=" display: flex; justify-content: center; ">
+                                <input hidden type="file" id="uploadModelPublicationFile" class="invisible" accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                 onclick="this.value = null" (change)="uploadModelPublication($event)" />
+                                <button type="button" class="btn submit attachBtn" (click)="handleFileInputCsvUpload($event)">
+                                  <span>{{ "import" | translate }}</span>
+                                  <i data-feather="upload" appFeatherIcon></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <p class="card-title d-flex justify-content-center text-center">
+                                {{ "telech_ouvrage" | translate }}
+                              </p>
+                              <div class="m-2" style=" display: flex; justify-content: center; ">
+                                <a download="true" (click)="downloadModelPublication()">
+                                  <button type="button" class="btn submit nextBtn">
+                                    <span>{{ "download_ouvrage" | translate }}</span>
+                                    <i data-feather="download" appFeatherIcon></i>
+                                  </button>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="card-title d-flex justify-content-center text-center">
+                                            {{ "ou" | translate }}
+                                        </p>
+                                        <p class="card-title d-flex justify-content-center text-center">
+                                            {{ "utl_cette_form" | translate }}
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label data-toggle="tooltip" [title]="( 'text' | translate )" for="" class="from-group" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{"F_OuvragesPourSalon_Auteur" | translate}}<span class="text-danger"> *</span></label>
+                                            <input type="text" class="form-control" [(ngModel)]="dataPublicationStep.author" formControlName="author" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_TitreLivre" | translate}}<span class="text-danger"> *</span></label>
+                                            <input type="text" class="form-control" formControlName="title" [(ngModel)]="dataPublicationStep.title" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_Editeur" | translate}}<span class="text-danger"> *</span></label>
+                                            <input type="text" class="form-control" formControlName="publisher" [(ngModel)]="dataPublicationStep.publisher" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'number' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_AnneePublication" | translate}}<span class="text-danger"> *</span></label>
+                                            <input type="number" min="1900" max="2099" class="form-control" formControlName="publishingDate" [(ngModel)]="dataPublicationStep.publishingDate" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label data-toggle="tooltip" [title]="( 'number' | translate )" for="" class="from-group" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{"F_OuvragesPourSalon_NombreExemplaire" | translate }}<span class="text-danger"> *</span></label>
+                                            <input type="number" class="form-control" formControlName="copiesNbr" [(ngModel)]="dataPublicationStep.copiesNbr" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'number' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_PrixEnDH" | translate }}<span class="text-danger"> *</span></label>
+                                            <input type="number" class="form-control" formControlName="amout" [(ngModel)]="dataPublicationStep.amout" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'number' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_SpecialiteSelonDewey" | translate }}<span class="text-danger"> *</span></label>
+                                            <input type="text" class="form-control" formControlName="speciality" [(ngModel)]="dataPublicationStep.speciality" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_DepotLegal" | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="legalDeposit" [(ngModel)]="dataPublicationStep.legalDeposit" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } " data-toggle="tooltip" [title]="( 'text' | translate )" for="" class="from-group">{{"F_OuvragesPourSalon_ISBN"|translate}}<span class="text-danger"> *</span></label>
+                                            <input type="text" class="form-control" formControlName="isbn" [(ngModel)]="dataPublicationStep.isbn" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right', direction: 'ltr'}" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="w-100 row mx-auto" [ngStyle]=" this.languageService.userLanguage == 'ar' ? {
+                                    'text-align': 'right',  display: 'flex','justify-content': 'flex-start' }: { display: 'flex', 'justify-content': 'flex-end' }">
+                                <div class="m-2" *ngIf="!editiPublication">
+                                    <button type="button" class="btn btn-primary submit saveBtn" (click)="addnewPublication()">
+                    <i data-feather="plus-circle" appFeatherIcon></i>
+                  </button>
+                                </div>
+                                <div class="m-2" *ngIf="editiPublication">
+                                    <button type="button" class="btn submit btn-primary" (click)="updatePublication()">
+                    <i data-feather="save" appFeatherIcon></i>
+                  </button>
+                                </div>
+                                <div class="m-2">
+                                    <button type="button" class="btn btn-dange-muted-2 text-white" (click)="clearFormPublication()">
+                    <i data-feather="x" appFeatherIcon></i>
+                  </button>
+                </div>
+              </div>
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <div class="table table-striped table-responsive" *ngIf="dataPublicationArray.length>0">
+                  <table class="table text-center" [ngStyle]="this.languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                    <thead>
+                    <tr>
+                      <th>{{ "F_OuvragesPourSalon_Auteur" | translate }}</th>
+                      <th>{{ "F_OuvragesPourSalon_TitreLivre" | translate }}</th>
+                      <th>{{ "F_OuvragesPourSalon_Editeur" | translate }} </th>
+                      <th>{{ "F_OuvragesPourSalon_AnneePublication" | translate }}</th>
+                      <th>{{ "F_OuvragesPourSalon_NombreExemplaire" | translate }}</th>
+                      <th>{{ "F_OuvragesPourSalon_PrixEnDH" | translate }}</th>
+                      <th>{{ "F_OuvragesPourSalon_SpecialiteSelonDewey" | translate }}</th>
+                      <th>{{ "F_OuvragesPourSalon_DepotLegal" | translate }}</th>
+                      <th>{{"F_OuvragesPourSalon_ISBN"|translate}}</th>
+                      <th>{{ "F_OuvragesPourSalon_Actions" | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let pub of dataPublicationArray; index as i">
+                      <td>{{ pub.author }}</td>
+                      <td>{{ pub.title }}</td>
+                      <td>{{ pub.publisher }}</td>
+                      <td>{{ pub.publishingDate}}</td>
+                      <td>{{ pub.copiesNbr }}</td>
+                      <td>{{ pub.amout }}</td>
+                      <td>{{ pub.speciality }}</td>
+                      <td>{{ pub.legalDeposit }}</td>
+                      <td>{{ pub.isbn }}</td>
+                      <td class="d-flex justify-content-between" id="actionsContainer">
+                        <span (click)="setUpdatePublication(pub)"><i data-feather="edit-2" appFeatherIcon></i></span>
+                        <span (click)="removePublication(pub.refPublication, confirmRemove)"><i data-feather="x" appFeatherIcon></i></span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+          <!-- Page 5 -->
+          <aw-wizard-step (stepEnter)="page=5" [stepTitle]="('F_DemandeStand' | translate )">
+            <div *ngIf="page==5"  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
+              <div class="col-12">
+                <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">{{ "F_DemandeStand_Categorie" | translate }}</p>
+              </div>
+              <div class="col-sm-6" [ngClass]="{ 'offset-sm-6': this.languageService.userLanguage == 'ar' }">
+                <div class="form-group">
+                  <label data-toggle="tooltip" [title]="( 'F_DemandeStand_Categorie' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                  >{{ "F_DemandeStand_Categorie" | translate }}<span class="text-danger"> *</span></label>
+                  <ng-select [disabled]  [(ngModel)]="dataStep4.category" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } " [searchable]="true" placeholder="{{ 'F_DemandeStand_Categorie_Description' | translate }}" formControlName="category"
+                             [ngClass]="{ 'is-invalid': isFormSubmitted && form.category.errors }">
+                    <ng-option *ngFor="let typeStand of typesStand" [value]="typeStand.id">{{ getLabelStand(typeStand.id)}}</ng-option>
+                  </ng-select>
+                  <div *ngIf=" isFormSubmitted && form.category.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">{{ "F_DemandeStand_ModePaiement" | translate }}</p>
+              </div>
+              <div class="col-sm-6" [ngClass]="{ 'offset-sm-6': this.languageService.userLanguage == 'ar' }">
+                <div class="form-group">
+                  <label data-toggle="tooltip" [title]="( 'F_DemandeStand_ModePaiement' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                  >{{ "F_DemandeStand_ModePaiement" | translate }}<span class="text-danger"> *</span></label>
+                  <ng-select [(ngModel)]="dataStep4.paymentMethod" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction':'rtl' } " [searchable]="true" placeholder="{{ 'F_DemandeStand_ModePaiement_Description' | translate }}" formControlName="paymentMethod"
+                             [ngClass]="{ 'is-invalid': isFormSubmitted && form.paymentMethod.errors }">
+                    <ng-option *ngFor="let mp of modesPaiement" [value]="mp.id">{{ getLabelPaiement(mp.id) }}</ng-option>
+                  </ng-select>
+                  <div *ngIf=" isFormSubmitted && form.paymentMethod.errors?.required " class="invalid-feedback"> {{ "RequiredField" | translate }} </div>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+                    <!-- Page 6 -->
+                    <aw-wizard-step (stepEnter)="page=6" [stepTitle]="('F_PropositionActivite' | translate )">
+                        <div *ngIf="page==6">
+
+              <div  class="row"  id="modaleditadd5" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <ng-container *ngFor="let d of inputsStep5;let i=index">
+                  <div *ngIf="i==0" class="col-12"><br/>
+                    <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">{{ "editionInfo" | translate }}</p>
+                  </div>
+                  <div *ngIf="i==3" class="col-12"><br/>
+                    <p class="card-title" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">{{ "InformationsBibliographiques" | translate }}</p>
+                  </div>
+                  <div *ngIf="i==1" class="col-sm-6" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( 'date' | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                   >{{"F_PropositionActivite_DateProposee" | translate}}</label>
+                      <input [ngModel]=" dataStep5.proposedDate | date:'yyyy-MM-dd' " (ngModelChange)="onChangeDate($event)" type="date" class="form-control" placeholder="{{ '_PropositionActivite_DateProposee_Description' | translate }}" formControlName="proposedDate" min="3"
+                             [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','flex-direction': 'row-reverse' } " />
+                      <!-- <div class="invalid-feedback">
+                        {{ (getErrorInputs('proposedDate')) | translate }}
+                      </div> -->
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
+                    <div class="form-group">
+                      <label data-toggle="tooltip" [title]="( d.type | translate )" class="control-label"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } ">{{d.label | translate}}</label>
+                      <input [(ngModel)]="dataStep5[d.formControlName]" [type]="d.type" class="form-control" placeholder="{{ d.placeHolder| translate }}" formControlName="{{ d.formControlName }}" min="3"
+                             [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } " />
+                      <!-- <div class="invalid-feedback">
+                        {{ (getErrorInputs(d.formControlName)) | translate }}
+                      </div> -->
+                    </div>
+                  </div>
+                  <div class="col-sm-6" *ngIf="i==2" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right' } ">
+                    <div class="form-group">
+                      <label class="control-label" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'display':'flex', 'flex-direction': 'row-reverse' } "
+                      >{{"F_PropositionActivite_LieuActivite" | translate}}</label>
+                      <div class="form-group d-flex align-items-center" [ngStyle]="this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                        <div class="form-check mx-1 mb-0">
+                          <label class="form-check-label mb-0">
+                            <input class="mb-0" type="radio" class="form-check-input" name="activityPlace"
+                                   [(ngModel)]="dataStep5.activityPlace" formControlName="activityPlace" value="1" checked="true" />
+                            <i class="input-frame"></i>
+                            {{getLabelActivityPlace("1")}}
+                          </label>
+                                                </div>
+                                                <div class="form-check mx-1 mb-0">
+                                                    <label class="form-check-label mb-0">
+                            <input class="mb-0" type="radio" class="form-check-input" name="activityPlace"
+                                   [(ngModel)]="dataStep5.activityPlace" formControlName="activityPlace" value="2" />
+                            <i class="input-frame"></i>
+                            {{getLabelActivityPlace("2")}}
+                          </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </ng-container>
+                                <div class="modal-footer col-12">
+                                    <div class="mx-2 mt-2">
+                                        <button [disabled]="!disableLoadModal" type="button" class="btn btn-dange-muted-2 text-white" (click)="clearFom5()"> <i data-feather="x" appFeatherIcon></i> </button>
+                                    </div>
+                                    <div class="mt-2 mx-2" *ngIf="this.dataStep5.refActivityProposal==null;else editbutton2">
+                                        <button (click)="this.onAddData5()" [disabled]="!disableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary saveBtn">
+                      <i   data-feather="plus-circle" appFeatherIcon></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div  class="row" [ngStyle]=" this.languageService.userLanguage == 'ar' &&{'justify-content': 'flex-end'}">
+                <div class="table table-striped table-responsive" *ngIf="dataStep5Array.length>0">
+                  <table class="table text-center" [ngStyle]="this.languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+                    <thead>
+                    <tr>
+                      <th>{{"F_PropositionActivite_DateProposee" |translate}}</th>
+                      <th>{{"F_PropositionActivite_Theme" |translate}}</th>
+                      <th>{{"F_PropositionActivite_Participants" |translate}}</th>
+                      <th>{{"F_PropositionActivite_TitreLivre" |translate}}</th>
+                      <th>{{"F_OuvragesPourSalon_Auteur" |translate}}</th>
+                      <th>{{"F_NDE_PublishingHouse" |translate}}</th>
+                      <th>{{"F_PropositionActivite_AnneeEdition" |translate}}</th>
+                      <th>{{"F_OuvragesPourSalon_Editeur" |translate}}</th>
+
+
+                      <th>{{ "F_OuvragesPourSalon_Actions" | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="my-10" *ngFor=" let item of dataStep5Array; index as i ">
+                      <td>{{ item.proposedDate | date:'yyyy-MM-dd'}}</td>
+                      <td>{{ item.topic }}</td>
+                      <td>{{ item.participants }}</td>
+                      <td>{{ item.bookTitle }}</td>
+                      <td>{{ item.author }}</td>
+                      <td>{{ item.publishingHouse }}</td>
+                      <td>{{ item.publishingYear }}</td>
+                      <td>{{ item.editeur }}</td>
+
+                      <td class="d-flex justify-content-center" id="actionsContainer">
+                        <span  (click)="setEditElementPage5(item)"><i data-feather="edit-2" appFeatherIcon></i></span>
+                        <span (click)="deleteElementPage5(confirmRemove,i)"><i data-feather="x" appFeatherIcon></i></span>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </aw-wizard-step>
+
+          <!-- Page 7-->
+          <aw-wizard-step (stepEnter)="page=7" [stepTitle]="('ValidateRequest' | translate )">
+            <div *ngIf="page==7" style=" text-align: center; ">
+                <h5 style=" margin: 25px 0; " class="modal-title">{{"ValidateRequest" | translate}}</h5>
+                <p>{{"validationDemande"|translate}}</p>
+                <br/>
+            </div>
+          </aw-wizard-step>
+
+        </aw-wizard>
+        <br/>
+        <!-- Next Back Button -->
+        <div  class="row"  *ngIf="this.languageService.userLanguage == 'ar'">
+
+                    <div class="m-2" *ngIf="page<7;else btnDone">
+                        <button [disabled]="isDisabled" type="submit" style="min-height: 40px;" class="btn submit nextBtn mx-auto" [ngClass]="{'disabled': isDisabled }">
+              <span [ngStyle]="isDisabled&&{'display':'none'}" ><i [attr.data-feather]="languageService.userLanguage != 'ar'?'arrow-right':'arrow-left'" appFeatherIcon></i></span>
+              <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span>{{ "Next" | translate }}</span>
+            </button>
+          </div>
+          <div class="m-2">
+            <button type="button" style="min-height: 40px;" *ngIf="(page!=0)" [disabled]="isDisabled" class="btn button backBtn mx-auto" (click)="previousPage()">
+              <span>{{ "Back" | translate }}</span>
+              <i [attr.data-feather]="languageService.userLanguage == 'ar'?'arrow-right':'arrow-left'" appFeatherIcon></i>
+            </button>
+                    </div>
+                </div>
+                <div class="row" *ngIf="this.languageService.userLanguage == 'fr'" [ngStyle]="this.languageService.userLanguage == 'fr' && {direction: 'rtl' }">
+
+                    <div class="m-2" *ngIf="page<7;else btnDone">
+                        <button [disabled]="isDisabled" type="submit" style="min-height: 40px;" class="btn submit nextBtn mx-auto" [ngClass]="{'disabled': isDisabled }">
+              <span [ngStyle]="isDisabled&&{'display':'none'}" ><i [attr.data-feather]="languageService.userLanguage == 'fr'?'arrow-right':'arrow-left'" appFeatherIcon></i></span>
+              <span [ngStyle]="!isDisabled&&{'display':'none'}" style=" margin: 3px 2px;"  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span>{{ "Next" | translate }}</span>
+            </button>
+                    </div>
+                    <div class="m-2">
+                        <button type="button" style="min-height: 40px;" *ngIf="(page!=0)" [disabled]="isDisabled" class="btn button backBtn mx-auto" (click)="previousPage()">
+              <span>{{ "Back" | translate }}</span>
+              <i [attr.data-feather]="languageService.userLanguage != 'fr'?'arrow-right':'arrow-left'" appFeatherIcon></i>
+
+            </button>
+                    </div>
+                </div>
+
+
+
+
+            </form>
+            <div class="loader_container" *ngIf="!isLoded || !isLodedAllPage">
+                <div class="spinner-border text-primary" role="status">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #buttonLoader>
+    <span style=" margin: 3px 2px;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+</ng-template>
+
+<ng-template #confirmRemove let-modal>
+    <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLabel">{{"deleted" | translate}}</h5>
+
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <p>{{"confirmDelete"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"close" | translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"delete" | translate}}
+    </button>
+    </div>
+</ng-template>
+
+<ng-template #validateInscription let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{"ValidateRequest" | translate}}</h5>
+        <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <p>{{"validationDemande"|translate}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">
+      {{"cancel"|translate}}
+    </button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      {{"validate" |translate}}
+    </button>
+    </div>
+</ng-template>
+
+
+
+<ng-template #editbutton1b>
+    <div class="mt-2 mx-2">
+        <button (click)="this.onAddData1B()" [disabled]="!disableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary">
+      <i   data-feather="save" appFeatherIcon></i>
+    </button>
+    </div>
+</ng-template>
+<ng-template #editbutton>
+    <div class="mt-2 mx-2">
+        <button (click)="this.onAddData2()" [disabled]="!disableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary">
+      <i   data-feather="save" appFeatherIcon></i>
+    </button>
+    </div>
+</ng-template>
+<ng-template #editbutton2>
+    <div class="mt-2 mx-2">
+        <button (click)="this.onAddData5()" [disabled]="!disableLoadModal" style=" min-height: 43px; " type="button" class="btn btn-primary">
+      <i   data-feather="save" appFeatherIcon></i>
+    </button>
+    </div>
+</ng-template>
+<ng-template #btnDone>
+    <div class="m-2">
+
+        <button type="button" style="min-height: 40px;" class="btn submit validateButton disabled" [ngStyle]="this.languageService.userLanguage == 'fr' && {direction: 'rtl' }" (click)="valideDemande(validateInscription)">
+      <i data-feather="check" *ngIf="this.languageService.userLanguage == 'ar'" appFeatherIcon ></i>
+      <span>{{"Valider"|translate}}</span>
+      <i data-feather="check" *ngIf="this.languageService.userLanguage == 'fr'" appFeatherIcon></i>
+    </button>
+    </div>
+</ng-template>
+
+<ng-template #csvSrvFileErrors let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" [ngStyle]="this.languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+            {{"F_OuvragesPourSalob_Erreurs_Import" |translate}}
+        </h5>
+    </div>
+    <div class="modal-body" id="csvErrModal" [ngStyle]="this.languageService.userLanguage == 'ar' && {direction: 'rtl' }">
+        <p class="alert alert-danger mx-2" *ngFor="let item of erreurImportPublication">
+            {{"F_OuvragesPourSalob_Erreurs_Import_ligne" | translate}} : {{ item.ligne }} {{ item.msg }}
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('close')">{{ "close" | translate }}</button>
+    </div>
+</ng-template>
+
+<ng-template #xlModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+    <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style=" max-height: 70vh; overflow: auto; ">
+    <div id="output"></div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" [disabled]="isDisabled" (click)="donwloadHtmlToPdf()">
+      <span [ngStyle]="isDisabled&&{'display':'none'}" ><i [attr.data-feather]="languageService.userLanguage != 'ar'?'arrow-right':'arrow-left'" appFeatherIcon></i></span>
+      {{"download" |translate}}
+    </button>
+  </div>
+</ng-template>

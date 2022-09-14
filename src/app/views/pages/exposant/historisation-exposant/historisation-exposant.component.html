@@ -1,0 +1,72 @@
+<!--<p
+  class="h5 mb-4"
+>
+  Liste des demandes
+</p>
+
+<div class="card" *ngFor="let element of editionPublication; index as i">
+  <div class="card-body">
+    <div class="mb-2 d-flex align-items-center">
+      <p>{{ element.edition.name }} réservation du {{element.bookingStand.volumeInCubicMeter}}m3</p>
+      <button
+        type="button"
+        class="btn btn-outline-primary ml-2"
+        (click)="true"
+        [attr.aria-expanded]="true"
+        aria-controls="collapseExample"
+      >
+        Afficher
+      </button>
+    </div>
+    <div id="collapseExample" [ngbCollapse]="i!=0">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive card my-1">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th>AUTEUR</th>
+                  <th>TITRE LIVRE</th>
+                  <th>EDITEUR</th>
+                  <th>ANNEE PUBLICATION</th>
+                  <th>NOMBRE D'EXEMPLAIRES</th>
+                  <th>PRIX EN DIRHAMS</th>
+                  <th>SPECIALITE SELON DEWEY</th>
+                  <th>DEPOT LEGAL</th>
+                  <th>ISBN</th>
+                  <th>COLIS</th>
+                  <th>STATUS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of element.publications.content">
+                  <td>{{ item.author }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.publisher }}</td>
+                  <td>{{ item.publishingDate }}</td>
+                  <td>{{ item.copiesNbr }}</td>
+                  <td>{{ item.amout }}</td>
+                  <td>{{ item.speciality }}</td>
+                  <td>{{ item.legalDeposit }}</td>
+                  <td>{{ item.isbn }}</td>
+                  <td>{{ item.colis }}</td>
+                  <td>{{ item.status }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="w-100 d-flex justify-content-center mt-5" *ngIf="element.publications.pageDetails.totalPages!=1">
+          <ngb-pagination
+            [collectionSize]="element.publications.pageDetails.totalPages"
+            [pageSize]="1"
+            [(page)]="element.publications.pageDetails.currentPage"
+            aria-label="Default pagination"
+            (pageChange)="publicationsPaginationChange($event,i)"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

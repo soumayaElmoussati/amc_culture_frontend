@@ -1,0 +1,154 @@
+<h5 class="mb-3 mx-2">Liste des Stands</h5>
+<div class="col-md-12 stretch-card">
+  <div class="card">
+    <div class="card-body" *ngIf="bookingStandPagination.totalPages>0">
+    
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+                <th>Nom de l'exposant'</th>
+                <th>Ville</th>
+                <th>Responsable</th>
+                <th>Nombre de Publication</th>
+                <th>Volume Réserver du Stand</th>
+                <th>Catégorie du Stand</th>
+                <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of bookingStand; index as i"
+            >
+                <td>{{ item.exhibitor.publishingHouseName }}</td>
+                <td>{{ getCountry(item.exhibitor.country) }}</td>
+                <td>{{ item.exhibitor.responsibleManagerName }}</td>
+                <td>{{ item.nbrPublications }}</td>
+                <td *ngIf="item.bookingStand.status == 'PENDING'">
+                  <input class="form-control" type="number" [(ngModel)]="item.bookingStand.volumeInCubicMeter"/>
+                </td>
+                <td *ngIf="item.bookingStand.status != 'PENDING'">{{item.bookingStand.volumeInCubicMeter}}</td>
+                <td>{{ getStandLibelle(item.bookingStand.category) }}</td>
+                <td>
+                  <mat-icon id="valider"
+                  *ngIf="item.bookingStand.status == 'PENDING'"
+                  class="icon-color"
+                  fontSet="material-icons-outlined"
+                  (click)="
+                    openAcceptedDemande(
+                      confirmValidation,
+                      item.exhibitor.refExhibitor,
+                      item.bookingStand.refBookingStand,
+                      item.bookingStand.volumeInCubicMeter
+                    )
+                  "
+                  placement="top"
+                  ngbTooltip="Valider la demande"
+                >
+                  done
+                </mat-icon>
+
+                <mat-icon id="refuser"
+                  *ngIf="item.bookingStand.status == 'PENDING'"
+                  class="icon-color" fontSet="material-icons-outlined"
+                  (click)=" openAcceptedDemande(confirmValidation1,item.exhibitor.refExhibitor,
+                      item.bookingStand.refBookingStand,item.bookingStand.volumeInCubicMeter) "
+                  placement="top"
+                  ngbTooltip="Refuser la demande"
+                >
+                clear
+                </mat-icon>
+
+                <mat-icon id="mail"
+                  *ngIf="item.bookingStand.status != 'PENDING'"
+                  class="icon-color" fontSet="material-icons"
+                  (click)=" sendEmail(item.bookingStand.refBookingStand) "
+                  placement="top"
+                  ngbTooltip="Envoyer un mail"
+                >
+                markunread
+                </mat-icon>
+
+                </td>
+         
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="w-100 d-flex justify-content-center mt-5">
+      <ngb-pagination
+        *ngIf="bookingStandPagination.totalPages>1"
+        [collectionSize]="bookingStandPagination.totalPages"
+        [pageSize]="1"
+        [(page)]="bookingStandPagination.number"
+        aria-label="Default pagination"
+        (pageChange)="bookingStandPaginationChange($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #confirmValidation let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Demande de Réservation du Stand</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment accepter cette demande réservationdu stand?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('accepter')">
+      valider
+    </button>
+  </div>
+</ng-template> 
+
+
+<ng-template #confirmValidation1 let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Demande de Réservation du Stand</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment refuser cette demande réservationdu stand?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('refuser')">
+      valider
+    </button>
+  </div>
+</ng-template>

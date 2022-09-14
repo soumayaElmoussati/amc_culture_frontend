@@ -1,0 +1,186 @@
+
+<div class="col-md-10 offset-md-1">
+    <div class="card">
+        <div class="text-center card-header">
+          <div class="row">
+            <div class="col-sm-3  offset-md-3"><h5>{{ "F_NDE_PublishingHouse" | translate }}</h5></div>
+            <div class="col-sm-3 text-left"><h6>: {{exhibitor.publishingHouseName}}</h6></div>
+         </div>
+         <div class="row">
+          <div class="col-sm-3 offset-md-3" ><h5>{{ "F_NDE_PersonInCharge" | translate }}</h5></div>
+          <div class="col-sm-3 text-left"><h6>: {{exhibitor.responsibleManagerName}}</h6></div>
+           </div>
+
+        </div>
+
+
+      <div class="card-body">
+        <div class="row custom" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6 >{{"F_OuvragesPourSalon_Auteur" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.author}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6 >{{"F_OuvragesPourSalon_TitreLivre" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.title}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div class="row"></div>
+        <div class="row custom" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6 >{{"F_OuvragesPourSalon_Editeur" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.publisher}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6 >{{"F_OuvragesPourSalon_AnneePublication" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.publishingDate}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div class="row"></div>
+
+        <div class="row custom" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-6"><h6 >{{"F_OuvragesPourSalon_NombreExemplaire" | translate}}</h6></div>
+              <div class="col-sm-6">: {{publication.copiesNbr}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6 >ISBN</h6></div>
+                <div class="col-sm-6">: {{publication.isbn}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div class="row"></div>
+
+        <div class="row custom" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6>{{"F_OuvragesPourSalon_PrixEnDH" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.amout}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6>{{"F_OuvragesPourSalon_SpecialiteSelonDewey" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.speciality}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div class="row"></div>
+
+        <div class="row custom" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6>{{"F_OuvragesPourSalon_DepotLegal" | translate}}</h6></div>
+                <div class="col-sm-6">: {{publication.legalDeposit}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6"><h6>{{ "F_OuvragesPourSalon_Colis" | translate }}</h6></div>
+                <div class="col-sm-6">: {{publication.colis}}</div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+
+       
+      </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="form-row" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                <div class="form-group col-sm-6">
+                  <label class="control-label">Oui</label>
+                  <input type="number" class="form-control" [(ngModel)]="votePublication.nbrAccepted"
+                    min="0"  (change)="checkSubmitData()"
+                    [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'} "/>
+                  
+                </div>
+
+                <div class="form-group col-sm-6">
+                  <label class="control-label">Non</label>
+                  <input type="number" class="form-control" min="0" [(ngModel)]="this.votePublication.nbrDenied" (change)="checkSubmitData()"
+                    [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}"/>
+                  <div
+                    
+                    class="invalid-feedback"
+                  >
+                    {{ "RequiredField" | translate }}
+                  </div>
+                </div>
+              
+            </div>
+    
+            <div
+              class="row"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+              <div class="col-sm-12" >
+                <div class="form-group" *ngIf="deniedReason">
+                  <label class="control-label">Motif de rejet</label>
+                  <textarea type="text" class="form-control" placeholder="Entrez le motif de rejet" [(ngModel)]="votePublication.deniedReason"
+                    min="0" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" (change)="checkSubmitData()">
+                </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-2 text-center">
+                    <button type="submit" [disabled]="isValid" class="btn btn-primary submit"
+                    [ngStyle]="this.languageService.userLanguage != 'ar'? {display: 'block'}
+                        : { display: 'none' }" (click)="accepter()" >
+                        <span>Accepter</span>
+                        <i data-feather="check-circle" appFeatherIcon></i>
+                    </button>
+                </div>
+                <div class="col-md-4 text-center">
+                    <button type="submit" [disabled]="isRefused" class="btn btn-danger submit"
+                    [ngStyle]="this.languageService.userLanguage != 'ar'? {display: 'block'}
+                        : { display: 'none' }" (click)="refuser()" >
+                        <span>Refuser</span>
+                        <i data-feather="x-circle" appFeatherIcon></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 offset-md-9 text-center">
+                    <button type="submit" [disabled]="isSending" class="btn submit saveBtn" 
+                     [ngStyle]="this.languageService.userLanguage != 'ar'? {display: 'block'}
+                        : { display: 'none' }" (click)="voteAndGetNextOne()">
+                    <span>Sauvegarder</span>
+                    <i data-feather="save" appFeatherIcon></i>
+                  </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+      </div>
+  </div>

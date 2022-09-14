@@ -1,0 +1,1995 @@
+<p class="h5 mb-4">Nouvelle demande pour le Prix du Maroc du Livre</p>
+
+<div class="">
+  <div class="card">
+    <div
+      class="card-body"
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+      "
+    >
+      <aw-wizard #wizardForm>
+        <aw-wizard-step stepTitle="Infromations générales" class="pt-4">
+          <form (ngSubmit)="form1Submit()" [formGroup]="validationForm1">
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS PERSONNELLES</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nom en Français<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          type="text"
+                          [(ngModel)]="dataStep1A.lastName"
+                          class="form-control"
+                          placeholder="Entrez votre nom en Français"
+                          formControlName="lastName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.lastName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Prénom en Français<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.firstName"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre prénom en Français"
+                          formControlName="firstName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.firstName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nom en Arabe<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.lastNameAr"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre nom en Arabe"
+                          formControlName="lastNameAR"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.lastNameAR.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Prénom en Arabe<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.firstNameAr"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre prénom en Arabe"
+                          formControlName="firstNameAR"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.firstNameAR.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Numéro de carte d'identité<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.cin"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre cin"
+                          formControlName="cin"
+                          [ngClass]="{
+                            'is-invalid': isForm1Submitted && form1.cin.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Email<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.email"
+                          type="email"
+                          class="form-control"
+                          placeholder="Enter votre email"
+                          formControlName="email"
+                          [ngClass]="{
+                            'is-invalid': isForm1Submitted && form1.email.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Numéro de téléphone<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.phoneNumber"
+                          type="tel"
+                          class="form-control"
+                          mask="0 00 00 00 00"
+                          formControlName="phoneNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.phoneNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Autre numéro de téléphone<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStep1A.otherPhoneNumber"
+                          type="tel"
+                          class="form-control"
+                          mask="0 00 00 00 00"
+                          formControlName="otherPhoneNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.otherPhoneNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Sexe<span class="text-danger"> *</span></label>
+                        <div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input
+                                type="radio"
+                                checked=""
+                                value="0"
+                                class="form-check-input"
+                                [(ngModel)]="dataStep1A.gender"
+                                formControlName="gender"
+                              />
+                              <i class="input-frame"></i>
+                              Mr
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input
+                                [(ngModel)]="dataStep1A.gender"
+                                type="radio"
+                                class="form-check-input"
+                                value="1"
+                                formControlName="gender"
+                              />
+                              <i class="input-frame"></i>
+                              Mme
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label for="formControlAddress"
+                        >Biographie<span class="text-danger"> *</span></label
+                      >
+                      <textarea
+                        [(ngModel)]="dataStep1A.biography"
+                        formControlName="biography"
+                        class="form-control"
+                        id="formControlAddress"
+                        rows="5"
+                        placeholder="Entrez votre biographie"
+                        [ngClass]="{
+                          'is-invalid':
+                            isForm1Submitted && form1.biography.errors
+                        }"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="pièces jointes">
+          <form (ngSubmit)="form2Submit()" [formGroup]="validationForm2">
+            <div class="col-md-12 stretch-card my-4">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS SUPPLEMENTAIRES</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Carte d'identité
+                          <span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput($event, 'idCard')"
+                          type="file"
+                          accept="image/jpeg,image/jpg,image/png"
+                          name="idCard[]"
+                          class="file-upload-default"
+                          id="idCard"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('idCard')"
+                        >
+                          <input
+                            [value]="dataStep2.idCard.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="idCardData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté jpeg, jpg et png
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.idCard.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Passeport<span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput($event, 'passport')"
+                          type="file"
+                          accept="image/jpeg,image/jpg,image/png"
+                          name="passport[]"
+                          class="file-upload-default"
+                          id="passport"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('passport')"
+                        >
+                          <input
+                            [value]="dataStep2.passport.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="passportData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté jpeg, jpg et png
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.passport.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="Infromations publications">
+          <form (ngSubmit)="form3Submit()" [formGroup]="validationForm3">
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DES PUBLICATIONS</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Titre<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.title"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le titre de l'ouvrage"
+                          formControlName="title"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.title.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Maison d'édition<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.publishingHouse"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nom de la maison d'édition"
+                          formControlName="publishingHouse"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.publishingHouse.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'date' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Date d'édition<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.publishingDate"
+                          type="date"
+                          class="form-control"
+                          formControlName="publishingDate"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.publishingDate.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nombre de page<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.pagesNumber"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nombre des pages"
+                          formControlName="pagesNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.pagesNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Langue<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.language"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez la langue de l'ouvrage"
+                          formControlName="language"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.language.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Résumé<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.abstractBook"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez un résumé de l'ouvrage"
+                          formControlName="abstractBook"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.abstractBook.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Place de publication<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepPublication.publicationPlace"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez la place de publication"
+                          formControlName="publicationPlace"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.publicationPlace.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Pays<span class="text-danger"> *</span></label
+                        >
+
+                        <ng-select
+                          [(ngModel)]="dataStepPublication.country"
+                          formControlName="country"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.country.errors
+                          }"
+                        >
+                          <ng-option *ngFor="let p of pays" [value]="p.name">{{
+                            p.name
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Domain<span class="text-danger"> *</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="dataStepPublication.domain"
+                          formControlName="domain"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.domain.errors
+                          }"
+                        >
+                          >
+                          <ng-option *ngFor="let r of Domain" [value]="r.id">{{
+                            r.name
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="w-100 row mx-auto my-4"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+                    <div class="my-2">
+                      <button
+                        type="button"
+                        class="btn submit saveBtn"
+                        (click)="addPublication()"
+                      >
+                        <i data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                    <div class="m-2">
+                      <button
+                        type="button"
+                        class="btn btn-dange-muted-2 text-white"
+                        (click)="clearForm3()"
+                      >
+                        <i data-feather="x" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th>Titre</th>
+                              <th>Maison d'édition</th>
+                              <th>Date d'édition</th>
+                              <th>Langue</th>
+                              <th>Domain</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of dataPublication">
+                              <td>{{ item.title }}</td>
+                              <td>{{ item.publishingHouse }}</td>
+                              <td>{{ item.publishingDate }}</td>
+                              <td>{{ item.language }}</td>
+                              <td>{{ item.domain }}</td>
+                              <td
+                                class="d-flex justify-content-center"
+                                id="actionsContainer"
+                              >
+                                <span
+                                  ><i data-feather="x" appFeatherIcon></i
+                                ></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="Informations prix obtenue">
+          <form (ngSubmit)="form4Submit()" [formGroup]="validationForm4">
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DES PRIX OBTENUES</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Le nom du prix<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="awardObtained.award"
+                          type="text"
+                          class="form-control"
+                          placeholder="Entrez le nom d'un prix que vous avez déjà obtenu"
+                          formControlName="award"
+                          [ngClass]="{
+                            'is-invalid': isForm4Submitted && form4.award.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Organisateurs<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="awardObtained.organisers"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez les organisateurs de ce prix"
+                          formControlName="organisers"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm4Submitted && form4.organisers.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >L'année<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="awardObtained.year"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez l'année de l'ouvrage"
+                          formControlName="year"
+                          [ngClass]="{
+                            'is-invalid': isForm4Submitted && form4.year.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="w-100 row mx-auto my-4"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+                    <div class="my-2">
+                      <button
+                        type="button"
+                        class="btn submit saveBtn"
+                        (click)="addAward()"
+                      >
+                        <i data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                    <div class="m-2">
+                      <button
+                        type="button"
+                        class="btn btn-dange-muted-2 text-white"
+                        (click)="clearForm4()"
+                      >
+                        <i data-feather="x" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th>Le nom du prix</th>
+                              <th>Organisateurs</th>
+                              <th>L'année</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of dataAwards">
+                              <th>{{ item.award }}</th>
+                              <th>{{ item.organisers }}</th>
+                              <th>{{ item.year }}</th>
+
+                              <td
+                                class="d-flex justify-content-center"
+                                id="actionsContainer"
+                              >
+                                <span
+                                  ><i data-feather="x" appFeatherIcon></i
+                                ></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="Infromations ouvrage">
+          <form (ngSubmit)="form5Submit()" [formGroup]="validationForm5">
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DE L'OUVRAGE</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Titre<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.title"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le titre de l'ouvrage"
+                          formControlName="title"
+                          [ngClass]="{
+                            'is-invalid': isForm5Submitted && form5.title.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Maison d'édition<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.publishingHouse"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nom de la maison d'édition"
+                          formControlName="publishingHouse"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.publishingHouse.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'date' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Date d'édition<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.publishingDate"
+                          type="date"
+                          class="form-control"
+                          formControlName="publishingDate"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.publishingDate.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nombre de page<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.pagesNumber"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nombre des pages de l'ouvrage"
+                          formControlName="pagesNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.pagesNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Langue<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.language"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez la langue de l'ouvrage"
+                          formControlName="language"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.language.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Résumé<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.abstractBook"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le résumé de l'ouvrage"
+                          formControlName="abstractBook"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.abstractBook.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Place de publication<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="dataStepBook.publicationPlace"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez la place de publication"
+                          formControlName="publicationPlace"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.publicationPlace.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Pays<span class="text-danger"> *</span></label
+                        >
+
+                        <ng-select
+                          [(ngModel)]="dataStepBook.country"
+                          formControlName="country"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm5Submitted && form5.country.errors
+                          }"
+                        >
+                          <ng-option *ngFor="let p of pays" [value]="p.name">{{
+                            p.name
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Domain<span class="text-danger"> *</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="dataStepBook.domain"
+                          formControlName="domain"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.domain.errors
+                          }"
+                        >
+                          >
+                          <ng-option *ngFor="let r of Domain" [value]="r.id">{{
+                            r.name
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="Informations prix">
+          <form (ngSubmit)="form6Submit()" [formGroup]="validationForm6">
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DE LA DEMANDE</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Categories de prix maroc du livre<span
+                            class="text-danger"
+                            >*</span
+                          ></label
+                        >
+                        <ng-select
+                          [(ngModel)]="demandPrice.awardCategories"
+                          formControlName="priceType"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form6.priceType.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let category of dataAwardCategories"
+                            [value]="category.refAwardCategory"
+                            >{{ category.titleFr }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Commentaire<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="demandPrice.comment"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez une commentaire"
+                          formControlName="comment"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm6Submitted && form6.comment.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="Documents demande">
+          <form (ngSubmit)="form7Submit()" [formGroup]="validationForm7">
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">PIECES JOINTES</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Demande manuscrite
+                          <span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="
+                            handleFileInput1($event, 'handwrittenRequest')
+                          "
+                          type="file"
+                          accept="application/pdf"
+                          name="handwrittenRequest[]"
+                          class="file-upload-default"
+                          id="handwrittenRequest"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('handwrittenRequest')"
+                        >
+                          <input
+                            [value]="
+                              documentInfromation.handwrittenRequest.value
+                            "
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="handwrittenRequestData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté pdf
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm7Submitted &&
+                              form7.handwrittenRequest.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Documents des droits de traduction
+                          <span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="
+                            handleFileInput1($event, 'translationRights')
+                          "
+                          type="file"
+                          accept="application/pdf"
+                          name="translationRights[]"
+                          class="file-upload-default"
+                          id="translationRights"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('translationRights')"
+                        >
+                          <input
+                            [value]="
+                              documentInfromation.translationRights.value
+                            "
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="translationRightsData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté pdf
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm7Submitted && form7.translationRights.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p class="card-title">DOCUMENTS LIVRE</p>
+
+                  <div class="form-group">
+                    <label class="control-label"
+                      >Type de document<span class="text-danger">
+                        *</span
+                      ></label
+                    >
+                    <ng-select
+                      [(ngModel)]="documentInfromation.documentTypeSelected"
+                      formControlName="documentTypeSelected"
+                      [ngClass]="{
+                        'is-invalid':
+                          isForm7Submitted && form7.documentTypeSelected.errors
+                      }"
+                    >
+                      <ng-option value="numerique">Version numérique</ng-option>
+                      <ng-option value="original">Version original</ng-option>
+                    </ng-select>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Version numérique de l'ouvrage
+                          <span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput1($event, 'digitalVersion')"
+                          type="file"
+                          accept="application/pdf"
+                          name="digitalVersion[]"
+                          class="file-upload-default"
+                          id="digitalVersion"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('digitalVersion')"
+                        >
+                          <input
+                            [value]="documentInfromation.digitalVersion.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="digitalVersionData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté pdf
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm7Submitted && form7.digitalVersion.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Recu d'envoie
+                          <span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput1($event, 'recu')"
+                          type="file"
+                          accept="application/pdf,image/jpeg,image/jpg,image/png"
+                          name="recu[]"
+                          class="file-upload-default"
+                          id="recu"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('recu')"
+                        >
+                          <input
+                            [value]="documentInfromation.recu.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="recuData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté jpeg, png, jpg et pdf
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid': isForm7Submitted && form7.recu.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="{{ 'ValidateRequest' | translate }}">
+          <div class="text-center">
+            <i
+              data-feather="check-circle"
+              appFeatherIcon
+              class="text-success mt-4 mb-2 icon-xxl"
+            ></i>
+            <h3 class="text-muted mb-3">{{ "ValidateRequest" | translate }}</h3>
+            <p class="w-75 mx-auto mb-4 text-muted">
+              {{ "validationDemande" | translate }}>
+            </p>
+          </div>
+          <div class="d-flex justify-content-end mt-2">
+            <button class="btn btn-light mr-2" type="button" awPreviousStep>
+              {{ "cancel" | translate }}
+            </button>
+            <button
+              class="btn btn-success"
+              type="button"
+              (click)="finishFunction()"
+            >
+              {{ "validate" | translate }}
+            </button>
+          </div>
+        </aw-wizard-step>
+      </aw-wizard>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,194 @@
+
+<div [ngClass]="'currentTheme' | translate">
+<app-public-navbar></app-public-navbar>
+<div id="cardsContainer">
+  <mat-card class="box" routerLink="/artist">
+    <img src="assets/images/home/masque.png" alt="" />
+    <h3>{{ "ArtsDomain" | translate }}</h3>
+    <p>{{ "ArtsDomainDescription" | translate }}</p>
+  </mat-card>
+  
+  <mat-card class="box" routerLink="/prize-award">
+    <img src="assets/images/home/prix.png" alt="" />
+    <h3>{{ "PrizeAttribution" | translate }}</h3>
+    <p>{{ "PrizeAttributionDescription" | translate }}</p>
+  </mat-card>
+  <mat-card class="box" routerLink="/categorie">
+    <img src="assets/images/home/livre.png" alt="" />
+    <h3>{{ "BookDomain" | translate }}</h3>
+    <p>{{ "BookDomainDescription" | translate }}</p>
+  </mat-card>
+</div>
+
+<div id="newsContainerParent">
+  <div id="newsContainer">
+    <h1>{{ "Actualites" | translate }}</h1>
+    <hr />
+    <div id="propositions">
+      <div class="article">
+        <p class="articleDate">01/10/2021</p>
+        <p class="articleTitle">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+          nisi nam, incidunt nulla aliquam a atque error facilis.
+        </p>
+        <div class="articleImg">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            nulla voluptas consectetur dolores dolore iure ipsum ex quos commodi
+            cum provident, deleniti minima odio maiores id nisi quam laboriosam.
+            Voluptates! Natus, similique nam? Vel enim vero cumque fugit
+            doloribus a quod est reiciendis, deserunt, repudiandae tempore, iure
+            distinctio eius. Esse saepe quos qui ad, ipsam consequatur harum
+            aliquam minima beatae. <a href="#">{{ "ReadMore" | translate }}</a>
+          </p>
+          <img src="assets/images/home/a1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="article">
+        <p class="articleDate">01/10/2021</p>
+        <p class="articleTitle">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+          nisi nam, incidunt nulla aliquam a atque error facilis.
+        </p>
+        <div class="articleImg">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
+            nulla voluptas consectetur dolores dolore iure ipsum ex quos commodi
+            cum provident, deleniti minima odio maiores id nisi quam laboriosam.
+            Voluptates! Natus, similique nam? Vel enim vero cumque fugit
+            doloribus a quod est reiciendis, deserunt, repudiandae tempore, iure
+            distinctio eius. Esse saepe quos qui ad, ipsam consequatur harum
+            aliquam minima beatae. <a href="#">{{ "ReadMore" | translate }}</a>
+          </p>
+          <img src="assets/images/home/a2.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="seeMoreContainer" class="btn">
+    <button>{{ "SeeMore" | translate }}</button>
+  </div>
+</div>
+
+<div id="preFooterParent">
+  <div
+    class="preFooterContainer1"
+  >
+    <a href="https://31.dohabookfair.qa/"
+      ><img src="assets/images/home/footer_img.jpg" alt=""
+    /></a>
+    <div class="textBoxContainer">
+      <div class="preFooterTextBox">
+        <h5>{{ "ArtsDomain" | translate }}</h5>
+        <ul>
+          <li>
+            <p>
+              <a href="">{{ "ArtistCard" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "CallToProject" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "ArtExportation" | translate }}</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="preFooterTextBox">
+        <h5>{{ "PrizeAttribution" | translate }}</h5>
+        <ul>
+          <li>
+            <p>
+              <a href="">{{ "PrizeHassan2Manuscrit" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "PrizeTheatre" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "PrizeBookMorocco" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "PrizeHonour" | translate }}</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="preFooterContainer2"
+  >
+    <img src="http://via.placeholder.com/300x150" class="invisible" alt="" />
+    <div class="textBoxContainer">
+      <div class="preFooterTextBox">
+        <h5>{{ "BookDomain" | translate }}</h5>
+        <ul>
+          <li>
+            <p>
+              <a href="">{{ "CallToProject" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "LibraryManagement" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "SpeakersDict" | translate }}</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a href="">{{ "ExhibitorsParticipation" | translate }}</a>
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class="preFooterTextBox">
+        <h5>{{ "Contact" | translate }}</h5>
+        <ul>
+          <li id="phone" class="d-flex align-items-center">
+            <mat-icon>phone</mat-icon>
+            &nbsp;&nbsp;
+            <span>+ 212 (0) 5.37.00.00.00</span>
+          </li>
+          <li id="mail"
+            class="d-flex align-items-center"
+          >
+            <mat-icon>mail</mat-icon>&nbsp;&nbsp;
+            <span>contact@mail.gov.ma</span>
+          </li>
+          <li class="d-flex align-items-center"id="socials">
+            <i class="fa fa-youtube"></i>
+            <i class="fa fa-twitter"></i>
+            <i class="fa fa-facebook-official"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div id="footerItems">
+    <div id="footerRightItems">
+      <p id="cg">{{ "GeneralConditions" | translate }}</p>
+      <p>{{ "LegalMentions" | translate }}</p>
+    </div>
+
+    <p>&copy; COPYRIGHT 2022</p>
+  </div>
+</footer>
+</div>

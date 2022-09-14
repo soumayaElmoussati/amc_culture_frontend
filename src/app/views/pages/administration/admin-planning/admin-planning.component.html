@@ -1,0 +1,240 @@
+<h4 class="mb-3 mx-2">Ajout date de planning</h4>
+
+<form (ngSubmit)="formSubmit(confirmAdd)" [formGroup]="validationForm">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Date de planning</label>
+              <input
+                type="date"
+                class="form-control"
+                placeholder="Saisissez la date de planning"
+                formControlName="datePlanning"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.datePlanning.errors
+                }"
+              />
+              <div
+                *ngIf="isFormSubmitted && form.datePlanning.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Heure début</label>
+              <input
+                type="time"
+                class="form-control"
+                placeholder="Saisissez le temps de début"
+                formControlName="heureDebut"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.heureDebut.errors
+                }"
+              />
+              <div
+                *ngIf="isFormSubmitted && form.heureDebut.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Heure fin</label>
+              <input
+                type="time"
+                class="form-control"
+                placeholder="Saisissez le temps de fin"
+                formControlName="heureFin"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.heureFin.errors
+                }"
+              />
+              <div
+                *ngIf="isFormSubmitted && form.heureFin.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="btnContainer">
+          <button
+            type="submit"
+            class="btn btn-primary btn-info-muted text-white"
+          >
+            <i data-feather="plus-circle" appFeatherIcon></i>
+          </button>
+
+          <button
+            type="button"
+            class="btn submit btn-primary"
+            *ngIf="showSaveButton"
+            (click)="updateFormItem(confirmEdit)"
+          >
+            <i data-feather="save" appFeatherIcon></i>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-dange-muted-2 text-white"
+            (click)="emptyForm()"
+          >
+            <i data-feather="x" appFeatherIcon></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="col-md-12 stretch-card mt-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th>Date de planning</th>
+              <th>Heure début</th>
+              <th>Heure fin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="my-10" *ngFor="let item of plannings; index as i">
+              <td>{{ item.datePlanning }}</td>
+              <td>{{ item.heureDebut }}</td>
+              <td>{{ item.heureFin }}</td>
+              <td class="d-flex justify-content-center" id="actionsContainer">
+                <span (click)="setEditForm(item.id)"
+                  ><i data-feather="edit-2" appFeatherIcon></i
+                ></span>
+                <span (click)="openConfirmItemDelete(confirmRemove, item.id)"
+                  ><i data-feather="x" appFeatherIcon></i
+                ></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirmRemove let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste plannings</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment supprimer cet element de la liste ?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary saveBtn"
+      (click)="modal.close('save')"
+    >
+      supprimer
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmEdit let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste plannings</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment modifer cet element de la liste ?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      modifier
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmAdd let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Liste plannings</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment ajouter cet element à la liste ?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      ajouter
+    </button>
+  </div>
+</ng-template>

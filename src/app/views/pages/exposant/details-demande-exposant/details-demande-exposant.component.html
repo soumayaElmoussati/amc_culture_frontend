@@ -1,0 +1,612 @@
+<h5 class="card-title ml-5" id="exampleModalLabel" [ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">{{"ExhibitorDetail" | translate}}</h5>
+
+<div class="card py-5" style="min-height: 60vh;"[ngStyle]=" this.languageService.userLanguage == 'ar' && { 'text-align': 'right','direction': 'rtl' } ">
+
+
+    <div class="card-body">
+        <div>
+             <ul ngbNav #nav="ngbNav" class="nav-tabs active"   [ngStyle]="(isLoaded<5)&&{'opacity':'0'}">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>{{"F_NDE_InfoExposant"|translate}}</a>
+                <ng-template ngbNavContent>
+                    <div class="mt-4">
+                        <div class="col-md-12 stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                                        {{"generalInfo"|translate}}
+                                    </p>
+
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_PublishingHouse" | translate
+                            }}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.publishingHouseName}}" min="3" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Pays" | translate
+                            }}</label>
+                                                <ng-select [disabled]="true" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " [(ngModel)]="exhibitorDetail.country">
+                                                    <ng-option *ngFor="let country of countries" [value]="country.alpha2Code">{{ country.translations.fr }}</ng-option>
+                                                </ng-select>
+
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                    </div>
+                                    <!-- Row -->
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Email" | translate
+                            }}</label>
+                                                <input type="email" [disabled]="true" class="form-control" value="{{exhibitorDetail.email}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Telephone" | translate
+                            }}</label>
+                                                <input type="tel" [disabled]="true" class="form-control" [(ngModel)]="exhibitorDetail.phoneNumber" prefix="+{{ selectedDialCodeF1 }}" mask="0 00 00 00 00" [showMaskTyped]="true" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                    </div>
+
+                                    <!-- Row -->
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_PersonInCharge" | translate
+                            }}</label>
+                                                <input type="email" [disabled]="true" class="form-control" value="{{exhibitorDetail.responsibleManagerName}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_City" | translate
+                            }}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.city}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                    </div>
+
+                                    <!-- Row -->
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_CellPhone" | translate
+                            }}</label>
+                                                <input type="tel" [disabled]="true" class="form-control" [(ngModel)]="exhibitorDetail.personalPhoneNumber" prefix="+{{ selectedDialCodeF1 }}" mask="0 00 00 00 00" [showMaskTyped]="true" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Fax" | translate
+                            }}</label>
+                                                <input type="text" [disabled]="true" class="form-control" prefix="+{{ selectedDialCodeF1 }} " mask="0 00 00 00 00" [showMaskTyped]="true" class="form-control" [(ngModel)]="exhibitorDetail.fax" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                    </div>
+
+                                    <!-- Row -->
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Address" | translate
+                            }}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.address}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{"F_NDE_ExposedProducts"|translate}}</label>
+
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.presentedMateriels}}">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row -->
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Speciality" | translate
+                            }}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.specialization}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_NumberEditions" | translate
+                            }}</label>
+                                                <input type="number" [disabled]="true" class="form-control" value="{{exhibitorDetail.numberArabicVersion}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                    </div>
+
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{ "F_NDE_NumberEditionsOtherLangs" | translate }}
+                            </label>
+                                                <input type="number" [disabled]="true" class="form-control" value="{{exhibitorDetail.numberForeignVersion}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_Representants" | translate
+                            }}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.companyRepresentative}}" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+                                            </div>
+                                        </div>
+                                        <!-- Col -->
+                                    </div>
+
+                                    <div class="row" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" *ngIf="!isMarocain">
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">{{"fullname"|translate}}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.personName}}" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">{{"birthday"|translate}}</label>
+                                                <input type="date" [disabled]="true" class="form-control" value="{{exhibitorDetail.birthDay}}" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" *ngIf="!isMarocain">
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">{{"residentCountry"|translate}}</label>
+                                                <ng-select [disabled]="true" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " [(ngModel)]="exhibitorDetail.birthCountry">
+                                                    <ng-option *ngFor="let country of countries" [value]="country.alpha2Code">{{ country.translations.fr }}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">{{"originNationality"|translate}}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.birthNationality}}" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" *ngIf="!isMarocain">
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">{{"passportNumber"|translate}}</label>
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.passportNumber}}" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">{{"typePassport"|translate}}</label>
+                                                <ng-select [disabled]="true" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " [(ngModel)]="exhibitorDetail.passportType">
+                                                    <ng-option *ngFor="let psprt of passportsType" [value]="psprt.id">{{ psprt.name }}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" *ngIf="!isMarocain">
+                                        <div class="col-sm-6">
+                                            <div class="from-group">
+                                                <label class="control-label">Date d'expiration passeport</label>
+                                                <input type="date" [disabled]="true" class="form-control" value="{{exhibitorDetail.passportExpiration}}" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      ">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="control-label">{{
+                            "F_NDE_ActivityBranch" | translate
+                            }}</label>
+
+                                                <input type="text" [disabled]="true" class="form-control" value="{{exhibitorDetail.activityBranches}}" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6" *ngIf="isMarocain">
+                                            <div class="form-group">
+                                                <label class="control-label">CIN</label>
+                                                <input [disabled]="true" type="text" class="form-control" value="{{exhibitorDetail.cin}}" min="3" [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            " />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-template>
+
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>{{"ListeDePublicationExposant"|translate}}</a>
+                <ng-template ngbNavContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body" *ngIf="page.totalPages>0">
+                                    <div class="table-responsive">
+                                        <table class="table text-center" [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              direction: 'rtl'
+                            }
+                          ">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ "F_OuvragesPourSalon_Auteur" | translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_TitreLivre" | translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_Editeur" | translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_AnneePublication" | translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_NombreExemplaire" | translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_PrixEnDH" | translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_SpecialiteSelonDewey"| translate }}</th>
+                                                    <th>{{ "F_OuvragesPourSalon_DepotLegal" | translate }}</th>
+                                                    <th>{{"F_OuvragesPourSalon_ISBN"|translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let pub of pageablePublication.publications; index as i">
+                                                    <td>{{ pub.author }}</td>
+                                                    <td>{{ pub.title}}</td>
+                                                    <td>{{ pub.publisher }}</td>
+                                                    <td>{{ pub.publishingDate }}</td>
+                                                    <td>{{ pub.copiesNbr }}</td>
+                                                    <td>{{ pub.amout }}</td>
+                                                    <td>{{ pub.speciality }}</td>
+                                                    <td>{{ pub.legalDeposit }}</td>
+                                                    <td>{{ pub.isbn }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-center mt-5">
+                            <ngb-pagination *ngIf="page.totalPages > 1" [collectionSize]="page.totalPages" [pageSize]="1" [(page)]="page.number" aria-label="Default pagination" (pageChange)="exhibitorsPaginationChange($event)"></ngb-pagination>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+
+            <li [ngbNavItem]="3">
+                <a ngbNavLink>{{ 'F_reseStand' | translate }}</a>
+                <ng-template ngbNavContent>
+                    <div class="col-md-12 stretch-card mt-4">
+                        <div class="card-body">
+                            <p class="card-title" [ngStyle]="
+                    this.languageService.userLanguage == 'ar' && {
+                      'text-align': 'right'
+                    }
+                  ">
+                                {{"boothInfo"|translate}}
+                            </p>
+                            <div class="row" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{
+                        "F_NDE_StandCategory" | translate
+                        }}</label>
+                                        <ng-select [disabled]="true" [(ngModel)]="standDetails.category" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                                            <ng-option *ngFor="let typeStand of typesStand" [value]="typeStand.id">{{ typeStand.name }}
+                                            </ng-option>
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{
+                        "F_NDE_StandSize" | translate
+                        }}</label>
+                                        <input type="text" [disabled]="true" class="form-control" [(ngModel)]="standDetails.volumeInCubicMeter" [ngStyle]="this.languageService.userLanguage == 'ar' && {'text-align': 'right'}" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+
+            <li [ngbNavItem]="4">
+                <a ngbNavLink>{{"EditorsList"|translate}} </a>
+                <ng-template ngbNavContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body" *ngIf="pagePublishers.totalPages>0">
+                                    <div class="table-responsive">
+                                        <table class="table text-center" [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              direction: 'rtl'
+                            }
+                          ">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ "F_NDE_PublishingHouse" | translate }}</th>
+                                                    <th>{{ "F_NDE_Pays" | translate }}</th>
+                                                    <th>{{ "F_NDE_Email" | translate }}</th>
+                                                    <th>{{ "F_NDE_Telephone" | translate }}</th>
+                                                    <th>{{ "F_NDE_PersonInCharge" | translate }}</th>
+                                                    <th>{{ "F_NDE_Fax" | translate }}</th>
+                                                    <th>{{ "F_NDE_Address" | translate }}</th>
+                                                    <th>{{ "F_EE_SiteWeb" | translate }}</th>
+                                                    <th>{{ "F_EE_Specialite" | translate }}</th>
+                                                    <th>{{ "F_NDE_NumberEditionsOtherLangs" | translate }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let pub of pageablePublishers.publishers; index as i">
+                                                    <td>{{ pub.name }}</td>
+                                                    <td>{{ pub.country}}</td>
+                                                    <td>{{ pub.email }}</td>
+                                                    <td>{{ pub.phoneNumber }}</td>
+                                                    <td>{{ pub.responsibleName }}</td>
+                                                    <td>{{ pub.fax }}</td>
+                                                    <td>{{ pub.address }}</td>
+                                                    <td>{{ pub.webSite }}</td>
+                                                    <td>{{ pub.specialization }}</td>
+                                                    <td>{{ pub.numberForeignPublishing}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-center mt-5">
+                            <ngb-pagination *ngIf="pagePublishers.totalPages > 1" [collectionSize]="pagePublishers.totalPages" [pageSize]="1" [(page)]="pagePublishers.number" aria-label="Default pagination" (pageChange)="publishePaginationChange($event)"></ngb-pagination>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+
+            <li [ngbNavItem]="5">
+                <a ngbNavLink>{{"ActivitiesList"|translate}}</a>
+                <ng-template ngbNavContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body" *ngIf="pageActivities.totalPages>0">
+                                    <div class="table-responsive">
+                                        <table class="table text-center" [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              direction: 'rtl'
+                            }
+                          ">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{"F_NDE_PublishingHouse"|translate}}</th>
+                                                    <th>{{"F_PropositionActivite_DateProposee"|translate}}</th>
+                                                    <th>{{"F_PropositionActivite_Theme"|translate}}</th>
+                                                    <th>{{"F_PropositionActivite_Participants"|translate}}</th>
+                                                    <th>{{"F_PropositionActivite_LieuActivite"|translate}}</th>
+                                                    <th>{{"F_PropositionActivite_AnneeEdition"|translate}}</th>
+                                                    <th>{{"F_OuvragesPourSalon_TitreLivre"|translate}}</th>
+                                                    <th>{{"F_OuvragesPourSalon_Auteur"|translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let pub of pageableActivities.activities; index as i">
+                                                    <td>{{ pub.publishingHouse }}</td>
+                                                    <td>{{ pub.proposedDate}}</td>
+                                                    <td>{{ pub.topic}}</td>
+                                                    <td>{{ pub.participants }}</td>
+                                                    <td>{{ getLabelActivityPlace(pub.activityPlace) }}</td>
+                                                    <td>{{ pub.publishingYear }}</td>
+                                                    <td>{{ pub.bookTitle }}</td>
+                                                    <td>{{ pub.author }}</td>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-center mt-5">
+                            <ngb-pagination *ngIf="pageActivities.totalPages > 1" [collectionSize]="pageActivities.totalPages" [pageSize]="1" [(page)]="pageActivities.number" aria-label="Default pagination" (pageChange)="activitiesPaginationChange($event)"></ngb-pagination>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            
+            <li [ngbNavItem]="6">
+                <a ngbNavLink>{{"generalInfoForeign"|translate}}</a>
+                <ng-template ngbNavContent>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body" *ngIf="pageActivities.totalPages>0">
+                                    <div class="table-responsive">
+                                        <table class="table text-center" [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              direction: 'rtl'
+                            }
+                          ">
+                                        <thead>
+                                            <tr>
+                                            <th>{{ "fullname" | translate }}</th>
+                                            <th>{{ "birthday" | translate }}</th>
+                                            <th>{{ "F_NDE_Pays_Description" | translate }}</th>
+                                            <th>{{ "passportNumber" | translate }}</th>
+                                            <th>{{ "typePassport" | translate }}</th>
+                                            <th>{{ "passportExpiration" | translate }}</th>
+                                            <th>{{ "originNationality" | translate }}</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="my-10" *ngFor=" let item of ForeigenRepresented;let  index = index ">
+                                            <td>{{ item.personName }}</td>
+                                            <td>{{ item.birthDay }}</td>
+                                            <td>{{ getLabelContries(item.birthCountry) }}</td>
+                                            <td>{{ item.passportNumber }}</td>
+                                            <td>{{ getLabelPassport(item.passportType) }}</td>
+                                            <td>{{ item.passportExpiration }}</td>
+                                            <td>{{ item.birthNationality }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 d-flex justify-content-center mt-5">
+                            <ngb-pagination *ngIf="pageActivities.totalPages > 1" [collectionSize]="pageActivities.totalPages" [pageSize]="1" [(page)]="pageActivities.number" aria-label="Default pagination" (pageChange)="activitiesPaginationChange($event)"></ngb-pagination>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2" [ngStyle]="(isLoaded<6)&&{'display':'none'}"></div>
+            <div class="loader_container" style=" position: absolute;top: 0; left: 0; " [ngStyle]="(isLoaded==6)&&{'display':'none'}">
+                <div class="spinner-border text-primary" role="status">
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,2313 @@
+<h5 class="mb-3">Add publisher</h5>
+
+<div>
+  <div class="card">
+    <div class="card-body">
+      <aw-wizard
+        #wizardForm
+        [navBarDirection]="
+          this.languageService.userLanguage == 'ar' && 'right-to-left'
+        "
+        [awNavigationMode]
+        navigateBackward="allow"
+        navigateForward="allow"
+      >
+        <aw-wizard-step
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? 'Identitification' : ''"
+          [awOptionalStep]="false"
+        >
+          <form
+            class="mt-4"
+            (ngSubmit)="form1Submit()" 
+            [formGroup]="validationForm1"
+            enctype="multipart/form-data"
+          >
+            <p
+              class="mb-4 mobileTitle"
+              *ngIf="isMobile"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+            Identification
+            </p>
+     
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div
+                  class="row"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar' && {
+                      'text-align': 'right'
+                    }
+                  "
+                >
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">library name</label>
+                      <input
+                    
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter library name"
+                  
+  
+                        [ngStyle]="
+                          this.languageService.userLanguage == 'ar' && {
+                            'text-align': 'right'
+                          }
+                        "
+                      />
+                      <div
+                        class="invalid-feedback"
+                      >
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">name of the responsible</label>
+                      <input
+                      
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter name of the responsible "
+                     
+                        [ngStyle]="
+                          this.languageService.userLanguage == 'ar' && {
+                            'text-align': 'right'
+                          }
+                        "
+                      />
+                      <div
+  
+                        class="invalid-feedback"
+                      >
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                class="row"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              >
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="control-label">partner</label>
+                    <input                       
+                   
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter partner"
+                      
+                      
+                      [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      "
+                    />
+                    <div
+                      class="invalid-feedback"
+                    >
+                      {{ "RequiredField" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="control-label">partner type</label>
+                    <input
+                  
+                      type="text"   
+                      class="form-control"
+                      placeholder="Select partner type  "
+                      
+                
+                     
+                    />
+                    <div
+
+                      class="invalid-feedback"
+                    >
+                      {{ "RequiredField" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+              class="row"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">{{
+                    "F_NDE_Fax" | translate
+                  }}</label>
+                  <input
+                
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                    type="tel"
+                    class="form-control"
+                    placeholder="{{
+                      'F_NDE_Telephone_Description' | translate
+                    }}"
+                    
+                    prefix="{{ selectedDialCode }} "
+                    mask="0 00 00 00 00"
+                    [showMaskTyped]="true"
+                
+                  />
+                  <div
+
+                    class="invalid-feedback"
+                  >
+                    {{ "RequiredField" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">{{
+                    "F_NDE_Telephone" | translate
+                  }}</label>
+                  <input
+                
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                    type="tel"
+                    class="form-control"
+                    placeholder="{{
+                      'F_NDE_Telephone_Description' | translate
+                    }}"
+                    
+                    prefix="{{ selectedDialCode }} "
+                    mask="0 00 00 00 00"
+                    [showMaskTyped]="true"
+                
+                  />
+                  <div
+
+                    class="invalid-feedback"
+                  >
+                    {{ "RequiredField" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+                  
+            <div
+              class="row"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">library status</label>
+                  <input
+                 
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter library status"
+
+                  />
+                  <div
+
+                    class="invalid-feedback"
+                  >
+                    {{ "RequiredField" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">library type</label>
+                  <input
+               
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter library type"
+                  
+             
+               
+                  />
+                  <div
+                    *ngIf="
+                      isForm4Submitted
+                    "
+                    class="invalid-feedback"
+                  >
+                    {{ "RequiredField" | translate }}
+                  </div>
+                </div>
+              </div>
+            </div>
+               
+         
+            <div
+            class="row"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar' && {
+                'text-align': 'right'
+              }
+            "
+          >
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">creation date</label>
+                <input
+               
+                  type="date"
+                  class="form-control"
+                  placeholder="Enter creation date"                           
+               
+                  />
+
+                <div
+                  *ngIf="isForm4Submitted "
+                  class="invalid-feedback"
+                >
+                  {{ "RequiredField" | translate }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="control-label">space</label>
+                <input
+               
+                type="space"
+                class="form-control"
+                placeholder="Enter space"                           
+             
+                />
+                <div
+                  
+                  class="invalid-feedback"
+                >
+                  {{ "RequiredField" | translate }}
+                </div>
+              </div>
+            </div>
+          </div>
+                
+          <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="control-label">employees number</label>
+                  <input
+                 
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter employees number"
+                   
+                   
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  />
+                  <div
+                    *ngIf="isForm4Submitted "
+                    class="invalid-feedback"
+                  >
+                    {{ "RequiredField" | translate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Address</label>
+                    <input 
+                   
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter space"
+                   
+                       />
+              
+                </div>
+            </div>
+            </div>
+            <div
+            class="row"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar' && {
+                'text-align': 'right'
+              }
+            "
+          >
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label class="control-label">opening time</label>
+                    <input
+                   
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter opening time"
+                     
+                     
+                      [ngStyle]="
+                        this.languageService.userLanguage == 'ar' && {
+                          'text-align': 'right'
+                        }
+                      "
+                    />
+                    <div
+                      *ngIf="isForm4Submitted "
+                      class="invalid-feedback"
+                    >
+                      {{ "RequiredField" | translate }}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                      <label>region</label>
+                      <input 
+                     
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter region"
+                     
+                         />
+                
+                  </div>
+              </div>
+              </div>
+              <div
+              class="row"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label">email</label>
+                      <input
+                     
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter email"
+                       
+                       
+                        [ngStyle]="
+                          this.languageService.userLanguage == 'ar' && {
+                            'text-align': 'right'
+                          }
+                        "
+                      />
+                      <div
+                        *ngIf="isForm4Submitted "
+                        class="invalid-feedback"
+                      >
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>province prefecture</label>
+                        <input 
+                      
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter province prefecture"
+                       
+                           />
+                  
+                    </div>
+                </div>
+                </div>
+                <div
+                class="row"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              >
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">website</label>
+                        <input
+                        
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter website"
+                         
+                         
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                        />
+                        <div
+                          *ngIf="isForm4Submitted "
+                          class="invalid-feedback"
+                        >
+                          {{ "RequiredField" | translate }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                          <label>internetConnection</label>
+                          <input 
+                        
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter internet connection"
+                         
+                             />
+                    
+                      </div>
+                  </div>
+                  </div>
+                  <div
+                    class="w-100 row mx-auto mb-4 mt-2"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+
+                  </div> 
+   
+                </div>
+                
+              </div>
+              
+            </div>
+            <div
+            class="p-1 btns-container mt-4"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar'
+                ? {
+                    'text-align': 'right',
+                    display: 'flex',
+                    'justify-content': 'flex-start'
+                  }
+                : { display: 'flex', 'justify-content': 'flex-end' }
+            "
+          >
+            <div class="m-2">
+              <button
+                type="submit"
+                class="btn submit nextBtn"
+               
+                [ngStyle]="
+                  this.languageService.userLanguage != 'ar'
+                    ? {
+                        display: 'block'
+                      }
+                    : { display: 'none' }
+                "
+              >
+                <span>{{ "Next" | translate }}</span>
+                <i data-feather="arrow-right" appFeatherIcon></i>
+              </button>
+              <button
+                type="submit"
+                class="btn submit nextBtn"
+                
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar'
+                    ? {
+                        display: 'block'
+                      }
+                    : { display: 'none' }
+                "
+              >
+                <span>{{ "Next" | translate }}</span>
+                <i data-feather="arrow-left" appFeatherIcon></i>
+              </button>
+            </div>
+          </div>
+          </form>
+        </aw-wizard-step>
+        <aw-wizard-step
+          navigateBackward="allow"
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? 'Staff ' : ''"
+          [awOptionalStep]="false"
+        >
+          <form
+            class="mt-4"
+            (ngSubmit)="form2Submit()"
+            [formGroup]="validationForm2"
+          >
+            <p
+              class="mb-4 mobileTitle"
+              *ngIf="isMobile"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+            Staff
+            </p>
+    
+            <div class="row">
+              <div class="col-md-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">            
+                    <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                  <div class="col-sm-6 ">
+                    <div class="form-group">
+                      <label class="control-label">employee name </label>
+                    
+                      <input 
+                        
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter employee name"
+                         
+                             />
+        
+                      <div
+                      
+                        class="invalid-feedback"
+                      >
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+          
+        
+                  <div class="col-sm-6 ">
+                    <div class="form-group">
+                      <label class="control-label">date of birth</label>
+                      <input 
+                        
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter date of birth"
+                     
+                         />
+    
+                   
+                 
+                    </div>
+                  </div>
+                    </div>
+
+                    <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                  <div class="col-sm-6 ">
+                    <div class="form-group">
+                      <label class="control-label">qualifications - training</label>
+                    
+                      <input 
+                        
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter qualifications - training"
+                         
+                             />
+        
+                      <div
+                      
+                        class="invalid-feedback"
+                      >
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+          
+        
+                  <div class="col-sm-6 ">
+                    <div class="form-group">
+                      <label class="control-label">class - position</label>
+                      <input 
+                        
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter class - position"
+                     
+                         />
+    
+                   
+                 
+                    </div>
+                  </div>
+                    </div>
+                    <div
+                    class="row"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar' && {
+                        'text-align': 'right'
+                      }
+                    "
+                  >
+                  <div class="col-sm-6 ">
+                    <div class="form-group">
+                      <label class="control-label">the mission </label>
+                    
+                      <input 
+                        
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter the mission"
+                         
+                             />
+        
+                      <div
+                      
+                        class="invalid-feedback"
+                      >
+                        {{ "RequiredField" | translate }}
+                      </div>
+                    </div>
+                  </div>
+          
+        
+                  <div class="col-sm-6 ">
+                    <div class="form-group">
+                      <label class="control-label">formation</label>
+                      <input 
+                        
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter formation "
+                     
+                         />
+    
+                   
+                 
+                    </div>
+                  </div>
+                    </div>
+                    *****
+                    <div
+                    class="w-100 row mx-auto my-4"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+                    <div class="my-2">
+                      <button
+                        type="button"
+                        class="btn submit saveBtn"
+                        
+                      >
+                        <i data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                    <div class="m-2">
+                      <button
+                        type="button"
+                        class="btn btn-dange-muted-2 text-white"
+                        (click)="clearForm2()"
+                      >
+                        <i data-feather="x" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th>Employee name</th>
+                              <th>Date of birth</th>
+                              <th>Qualifications</th>
+                              <th>Position</th>
+                              <th>The mission</th>
+                              <th>Formation</th>
+                              <th>Formation</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              
+                            >
+                            <td> planning.datePlanning </td>
+                            <td> planning.datePlanning </td>
+                              <td> planning.datePlanning </td>
+                              <td> planning.heureDebut </td>
+                              <td> planning.heureFin </td>
+                              <td> planning.heureFin </td>
+                              <td
+                                class="d-flex justify-content-center"
+                                id="actionsContainer"
+                              >
+                                <!-- <span
+                                ><i data-feather="edit-2" appFeatherIcon></i
+                              ></span> -->
+                                <span
+                                  
+                                  ><i data-feather="x" appFeatherIcon></i
+                                ></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"                 
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  (click)="this.wizardForm.goToNextStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+ <aw-wizard-step
+ navigateBackward="allow"
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? ' Publishing and promotion ' : ''"
+          [awOptionalStep]="false"
+>
+<form
+  class="mt-4"
+  (ngSubmit)="form3Submit()"
+  [formGroup]="validationForm3"
+>
+  <p
+    class="mb-4 mobileTitle"
+    *ngIf="isMobile"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    "
+  >
+  Publishing and promotion
+  </p>
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+        <div class="col-sm-6 ">
+          <div class="form-group">
+            <label class="control-label">Forms Of Promoting Books</label>
+          
+            <ng-select      
+            [items]="formsOfPromotingBooks"
+            [multiple]=true
+            [closeOnSelect]="false"
+            [searchable]="false"
+            bindLabel="Name"
+            placeholder="Select formsOfPromotingBooks"
+            [(ngModel)]="formsOfPromotingBooksSelected"
+             [ngModelOptions]="{standalone: true}"          
+            
+            >
+          </ng-select>
+          <div class="mt-2">
+            <p class="text-muted">Selected items:</p>
+            <ul>
+              <li *ngFor="let item of formsOfPromotingBooksSelected">{{item.Name}}</li>
+            </ul>
+          </div>
+          </div>
+        </div>
+        
+
+          </div>
+       
+
+        <div
+          class="w-100 row mx-auto my-4"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar'
+              ? {
+                  'text-align': 'right',
+                  display: 'flex',
+                  'justify-content': 'flex-start'
+                }
+              : { display: 'flex', 'justify-content': 'flex-end' }
+          "
+        >
+          
+          
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+  <div
+    class="btns-container my-4"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar'
+        ? {
+            'text-align': 'right',
+            display: 'flex',
+            'justify-content': 'flex-start'
+          }
+        : { display: 'flex', 'justify-content': 'flex-end' }
+    "
+  >
+    <div class="m-2">
+      <button
+        type="button"
+        class="btn backBtn"
+        (click)="this.wizardForm.goToPreviousStep()"
+        [ngStyle]="
+          this.languageService.userLanguage != 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <i data-feather="arrow-left" appFeatherIcon></i>
+        <span>{{ "Back" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        class="btn button backBtn"
+        (click)="this.wizardForm.goToPreviousStep()"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Back" | translate }}</span>
+        <i data-feather="arrow-right" appFeatherIcon></i>
+      </button>
+    </div>
+    <div class="m-2">
+      <button
+        type="submit"
+        class="btn submit nextBtn"
+        [ngStyle]="
+          this.languageService.userLanguage != 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Next" | translate }}</span>
+        <i data-feather="arrow-right" appFeatherIcon></i>
+      </button>
+      <button
+        type="submit"
+        class="btn submit nextBtn"
+        (click)="this.wizardForm.goToNextStep()"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Next" | translate }}</span>
+        <i data-feather="arrow-left" appFeatherIcon></i>
+      </button>
+    </div>
+  </div>
+</form>
+</aw-wizard-step>
+
+<aw-wizard-step
+navigateBackward="allow"
+[canEnter]="true"
+[stepTitle]="showStepTitles ? 'Distribution and sale ' : ''"
+
+>
+<form
+  class="mt-4"
+  (ngSubmit)="form4Submit()"
+  [formGroup]="validationForm4"
+>
+  <p
+    class="mb-4 mobileTitle"
+    *ngIf="isMobile"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    "
+  >
+  Distribution and sale
+  </p>
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div
+        class="row"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar' && {
+            'text-align': 'right'
+          }
+        "
+      >
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="control-label">number publications per year Arabic</label>
+            <input
+           
+              type="text"
+              class="form-control"
+              placeholder="Enter number publications per year Arabic"                       
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            />
+      
+            
+            <div
+              class="invalid-feedback"
+            >
+              {{ "RequiredField" | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="control-label">number publications per year Amazigh</label>
+            <input
+          
+              type="text"
+              class="form-control"
+              placeholder="Enter numberPointSaleUrban"                       
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            />
+            <div
+      
+              class="invalid-feedback"
+            >
+              {{ "RequiredField" | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+<div
+class="row"
+[ngStyle]="
+  this.languageService.userLanguage == 'ar' && {
+    'text-align': 'right'
+  }
+"
+>
+<div class="col-sm-6">
+  <div class="form-group">
+    <label class="control-label">number publications per year French</label>
+    <input
+    
+   
+      type="text"
+      class="form-control"
+      placeholder="Enter averageNumberContactsAnnuallyWithPublishers"                       
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar' && {
+          'text-align': 'right'
+        }
+      "
+    />
+
+    
+    <div
+      class="invalid-feedback"
+    >
+      {{ "RequiredField" | translate }}
+    </div>
+  </div>
+</div>
+<div class="col-sm-6">
+  <div class="form-group">
+    <label class="control-label">number publications per year English</label>
+    <input
+     
+    
+      type="text"
+      class="form-control"
+      placeholder="Enter costOfDistributionComparedRetailPrice"                       
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar' && {
+          'text-align': 'right'
+        }
+      "
+    />
+    <div
+
+      class="invalid-feedback"
+    >
+      {{ "RequiredField" | translate }}
+    </div>
+  </div>
+</div>
+</div>
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+  'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+  <label class="control-label">permanent employees number</label>
+  <input
+  
+    type="text"
+    class="form-control"
+    placeholder="Enter membershipAssociationOrSyndicate"                       
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    "
+  />
+
+  
+  <div
+    class="invalid-feedback"
+  >
+    {{ "RequiredField" | translate }}
+  </div>
+</div>
+</div>
+<div class="col-sm-6">
+<div class="form-group">
+  <label class="control-label">numberBooksPublishedPerYear</label>
+  <input
+  
+    type="text"
+    class="form-control"
+    placeholder="Enter customerBase"                       
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    "
+  />
+  <div
+
+    class="invalid-feedback"
+  >
+    {{ "RequiredField" | translate }}
+  </div>
+</div>
+
+
+</div>
+</div>
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+
+  <label class="control-label">customer base </label>
+  <ng-select>
+</ng-select>
+<div class="mt-2">
+  <p class="text-muted">Selected items:</p>
+  <ul>
+    <li >item</li>
+  </ul>
+</div>
+  <div
+    class="invalid-feedback"
+  >
+    {{ "RequiredField" | translate }}
+  </div>
+</div>
+
+
+<div
+  class="invalid-feedback"
+>
+  {{ "RequiredField" | translate }}
+</div>
+</div>
+<div class="col-sm-6">
+  <div class="form-group">
+    <label class="control-label">number books published last Year</label>
+    <input
+    
+      type="text"
+      class="form-control"
+      placeholder="Enter number books published last Year"                       
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar' && {
+          'text-align': 'right'
+        }
+      "
+    />
+  
+    
+    <div
+      class="invalid-feedback"
+    >
+      {{ "RequiredField" | translate }}
+    </div>
+  </div>
+  </div>
+</div>
+
+</div>
+
+      
+
+      </div>
+    </div>
+
+  <div
+    class="btns-container my-4"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar'
+        ? {
+            'text-align': 'right',
+            display: 'flex',
+            'justify-content': 'flex-start'
+          }
+        : { display: 'flex', 'justify-content': 'flex-end' }
+    "
+  >
+    <div class="m-2">
+      <button
+        type="button"
+        class="btn backBtn"
+        (click)="this.wizardForm.goToPreviousStep()"
+        [ngStyle]="
+          this.languageService.userLanguage != 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <i data-feather="arrow-left" appFeatherIcon></i>
+        <span>{{ "Back" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        class="btn button backBtn"
+        (click)="this.wizardForm.goToPreviousStep()"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Back" | translate }}</span>
+        <i data-feather="arrow-right" appFeatherIcon></i>
+      </button>
+    </div>
+    <div class="m-2">
+      <button
+        type="submit"
+        class="btn submit nextBtn"
+        (click)="this.wizardForm.goToNextStep()"
+        [ngStyle]="
+          this.languageService.userLanguage != 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Next" | translate }}</span>
+        <i data-feather="arrow-right" appFeatherIcon></i>
+      </button>
+      <button
+        type="submit"
+        class="btn submit nextBtn"
+        (click)="this.wizardForm.goToNextStep()"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Next" | translate }}</span>
+        <i data-feather="arrow-left" appFeatherIcon></i>
+      </button>
+    </div>
+  </div>
+</form>
+</aw-wizard-step>
+        <aw-wizard-step
+          navigateBackward="allow"
+          [canEnter]="true"
+          [stepTitle]="showStepTitles ? 'Other activities' : ''"
+        >
+          <form
+            class="mt-4"
+            (ngSubmit)="form5Submit()"
+            [formGroup]="validationForm5"
+          >
+            <p
+              class="mb-4 mobileTitle"
+              *ngIf="isMobile"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar' && {
+                  'text-align': 'right'
+                }
+              "
+            >
+            Other activities
+            </p>
+
+<div
+class="row"
+[ngStyle]="
+  this.languageService.userLanguage == 'ar' && {
+    'text-align': 'right'
+  }
+"
+>
+<div class="col-sm-6">
+  <div class="form-group">
+   
+      <input type="checkbox" class="form-check-input" id="checkDefault">
+      <label class="form-check-label" for="checkDefault">
+        Editor
+      </label>
+      <div class="m-1">
+     
+    </div>
+       
+     
+    
+    <div
+      class="invalid-feedback"
+    >
+      {{ "RequiredField" | translate }}
+    </div>
+  </div>
+</div>
+
+</div>
+<div
+class="row"
+[ngStyle]="
+  this.languageService.userLanguage == 'ar' && {
+    'text-align': 'right'
+  }
+"
+>
+<div class="col-sm-6">
+  <div class="form-group">
+   
+      <input type="checkbox" class="form-check-input" id="checkDefault">
+      <label class="form-check-label" for="checkDefault">
+        Distributor
+      </label>
+   
+     
+     
+    
+    <div
+      class="invalid-feedback"
+    >
+      {{ "RequiredField" | translate }}
+    </div>
+  </div>
+</div>
+
+</div>
+<div
+class="row"
+[ngStyle]="
+  this.languageService.userLanguage == 'ar' && {
+    'text-align': 'right'
+  }
+"
+>
+<div class="col-sm-6">
+  <div class="form-group">
+   
+      <input type="checkbox" class="form-check-input" id="checkDefault">
+      <label class="form-check-label" for="checkDefault">
+        Printer
+      </label>
+   
+     
+     
+    
+    <div
+      class="invalid-feedback"
+    >
+      {{ "RequiredField" | translate }}
+    </div>
+  </div>
+</div>
+
+</div> 
+ 
+    
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  (click)="this.wizardForm.goToNextStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  (click)="this.wizardForm.goToNextStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+        
+        <aw-wizard-step
+        navigateBackward="allow"
+        [canEnter]="true"
+        [stepTitle]="showStepTitles ? 'test7' : ''"
+      >
+        <form
+          class="mt-4"
+          (ngSubmit)="form6Submit()"
+          [formGroup]="validationForm6"
+        >
+          <p
+            class="mb-4 mobileTitle"
+            *ngIf="isMobile"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar' && {
+                'text-align': 'right'
+              }
+            "
+          >
+          Other activities
+          </p>
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+  'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+ 
+    <input type="checkbox" class="form-check-input" id="checkDefault">
+    <label class="form-check-label" for="checkDefault">
+      Editor
+    </label>
+    <div class="m-1">
+   
+  </div>
+     
+   
+  
+  <div
+    class="invalid-feedback"
+  >
+    {{ "RequiredField" | translate }}
+  </div>
+</div>
+</div>
+
+</div>
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+  'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+ 
+    <input type="checkbox" class="form-check-input" id="checkDefault">
+    <label class="form-check-label" for="checkDefault">
+      Distributor
+    </label>
+ 
+   
+   
+  
+  <div
+    class="invalid-feedback"
+  >
+    {{ "RequiredField" | translate }}
+  </div>
+</div>
+</div>
+
+</div>
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+  'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+ 
+    <input type="checkbox" class="form-check-input" id="checkDefault">
+    <label class="form-check-label" for="checkDefault">
+      Printer
+    </label>
+ 
+   
+   
+  
+  <div
+    class="invalid-feedback"
+  >
+    {{ "RequiredField" | translate }}
+  </div>
+</div>
+</div>
+
+</div> 
+
+  
+          <div
+            class="btns-container my-4"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar'
+                ? {
+                    'text-align': 'right',
+                    display: 'flex',
+                    'justify-content': 'flex-start'
+                  }
+                : { display: 'flex', 'justify-content': 'flex-end' }
+            "
+          >
+            <div class="m-2">
+              <button
+                type="button"
+                class="btn backBtn"
+                (click)="this.wizardForm.goToPreviousStep()"
+                [ngStyle]="
+                  this.languageService.userLanguage != 'ar'
+                    ? {
+                        display: 'block'
+                      }
+                    : { display: 'none' }
+                "
+              >
+                <i data-feather="arrow-left" appFeatherIcon></i>
+                <span>{{ "Back" | translate }}</span>
+              </button>
+              <button
+                type="button"
+                class="btn button backBtn"
+                (click)="this.wizardForm.goToPreviousStep()"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar'
+                    ? {
+                        display: 'block'
+                      }
+                    : { display: 'none' }
+                "
+              >
+                <span>{{ "Back" | translate }}</span>
+                <i data-feather="arrow-right" appFeatherIcon></i>
+              </button>
+            </div>
+            <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  (click)="this.wizardForm.goToNextStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  (click)="this.wizardForm.goToNextStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+          </div>
+        </form>
+      </aw-wizard-step>
+      <aw-wizard-step
+      navigateBackward="allow"
+      [canEnter]="true"
+      [stepTitle]="showStepTitles ? 'test8' : ''"
+    >
+      <form
+        class="mt-4"
+        (ngSubmit)="form8Submit()"
+        [formGroup]="validationForm8"
+      >
+        <p
+          class="mb-4 mobileTitle"
+          *ngIf="isMobile"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+       TEST8
+        </p>
+
+
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+
+  <input type="checkbox" class="form-check-input" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+    Printer
+  </label>
+
+ 
+ 
+
+<div
+  class="invalid-feedback"
+>
+  {{ "RequiredField" | translate }}
+</div>
+</div>
+</div>
+
+</div> 
+
+
+        <div
+          class="btns-container my-4"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar'
+              ? {
+                  'text-align': 'right',
+                  display: 'flex',
+                  'justify-content': 'flex-start'
+                }
+              : { display: 'flex', 'justify-content': 'flex-end' }
+          "
+        >
+          <div class="m-2">
+            <button
+              type="button"
+              class="btn backBtn"
+              (click)="this.wizardForm.goToPreviousStep()"
+              [ngStyle]="
+                this.languageService.userLanguage != 'ar'
+                  ? {
+                      display: 'block'
+                    }
+                  : { display: 'none' }
+              "
+            >
+              <i data-feather="arrow-left" appFeatherIcon></i>
+              <span>{{ "Back" | translate }}</span>
+            </button>
+            <button
+              type="button"
+              class="btn button backBtn"
+              (click)="this.wizardForm.goToPreviousStep()"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      display: 'block'
+                    }
+                  : { display: 'none' }
+              "
+            >
+              <span>{{ "Back" | translate }}</span>
+              <i data-feather="arrow-right" appFeatherIcon></i>
+            </button>
+          </div>
+          <div class="m-2">
+              <button
+                type="submit"
+                class="btn submit nextBtn"
+                (click)="this.wizardForm.goToNextStep()"
+                [ngStyle]="
+                  this.languageService.userLanguage != 'ar'
+                    ? {
+                        display: 'block'
+                      }
+                    : { display: 'none' }
+                "
+              >
+                <span>{{ "Next" | translate }}</span>
+                <i data-feather="arrow-right" appFeatherIcon></i>
+              </button>
+              <button
+                type="submit"
+                class="btn submit nextBtn"
+                (click)="this.wizardForm.goToNextStep()"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar'
+                    ? {
+                        display: 'block'
+                      }
+                    : { display: 'none' }
+                "
+              >
+                <span>{{ "Next" | translate }}</span>
+                <i data-feather="arrow-left" appFeatherIcon></i>
+              </button>
+            </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    
+    <aw-wizard-step
+    navigateBackward="allow"
+    [canEnter]="true"
+    [stepTitle]="showStepTitles ? 'test9' : ''"
+  >
+    <form
+      class="mt-4"
+      (ngSubmit)="form9Submit()"
+      [formGroup]="validationForm9"
+    >
+      <p
+        class="mb-4 mobileTitle"
+        *ngIf="isMobile"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar' && {
+            'text-align': 'right'
+          }
+        "
+      >
+     TEST8
+      </p>
+
+
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+
+<input type="checkbox" class="form-check-input" id="checkDefault">
+<label class="form-check-label" for="checkDefault">
+  Printer
+</label>
+
+
+
+
+<div
+class="invalid-feedback"
+>
+{{ "RequiredField" | translate }}
+</div>
+</div>
+</div>
+
+</div> 
+
+
+      <div
+        class="btns-container my-4"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                'text-align': 'right',
+                display: 'flex',
+                'justify-content': 'flex-start'
+              }
+            : { display: 'flex', 'justify-content': 'flex-end' }
+        "
+      >
+        <div class="m-2">
+          <button
+            type="button"
+            class="btn backBtn"
+            (click)="this.wizardForm.goToPreviousStep()"
+            [ngStyle]="
+              this.languageService.userLanguage != 'ar'
+                ? {
+                    display: 'block'
+                  }
+                : { display: 'none' }
+            "
+          >
+            <i data-feather="arrow-left" appFeatherIcon></i>
+            <span>{{ "Back" | translate }}</span>
+          </button>
+          <button
+            type="button"
+            class="btn button backBtn"
+            (click)="this.wizardForm.goToPreviousStep()"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar'
+                ? {
+                    display: 'block'
+                  }
+                : { display: 'none' }
+            "
+          >
+            <span>{{ "Back" | translate }}</span>
+            <i data-feather="arrow-right" appFeatherIcon></i>
+          </button>
+        </div>
+        <div class="m-2">
+            <button
+              type="submit"
+              class="btn submit nextBtn"
+              (click)="this.wizardForm.goToNextStep()"
+              [ngStyle]="
+                this.languageService.userLanguage != 'ar'
+                  ? {
+                      display: 'block'
+                    }
+                  : { display: 'none' }
+              "
+            >
+              <span>{{ "Next" | translate }}</span>
+              <i data-feather="arrow-right" appFeatherIcon></i>
+            </button>
+            <button
+              type="submit"
+              class="btn submit nextBtn"
+              (click)="this.wizardForm.goToNextStep()"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      display: 'block'
+                    }
+                  : { display: 'none' }
+              "
+            >
+              <span>{{ "Next" | translate }}</span>
+              <i data-feather="arrow-left" appFeatherIcon></i>
+            </button>
+          </div>
+      </div>
+    </form>
+  </aw-wizard-step>
+  <aw-wizard-step
+  navigateBackward="allow"
+  [canEnter]="true"
+  [stepTitle]="showStepTitles ? 'test10' : ''"
+>
+  <form
+    class="mt-4"
+    (ngSubmit)="form8Submit()"
+    [formGroup]="validationForm8"
+  >
+    <p
+      class="mb-4 mobileTitle"
+      *ngIf="isMobile"
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar' && {
+          'text-align': 'right'
+        }
+      "
+    >
+   TEST10
+    </p>
+
+
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+
+<input type="checkbox" class="form-check-input" id="checkDefault">
+<label class="form-check-label" for="checkDefault">
+Printer
+</label>
+
+
+
+
+<div
+class="invalid-feedback"
+>
+{{ "RequiredField" | translate }}
+</div>
+</div>
+</div>
+
+</div> 
+
+
+    <div
+      class="btns-container my-4"
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar'
+          ? {
+              'text-align': 'right',
+              display: 'flex',
+              'justify-content': 'flex-start'
+            }
+          : { display: 'flex', 'justify-content': 'flex-end' }
+      "
+    >
+      <div class="m-2">
+        <button
+          type="button"
+          class="btn backBtn"
+          (click)="this.wizardForm.goToPreviousStep()"
+          [ngStyle]="
+            this.languageService.userLanguage != 'ar'
+              ? {
+                  display: 'block'
+                }
+              : { display: 'none' }
+          "
+        >
+          <i data-feather="arrow-left" appFeatherIcon></i>
+          <span>{{ "Back" | translate }}</span>
+        </button>
+        <button
+          type="button"
+          class="btn button backBtn"
+          (click)="this.wizardForm.goToPreviousStep()"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar'
+              ? {
+                  display: 'block'
+                }
+              : { display: 'none' }
+          "
+        >
+          <span>{{ "Back" | translate }}</span>
+          <i data-feather="arrow-right" appFeatherIcon></i>
+        </button>
+      </div>
+      <div class="m-2">
+          <button
+            type="submit"
+            class="btn submit nextBtn"
+            (click)="this.wizardForm.goToNextStep()"
+            [ngStyle]="
+              this.languageService.userLanguage != 'ar'
+                ? {
+                    display: 'block'
+                  }
+                : { display: 'none' }
+            "
+          >
+            <span>{{ "Next" | translate }}</span>
+            <i data-feather="arrow-right" appFeatherIcon></i>
+          </button>
+          <button
+            type="submit"
+            class="btn submit nextBtn"
+            (click)="this.wizardForm.goToNextStep()"
+            [ngStyle]="
+              this.languageService.userLanguage == 'ar'
+                ? {
+                    display: 'block'
+                  }
+                : { display: 'none' }
+            "
+          >
+            <span>{{ "Next" | translate }}</span>
+            <i data-feather="arrow-left" appFeatherIcon></i>
+          </button>
+        </div>
+    </div>
+  </form>
+</aw-wizard-step>
+<aw-wizard-step
+navigateBackward="allow"
+[canEnter]="true"
+[stepTitle]="showStepTitles ? 'test11' : ''"
+>
+<form
+  class="mt-4"
+  (ngSubmit)="form8Submit()"
+  [formGroup]="validationForm8"
+>
+  <p
+    class="mb-4 mobileTitle"
+    *ngIf="isMobile"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar' && {
+        'text-align': 'right'
+      }
+    "
+  >
+ TEST11
+  </p>
+
+
+
+<div
+class="row"
+[ngStyle]="
+this.languageService.userLanguage == 'ar' && {
+'text-align': 'right'
+}
+"
+>
+<div class="col-sm-6">
+<div class="form-group">
+
+<input type="checkbox" class="form-check-input" id="checkDefault">
+<label class="form-check-label" for="checkDefault">
+Printer
+</label>
+
+
+
+
+<div
+class="invalid-feedback"
+>
+{{ "RequiredField" | translate }}
+</div>
+</div>
+</div>
+
+</div> 
+
+
+  <div
+    class="btns-container my-4"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar'
+        ? {
+            'text-align': 'right',
+            display: 'flex',
+            'justify-content': 'flex-start'
+          }
+        : { display: 'flex', 'justify-content': 'flex-end' }
+    "
+  >
+    <div class="m-2">
+      <button
+        type="button"
+        class="btn backBtn"
+        (click)="this.wizardForm.goToPreviousStep()"
+        [ngStyle]="
+          this.languageService.userLanguage != 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <i data-feather="arrow-left" appFeatherIcon></i>
+        <span>{{ "Back" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        class="btn button backBtn"
+        (click)="this.wizardForm.goToPreviousStep()"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Back" | translate }}</span>
+        <i data-feather="arrow-right" appFeatherIcon></i>
+      </button>
+    </div>
+    <div class="m-2">
+        <button
+          type="submit"
+          class="btn submit nextBtn"
+          (click)="this.wizardForm.goToNextStep()"
+          [ngStyle]="
+            this.languageService.userLanguage != 'ar'
+              ? {
+                  display: 'block'
+                }
+              : { display: 'none' }
+          "
+        >
+          <span>{{ "Next" | translate }}</span>
+          <i data-feather="arrow-right" appFeatherIcon></i>
+        </button>
+        <button
+          type="submit"
+          class="btn submit nextBtn"
+          (click)="this.wizardForm.goToNextStep()"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar'
+              ? {
+                  display: 'block'
+                }
+              : { display: 'none' }
+          "
+        >
+          <span>{{ "Next" | translate }}</span>
+          <i data-feather="arrow-left" appFeatherIcon></i>
+        </button>
+      </div>
+  </div>
+</form>
+</aw-wizard-step>
+    
+
+      </aw-wizard>
+    </div>
+  </div>
+</div>
+
+

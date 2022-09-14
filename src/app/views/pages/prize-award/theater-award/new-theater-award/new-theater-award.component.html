@@ -1,0 +1,1430 @@
+<p class="h5 mb-4">Nouvelle demande pour le Prix national du Théâtre</p>
+
+<div class="">
+  <div class="card">
+    <div
+      class="card-body"
+      [ngStyle]="
+        this.languageService.userLanguage == 'ar' && { direction: 'rtl' }
+      "
+    >
+      <aw-wizard #wizardForm>
+        <aw-wizard-step stepTitle="Infromations générales" class="pt-4">
+          <form (ngSubmit)="form1Submit()" [formGroup]="validationForm1">
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS PERSONNELLES</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nom en Français<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          type="text"
+                          [(ngModel)]="artistData.lastName"
+                          class="form-control"
+                          placeholder="Entrez votre nom en Français"
+                          formControlName="lastName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.lastName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Prénom en Français<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.firstName"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre prénom en Français"
+                          formControlName="firstName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.firstName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nom en Arabe<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.lastNameAr"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre nom en Arabe"
+                          formControlName="lastNameAR"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.lastNameAR.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Prénom en Arabe<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.firstNameAr"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre prénom en Arabe"
+                          formControlName="firstNameAR"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.firstNameAR.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Numéro de carte d'identité<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.cin"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre cin"
+                          formControlName="cin"
+                          [ngClass]="{
+                            'is-invalid': isForm1Submitted && form1.cin.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Email<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.email"
+                          type="email"
+                          class="form-control"
+                          placeholder="Enter votre email"
+                          formControlName="email"
+                          [ngClass]="{
+                            'is-invalid': isForm1Submitted && form1.email.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'date' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >{{ "birthday" | translate
+                          }}<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.birthdata.birthDate"
+                          type="date"
+                          class="form-control"
+                          formControlName="birthDate"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.birthDate.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Lieu de naissance<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.birthdata.birthCity"
+                          formControlName="birthCity"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.birthCity.errors
+                          }"
+                        >
+                          >
+                          <ng-option
+                            *ngFor="let birth of birthCountry"
+                            [value]="birth.id"
+                            >{{ birth.ville }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Numéro de téléphone<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.phoneNumber"
+                          type="tel"
+                          class="form-control"
+                          mask="0 00 00 00 00"
+                          formControlName="phoneNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.phoneNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Autre numéro de téléphone<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.otherPhoneNumber"
+                          type="tel"
+                          class="form-control"
+                          mask="0 00 00 00 00"
+                          formControlName="otherPhoneNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.otherPhoneNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Numéro de compte bancaire<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          type="text"
+                          [(ngModel)]="artistData.ribNumber"
+                          class="form-control"
+                          placeholder="Entrez votre rib"
+                          formControlName="ribNumber"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.ribNumber.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Domain<span class="text-danger"> *</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.domain"
+                          formControlName="domain"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.domain.errors
+                          }"
+                        >
+                          >
+                          <ng-option *ngFor="let r of region" [value]="r.id">{{
+                            r.region
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Sexe<span class="text-danger"> *</span></label>
+                        <div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input
+                                type="radio"
+                                checked=""
+                                value="0"
+                                class="form-check-input"
+                                [(ngModel)]="artistData.gender"
+                                formControlName="gender"
+                              />
+                              <i class="input-frame"></i>
+                              Mr
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input
+                                [(ngModel)]="artistData.gender"
+                                type="radio"
+                                class="form-check-input"
+                                value="1"
+                                formControlName="gender"
+                              />
+                              <i class="input-frame"></i>
+                              Mme
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12 stretch-card my-4">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS ADRESSE</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Région<span class="text-danger"> *</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.address.region"
+                          formControlName="region"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.region.errors
+                          }"
+                        >
+                          >
+                          <ng-option *ngFor="let r of region" [value]="r.id">{{
+                            r.region
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Province<span class="text-danger"> *</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.address.province"
+                          formControlName="province"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.province.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let prov of province"
+                            [value]="prov.id"
+                            >{{ prov.name }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Ville<span class="text-danger"> *</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.address.city"
+                          formControlName="city"
+                          [ngClass]="{
+                            'is-invalid': isForm1Submitted && form1.city.errors
+                          }"
+                        >
+                          <ng-option *ngFor="let v of villes" [value]="v.id">{{
+                            v.ville
+                          }}</ng-option>
+                        </ng-select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Code postale<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.address.postalCode"
+                          formControlName="postalCode"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.postalCode.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let codeP of codePostale"
+                            [value]="codeP.id"
+                            >{{ codeP.name }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label for="formControlAddress"
+                        >Adresse postale<span class="text-danger">
+                          *</span
+                        ></label
+                      >
+                      <textarea
+                        [(ngModel)]="artistData.address.address"
+                        formControlName="address"
+                        class="form-control"
+                        id="formControlAddress"
+                        rows="5"
+                        placeholder="Entrez votre adresse"
+                        [ngClass]="{
+                          'is-invalid': isForm1Submitted && form1.address.errors
+                        }"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS Famille</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Situation familiale<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <ng-select
+                          [(ngModel)]="artistData.maritalStatus"
+                          formControlName="maritalStatus"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.maritalStatus
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let situationF of SituationFamiliale"
+                            [value]="situationF.id"
+                            >{{ situationF.name }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Nombre d'enfants<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="artistData.dependentChildren"
+                          type="number"
+                          value="0"
+                          class="form-control"
+                          placeholder="Enter votre nombre d'enfants"
+                          formControlName="dependentChildren"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm1Submitted && form1.dependentChildren.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="pièces jointes">
+          <form (ngSubmit)="form2Submit()" [formGroup]="validationForm2">
+            <div class="col-md-12 stretch-card my-4">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS SUPPLEMENTAIRES</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >picture <span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput($event, 'picture')"
+                          type="file"
+                          value="Entrez votre image"
+                          accept="image/jpeg,image/jpg,image/png"
+                          name="picture[]"
+                          class="file-upload-default"
+                          id="picture"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('picture')"
+                        >
+                          <input
+                            [value]="dataStep2.picture.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="pictureData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté jpeg, jpg et png
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.picture.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Relevé d'Identité Bancaire<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput($event, 'ribFile')"
+                          type="file"
+                          accept="image/jpeg,image/jpg,image/png,application/pdf"
+                          name="ribFile[]"
+                          class="file-upload-default"
+                          id="ribFile"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('ribFile')"
+                        >
+                          <input
+                            [value]="dataStep2.ribFile.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="ribFileData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté jpeg, jpg, png et pdf
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm2Submitted && form2.ribFile.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'file' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >CV<span class="text-danger"> *</span></label
+                        >
+
+                        <input
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right'
+                            }
+                          "
+                          (change)="handleFileInput($event, 'cv')"
+                          type="file"
+                          accept="application/pdf"
+                          name="cv[]"
+                          class="file-upload-default"
+                          id="cv"
+                        />
+                        <div
+                          class="input-group col-xs-12"
+                          (click)="openFileBrowser('cv')"
+                        >
+                          <input
+                            [value]="dataStep2.cv.value"
+                            [ngStyle]="
+                              this.languageService.userLanguage == 'ar' && {
+                                'text-align': 'right'
+                              }
+                            "
+                            type="text"
+                            class="form-control file-upload-info"
+                            disabled=""
+                            id="cvData"
+                          />
+                          <span class="input-group-append">
+                            <button class="btn submit nextBtn" type="button">
+                              {{ "import" | translate }}
+                              <i
+                                data-feather="upload"
+                                class="icon-lg"
+                                appFeatherIcon
+                              ></i>
+                            </button>
+                          </span>
+                        </div>
+                        <p
+                          class="text-secondary"
+                          style="margin: 8px 0"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              direction: 'rtl'
+                            }
+                          "
+                        >
+                          Format accepté PDF
+                        </p>
+                        <div
+                          class="text-danger"
+                          [ngClass]="{
+                            'is-invalid': isForm2Submitted && form2.cv.errors
+                          }"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+        <aw-wizard-step stepTitle="Infromations prix">
+          <form (ngSubmit)="form3Submit()" [formGroup]="validationForm3">
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DE PIECE THEATRALE</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Titre<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="demandPrice.theaterPieceRequest.title"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le titre de la piece theatrale"
+                          formControlName="title"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.title.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >theaterTroupeName<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="
+                            demandPrice.theaterPieceRequest.theaterTroupeName
+                          "
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nom du groupe"
+                          formControlName="theaterTroupeName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.theaterTroupeName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label
+                          data-toggle="tooltip"
+                          [title]="'date' | translate"
+                          class="control-label"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              display: 'flex',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                          >Date<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="demandPrice.theaterPieceRequest.date"
+                          type="date"
+                          class="form-control"
+                          formControlName="date"
+                          [ngClass]="{
+                            'is-invalid': isForm3Submitted && form3.date.errors
+                          }"
+                          [ngStyle]="
+                            this.languageService.userLanguage == 'ar' && {
+                              'text-align': 'right',
+                              'flex-direction': 'row-reverse'
+                            }
+                          "
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >textTheaterPiece<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="
+                            demandPrice.theaterPieceRequest.textTheaterPiece
+                          "
+                          type="text"
+                          class="form-control"
+                          formControlName="textTheaterPiece"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.textTheaterPiece.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DE LA DEMANDE</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Catégories du prix<span class="text-danger"
+                            >*</span
+                          ></label
+                        >
+                        <ng-select
+                          [(ngModel)]="demandPrice.awardCategories"
+                          formControlName="awardCategories"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.awardCategories.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let category of dataAwardCategories"
+                            [value]="category.refAwardCategory"
+                            >{{ category.titleFr }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Commentaire<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="demandPrice.comment"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez votre prénom en Français"
+                          formControlName="comment"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm3Submitted && form3.comment.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="Infromations Participants">
+          <form (ngSubmit)="form4Submit()" [formGroup]="validationForm4">
+            <div class="col-md-12">
+              <div class="card stretch-card my-4">
+                <div class="card-body">
+                  <p class="card-title">INFORMATIONS DES PARTICIPANTS</p>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >firstName<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="participantInformation.firstName"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le prénom en Français"
+                          formControlName="firstName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm4Submitted && form4.firstName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >lastName<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="participantInformation.lastName"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nom en Français"
+                          formControlName="lastName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm4Submitted && form4.lastName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >CIN<span class="text-danger"> *</span></label
+                        >
+                        <input
+                          [(ngModel)]="participantInformation.cin"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le cin"
+                          formControlName="cin"
+                          [ngClass]="{
+                            'is-invalid': isForm4Submitted && form4.cin.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Role1<span class="text-danger">*</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="participantInformation.role1"
+                          formControlName="role1"
+                          [ngClass]="{
+                            'is-invalid': isForm4Submitted && form4.role1.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let role of roleTheater"
+                            [value]="role.refRoleTheater"
+                            >{{ role.name }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Role2<span class="text-danger">*</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="participantInformation.role2"
+                          formControlName="role2"
+                          [ngClass]="{
+                            'is-invalid': isForm4Submitted && form4.role2.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let role of roleTheater"
+                            [value]="role.refRoleTheater"
+                            >{{ role.name }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >Role3<span class="text-danger">*</span></label
+                        >
+                        <ng-select
+                          [(ngModel)]="participantInformation.role3"
+                          formControlName="role3"
+                          [ngClass]="{
+                            'is-invalid': isForm4Submitted && form4.role3.errors
+                          }"
+                        >
+                          <ng-option
+                            *ngFor="let role of roleTheater"
+                            [value]="role.refRoleTheater"
+                            >{{ role.name }}</ng-option
+                          >
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label"
+                          >personalityName<span class="text-danger">
+                            *</span
+                          ></label
+                        >
+                        <input
+                          [(ngModel)]="participantInformation.personalityName"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enterez le nom de la personnalité"
+                          formControlName="personalityName"
+                          [ngClass]="{
+                            'is-invalid':
+                              isForm4Submitted && form4.personalityName.errors
+                          }"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="w-100 row mx-auto my-4"
+                    [ngStyle]="
+                      this.languageService.userLanguage == 'ar'
+                        ? {
+                            'text-align': 'right',
+                            display: 'flex',
+                            'justify-content': 'flex-start'
+                          }
+                        : { display: 'flex', 'justify-content': 'flex-end' }
+                    "
+                  >
+                    <div class="my-2">
+                      <button
+                        type="button"
+                        class="btn submit saveBtn"
+                        (click)="addParticipant()"
+                      >
+                        <i data-feather="plus-circle" appFeatherIcon></i>
+                      </button>
+                    </div>
+                    <div class="m-2">
+                      <button
+                        type="button"
+                        class="btn btn-dange-muted-2 text-white"
+                        (click)="clearForm4()"
+                      >
+                        <i data-feather="x" appFeatherIcon></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead>
+                            <tr>
+                              <th>fistName</th>
+                              <th>lastName</th>
+                              <th>CIN</th>
+                              <th>personalityName</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of participants">
+                              <th>{{ item.firstName }}</th>
+                              <th>{{ item.lastName }}</th>
+                              <th>{{ item.cin }}</th>
+                              <th>{{ item.personalityName }}</th>
+                              <td
+                                class="d-flex justify-content-center"
+                                id="actionsContainer"
+                              >
+                                <span
+                                  ><i data-feather="x" appFeatherIcon></i
+                                ></span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="btns-container my-4"
+              [ngStyle]="
+                this.languageService.userLanguage == 'ar'
+                  ? {
+                      'text-align': 'right',
+                      display: 'flex',
+                      'justify-content': 'flex-start'
+                    }
+                  : { display: 'flex', 'justify-content': 'flex-end' }
+              "
+            >
+              <div class="m-2">
+                <button
+                  type="button"
+                  class="btn backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                  <span>{{ "Back" | translate }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn button backBtn"
+                  (click)="this.wizardForm.goToPreviousStep()"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Back" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+              </div>
+              <div class="m-2">
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage != 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-right" appFeatherIcon></i>
+                </button>
+                <button
+                  type="submit"
+                  class="btn submit nextBtn"
+                  [ngStyle]="
+                    this.languageService.userLanguage == 'ar'
+                      ? {
+                          display: 'block'
+                        }
+                      : { display: 'none' }
+                  "
+                >
+                  <span>{{ "Next" | translate }}</span>
+                  <i data-feather="arrow-left" appFeatherIcon></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </aw-wizard-step>
+
+        <aw-wizard-step stepTitle="{{ 'ValidateRequest' | translate }}">
+          <div class="text-center">
+            <i
+              data-feather="check-circle"
+              appFeatherIcon
+              class="text-success mt-4 mb-2 icon-xxl"
+            ></i>
+            <h3 class="text-muted mb-3">{{ "ValidateRequest" | translate }}</h3>
+            <p class="w-75 mx-auto mb-4 text-muted">
+              {{ "validationDemande" | translate }}>
+            </p>
+          </div>
+          <div class="d-flex justify-content-end mt-2">
+            <button class="btn btn-light mr-2" type="button" awPreviousStep>
+              {{ "cancel" | translate }}
+            </button>
+            <button
+              class="btn btn-success"
+              type="button"
+              (click)="finishFunction()"
+            >
+              {{ "validate" | translate }}
+            </button>
+          </div>
+        </aw-wizard-step>
+      </aw-wizard>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<p class="h5 mb-4" [ngStyle]="
+    languageService.userLanguage == 'ar' && { 'text-align': 'right' }
+  ">
+    {{ "ReglementInterieur" | translate }}
+</p>
+<div class="col-md-12 stretch-card" >
+    <div class="card" style="padding:10px;min-height:80vh;">
+        <div class="card-body" *ngIf=" languageService.userLanguage == 'ar';else frtemplate">
+            <object
+            data='/assets/pdf/REGLEMENT_ar.pdf' 
+            type="application/pdf"
+            width="100%"
+            height="100%"
+          > 
+            <iframe
+            src="{{ '/assets/pdf/REGLEMENT_ar.pdf' }}"
+              width="100%"
+              height="100%">
+              <p>
+                <button (click)="downloadar($event)" class="btn submit attachBtn">
+                    <span>{{"ReglementInterieur" | translate }}</span>
+                    <i data-feather="download" appFeatherIcon></i>
+                </button>         
+            </p>
+            </iframe>
+          </object>
+        </div>
+    </div>
+</div>
+<ng-template #frtemplate>
+        <div class="card-body" >
+            <object
+            data='/assets/pdf/REGLEMENT_fr.pdf' 
+            type="application/pdf"
+            width="100%"
+            height="100%"
+          > 
+            <iframe
+            src="{{ '/assets/pdf/REGLEMENT_fr.pdf' }}"
+              width="100%"
+              height="100%">
+              <p>
+                <button (click)="downloadfr($event)" class="btn submit attachBtn">
+                    <span>{{"ReglementInterieur" | translate }}</span>
+                    <i data-feather="download" appFeatherIcon></i>
+                </button>         
+            </p>
+            </iframe>
+          </object>
+        </div>
+</ng-template>

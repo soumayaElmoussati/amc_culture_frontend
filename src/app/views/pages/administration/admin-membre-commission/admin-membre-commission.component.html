@@ -1,0 +1,282 @@
+<h5 class="mb-3 mx-2">Ajout membre de commission</h5>
+<form class="mt-4" (ngSubmit)="formSubmit()" [formGroup]="validationForm">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">CIN</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrez le cin"
+                formControlName="cin"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.cin.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.cin.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Prénom</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrez le nom"
+                formControlName="prenom"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.prenom.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.prenom.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Nom</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrez le nom"
+                formControlName="nom"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.nom.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.nom.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Email</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrez l'email"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.email.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.email.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+          <!-- Col -->
+        </div>
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Login</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrez le login"
+                formControlName="login"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.login.errors
+                }"
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+              />
+              <div
+                *ngIf="isFormSubmitted && form.login.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Col -->
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">{{
+                "F_NDE_Telephone" | translate
+              }}</label>
+              <input
+                [ngStyle]="
+                  this.languageService.userLanguage == 'ar' && {
+                    'text-align': 'right'
+                  }
+                "
+                type="tel"
+                class="form-control"
+                placeholder="{{ 'F_NDE_Telephone_Description' | translate }}"
+                formControlName="numeroTelephone"
+                prefix="+{{ 212 }} 0"
+                mask="0 00 00 00 00"
+                [showMaskTyped]="true"
+                [ngClass]="{
+                  'is-invalid': isFormSubmitted && form.numeroTelephone.errors
+                }"
+              />
+              <div
+                *ngIf="isFormSubmitted && form.numeroTelephone.errors?.required"
+                class="invalid-feedback"
+              >
+                {{ "RequiredField" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          [ngStyle]="
+            this.languageService.userLanguage == 'ar' && {
+              'text-align': 'right'
+            }
+          "
+        >
+          <div class="m-2">
+            <div class="form-group d-flex align-items-center">
+              <div class="form-check mx-1 mb-0">
+                <label class="form-check-label mb-0">
+                  <input
+                    class="mb-0"
+                    type="radio"
+                    class="form-check-input"
+                    name="sexe"
+                    formControlName="sexe"
+                    value="H"
+                    checked
+                  />
+                  <i class="input-frame"></i>
+                  Homme
+                </label>
+              </div>
+              <div class="form-check mx-1 mb-0">
+                <label class="form-check-label mb-0">
+                  <input
+                    class="mb-0"
+                    type="radio"
+                    class="form-check-input"
+                    name="sexe"
+                    formControlName="sexe"
+                    value="F"
+                  />
+                  <i class="input-frame"></i>
+                  Femme
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="btns-container my-4"
+    [ngStyle]="
+      this.languageService.userLanguage == 'ar'
+        ? {
+            'text-align': 'right',
+            display: 'flex',
+            'justify-content': 'flex-start'
+          }
+        : { display: 'flex', 'justify-content': 'flex-end' }
+    "
+  >
+    <div class="m-2">
+      <button
+        type="submit"
+        class="btn submit saveBtn"
+        [ngStyle]="
+          this.languageService.userLanguage != 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Add" | translate }}</span>
+        <i data-feather="save" appFeatherIcon></i>
+      </button>
+      <button
+        type="submit"
+        class="btn submit saveBtn"
+        [ngStyle]="
+          this.languageService.userLanguage == 'ar'
+            ? {
+                display: 'block'
+              }
+            : { display: 'none' }
+        "
+      >
+        <span>{{ "Add" | translate }}</span>
+        <i data-feather="save" appFeatherIcon></i>
+      </button>
+    </div>
+  </div>
+</form>

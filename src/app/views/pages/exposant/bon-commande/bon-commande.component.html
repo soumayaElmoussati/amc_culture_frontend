@@ -1,0 +1,43 @@
+<div class="card py-5">
+    <h5 class="card-title ml-5" id="exampleModalLabel">{{"Booking_Stand"|translate}}</h5>
+  
+    <div class="card-body">
+        
+        <div class="row">
+            <div class="col-md-12 stretch-card">
+                <div class="card my-4">
+                    <div class="card-body" *ngIf="validStand">
+                        <p class="card-title d-flex justify-content-center text-center">
+                            {{ "AskForBonCommnade" | translate }}
+                        </p>
+                        <div class="w-100 row mx-auto d-flex justify-content-center" id="csv-btns" [ngStyle]="
+                                    this.languageService.userLanguage == 'ar' && {'text-align': 'right'}">
+                            <div class="m-2">
+                                <button [disabled]="isDisabled" (click)="downloadBonCommande()" class="btn submit attachBtn"> 
+                                    <span>{{"downloadFileExibition" | translate }}</span> 
+                                    <i data-feather="download" appFeatherIcon></i>
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body" *ngIf="!validStand && hasStand">
+                        <p class="card-title d-flex justify-content-center text-center">
+                            {{ "BonCommnadePending" | translate }}
+                        </p>
+                    </div>
+
+                    <div class="card-body" *ngIf="!hasStand">
+                        <p class="card-title d-flex justify-content-center text-center">
+                            {{ "BonCommnadeNoteExiste" | translate }}
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  

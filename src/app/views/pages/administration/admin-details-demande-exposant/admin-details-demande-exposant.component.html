@@ -1,0 +1,213 @@
+<div class="card py-5">
+  <h5 class="card-title ml-5" id="exampleModalLabel">Récapitulatif de la demande</h5>
+
+  <div class="card-body">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Informations de la demande</a>
+        <ng-template ngbNavContent>
+          <ul class="list-group mt-5">
+            <div class="card my-1">
+              <li class="list-group-item">
+                <span class="font-weight-bold">Maison d'édition : </span>
+                <span>{{ requestDetails.publishingHouseName }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Pays : </span>
+                <span>{{ requestDetails.country }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Email : </span>
+                <span>{{ requestDetails.email }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Téléphone : </span>
+                <span>{{ requestDetails.phonePublishingHouse }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Responsable : </span>
+                <span>{{ requestDetails.managerResponsible }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Ville : </span>
+                <span>{{ requestDetails.city }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Téléphone portable : </span>
+                <span>{{ requestDetails.phoneNumber }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Fax : </span>
+                <span>{{ requestDetails.fax }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Adresse : </span>
+                <span>{{ requestDetails.addressPublishingHouse }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Catégorie de stand : </span>
+                <span>{{ requestDetails.hallClass }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Spécialité : </span>
+                <span>{{ requestDetails.specialization }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Nombre d'édition : </span>
+                <span>{{ requestDetails.numberArabicVersion }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold"
+                  >Nombre d'édition en d'autres langues :
+                </span>
+                <span>{{ requestDetails.numberForeignVersion }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Représentants : </span>
+                <span>{{ requestDetails.companyRepresentative }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Produits exposés : </span>
+                <span>{{ requestDetails.presentedMateriel }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold">Superficie de stand : </span>
+                <span>{{ requestDetails.wingAreaSquare }}</span>
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold"
+                  >Photo passeport représentant :
+                </span>
+                <span
+                  ><a href="#" download
+                    ><mat-icon class="img-download-icon">image</mat-icon></a
+                  ></span
+                >
+              </li>
+              <li class="list-group-item">
+                <span class="font-weight-bold"
+                  >Deuxième photo passeport représentant :
+                </span>
+                <span
+                  ><a href="#" download
+                    ><mat-icon class="img-download-icon">image</mat-icon></a
+                  ></span
+                >
+              </li>
+            </div>
+          </ul>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Ouvrages destinées au salon</a>
+        <ng-template ngbNavContent>
+          <div class="table-responsive card my-1">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th>AUTEUR</th>
+                  <th>TITRE LIVRE</th>
+                  <th>EDITEUR</th>
+                  <th>ANNEE PUBLICATION</th>
+                  <th>NOMBRE D'EXEMPLAIRES</th>
+                  <th>PRIX EN DIRHAMS</th>
+                  <th>SPECIALITE SELON DEWEY</th>
+                  <th>DEPOT LEGAL</th>
+                  <th>ISBN</th>
+                  <th>COLIS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of publicationsList">
+                  <td>{{ item.author }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.publisher }}</td>
+                  <td>{{ item.publishingDate }}</td>
+                  <td>{{ item.copiesNbr }}</td>
+                  <td>{{ item.amout }}</td>
+                  <td>{{ item.speciality }}</td>
+                  <td>{{ item.legalDeposit }}</td>
+                  <td>{{ item.isbn }}</td>
+                  <td>{{ item.colis }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Editeurs representés</a>
+        <ng-template ngbNavContent>
+          <div class="table-responsive card my-1">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ADRESSE</th>
+                  <th>PAYS</th>
+                  <th>EMAIL</th>
+                  <th>FAX</th>
+                  <th>NOM</th>
+                  <th>EDITIONS LANGUES ETRANGERES</th>
+                  <th>TELEPHONE</th>
+                  <th>RESPONSABLE</th>
+                  <th>SPECIALISATION</th>
+                  <th>SITE WEB</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of editeursRepresentes">
+                  <td>{{ item.address }}</td>
+                  <td>{{ item.country }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.fax }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.numberForeignPublishing }}</td>
+                  <td>{{ item.phoneNumber }}</td>
+                  <td>{{ item.responsibleName }}</td>
+                  <td>{{ item.specialization }}</td>
+                  <td>{{ item.webSite }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="4">
+        <a ngbNavLink>Propositions d'activité</a>
+        <ng-template ngbNavContent>
+          <div class="table-responsive card my-1">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>DATE PROPOSEE</th>
+                  <th>THEME</th>
+                  <th>PARTICIPANTS</th>
+                  <th>LIEUX D'ACTIVITES</th>
+                  <th>TITRE DU LIVRE</th>
+                  <th>AUTEUR</th>
+                  <th>MAISON D'EDITION</th>
+                  <th>ANNEE D'EDITION</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of activitesProposees">
+                  <td>{{ item.proposedDate }}</td>
+                  <td>{{ item.topic }}</td>
+                  <td>{{ item.participants }}</td>
+                  <td>{{ item.activityPlace }}</td>
+                  <td>{{ item.bookTitle }}</td>
+                  <td>{{ item.author }}</td>
+                  <td>{{ item.publishingHouse }}</td>
+                  <td>{{ item.publishingYear }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+</div>

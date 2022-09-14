@@ -1,0 +1,88 @@
+.mainContainer{
+  width: 100%;
+}
+
+#badgeContainer{
+  width:227px;
+  margin:0 auto;
+}
+
+#badge{
+  margin:0 auto;
+  width:227px;
+  background-color:black;
+  // box-shadow:0px 0px 5px gray;
+  height:355px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+#bloc1{
+  height:10%;
+}
+#bloc2{
+  height:70%;
+  // padding:5px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+#bloc3{
+  height:20%;
+}
+
+#cardContainer{
+  margin:0 20px;
+  height:80%;
+  display:flex;
+  flex-direction:column;
+  border-radius:15px;
+}
+#qrContainer, #nameContainer{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+}
+
+#qrContainer{
+  background-color:white;
+  border-top-left-radius:15px;
+  border-top-right-radius:15px;
+  height:60%;
+}
+
+#nameContainer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-color:#e0e0e0;
+  text-align:center;
+  border-bottom-left-radius:15px;
+  border-bottom-right-radius:15px;
+  height:50%;
+  font-weight:bold;
+  font-size:1.2em;
+}
+#nameContainer p{
+  width:100%;
+}
+#topImg{
+  display:block;
+  width:100%;
+}
+#logoImg{
+  display:block;
+  margin:15px 5px 0 5px;
+}
+
+#footerContainer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+  background-color: #f7412e;
+  font-weight:bold;
+  font-family:Impact, 'Bold';
+  letter-spacing:2px;
+}

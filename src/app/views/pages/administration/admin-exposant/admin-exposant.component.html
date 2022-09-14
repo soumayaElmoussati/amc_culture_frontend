@@ -1,0 +1,227 @@
+<h5 class="mb-3 mx-2">Liste des demandes d'éxpositions</h5>
+<div class="col-md-12 stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <div class="w-100 row d-flex justify-content-end mb-3" id="csv-btns">
+        <div class="m-2">
+          <button type="button" class="btn btn-danger submit" id="importBtn">
+            <span>{{ "import" | translate }}</span>
+            <i data-feather="download" appFeatherIcon></i>
+          </button>
+        </div>
+        <div class="m-2">
+          <button type="button" class="btn btn-danger submit" id="importBtn">
+            <span>Exporter</span>
+            <i data-feather="upload" appFeatherIcon></i>
+          </button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th>Nom maison d'édition</th>
+              <th>Catégorie de stand</th>
+              <th>Superficie de stand</th>
+              <th>Email</th>
+              <th>Adresse</th>
+              <th>Pays</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let req of tmpRequestsList
+                  | paginate
+                    : {
+                        itemsPerPage: 8,
+                        currentPage: p,
+                        totalItems: totalLength
+                      }
+              "
+            >
+              <td>{{ req.publishingHouseName }}</td>
+              <td class="longTd">{{ req.hallClass }}</td>
+              <td class="text-center">{{ req.wingAreaSquare }}</td>
+              <td>{{ req.email }}</td>
+              <td>{{ req.address }}</td>
+              <td>{{ req.country }}</td>
+              <td class="d-flex justify-content-around" id="actionsContainer">
+                <mat-icon
+                  fontSet="material-icons-outlined"
+                  class="icon-color"
+                  [routerLink]="[
+                    '/administration/exposant-demande-details-admin',
+                    req.refExhibitor
+                  ]"
+                  [queryParams]="req"
+                  placement="top"
+                  ngbTooltip="Récapitulatif de la demande"
+                >
+                  visibility
+                </mat-icon>
+                <mat-icon
+                  *ngIf="req.status == 'VALID_SUBSCRIPTION'"
+                  class="icon-color"
+                  fontSet="material-icons-outlined"
+                  (click)="
+                    openConfirmValidateDemande(
+                      confirmValidation,
+                      req.refExhibitor
+                    )
+                  "
+                  placement="top"
+                  ngbTooltip="Validation de la demande"
+                >
+                  done
+                </mat-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        class="w-100 d-flex justify-content-center align-items-center mt-5"
+        *ngIf="showTableLoader"
+      >
+        <div class="spinner-border text-danger" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div id="paginationContainer" *ngIf="tmpRequestsList.length > 0">
+        <pagination-controls
+          (pageChange)="p = $event"
+          previousLabel=""
+          nextLabel=""
+          class="my-pagination"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #xlModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+      Liste des produits exposés
+    </h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let ep of exposedProducts">
+        {{ ep.title }}
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('by: close button')"
+    >
+      fermer
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmValidation let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Demande d'éxposition</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Voulez vous vraiment valider cette demande d'éxposition ?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('close')"
+    >
+      fermer
+    </button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('save')">
+      valider
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal -->
+<ng-template #infoStand let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Informations du stand</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="modal.close('by: close icon')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <span class="font-weight-bold">Superficie : </span>
+        {{ infosStand.superficie }}
+      </li>
+      <li class="list-group-item">
+        <span class="font-weight-bold">Catégorie : </span> {{ infosStand.type }}
+      </li>
+    </ul>
+    <ng-select
+      class="w-50 m-3"
+      [searchable]="true"
+      placeholder="Modifier la catégorie"
+      (change)="changeNewTypeStand($event)"
+    >
+      <ng-option
+        *ngFor="let typeStand of typesStand"
+        [value]="typeStand.name"
+        >{{ typeStand.name }}</ng-option
+      >
+    </ng-select>
+    <ng-select
+      class="w-50 m-3"
+      [searchable]="true"
+      placeholder="Modifier la superficie"
+      (change)="changeNewSuperficieStand($event)"
+    >
+      <ng-option *ngFor="let superficie of superficies" [value]="superficie">{{
+        superficie
+      }}</ng-option>
+    </ng-select>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('by: close button')"
+    >
+      fermer
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('by: save button')"
+    >
+      valider
+    </button>
+  </div>
+</ng-template>

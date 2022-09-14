@@ -1,0 +1,48 @@
+<h5 class="mx-2 mb-5">Liste des séances de commissions</h5>
+<div class="col-md-12 stretch-card mt-2">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-12 stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Type de commission</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="my-10 clickable" *ngFor="let item of commissions">
+                    <td>
+                      {{ item.startedDate }}
+                    </td>
+                    <td>{{ item.endDate }}</td>
+                    <td>{{ item.commissionType }}</td>
+                    <td>
+                      
+                      <mat-icon *ngIf="!item.iValidCommission" id="detail" class="icon-color" fontSet="material-icons-outlined"
+                        (click)="openDetailEcommission(item.refCommission)" placement="top" ngbTooltip="plus detail">
+                        add
+                      </mat-icon>
+                      
+                      <mat-icon *ngIf="item.iValidCommission" id="detail" class="icon-color" fontSet="material-icons-outlined"
+                        (click)="startCommission(item.refCommission)" placement="top" ngbTooltip="commencer la commission">
+                        play_circle_outline
+                      </mat-icon>
+                    
+                    
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
